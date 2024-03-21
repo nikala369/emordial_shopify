@@ -252,6 +252,13 @@
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
 }
 
+.padding-top-li {
+  padding-top: 10px;
+}
+
+.icon-tiktok {
+  color: white;
+}
 
 {%- endstyle -%}
 
@@ -323,9 +330,9 @@
       <div class="div-block-footer">
         <h1 class="footer-menu-heading follow-us-block-header-mobile">FOLLOW US</h1>
         <ul class="ul-style social-icons-margin">
-          <li>
+          <li class="padding-top-li">
             <a
-              style="text-align: center"
+              style="display: inline-block;"
               href="{{ section.settings.facebook_link }}"
               class="social-link"
               target="_blank">
@@ -335,19 +342,21 @@
             </a>
           </li>
 
-          <li class="">
+          <li class="padding-top-li">
             <a
+              style="display: inline-block;"
               href="{{ section.settings.twitter_link }}"
               class="social-link"
               target="_blank">
               <div class="social-media-links">
-                {% render 'icon-twitter' %}
+                {% render 'icon-tiktok' %}
               </div>
             </a>
           </li>
 
-          <li class="">
+          <li class="padding-top-li">
             <a
+              style="display: inline-block;"
               href="{{ section.settings.instagram_link }}"
               class="social-link"
               target="_blank">
