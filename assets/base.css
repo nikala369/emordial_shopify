@@ -2838,55 +2838,84 @@ details[open] > .header__submenu {
   }
 }
 
+/* Base styles for the menu, NIKALA menu custom design, SUBMENU NEEDS TO BE FINISHED !!!*/
 .header__menu {
   padding: 0 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .header__menu-item {
-  padding: 1.2rem;
+  margin: 0 20px;
+  position: relative;
+  font-family: "Avenir Next", sans-serif;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.75);
   text-decoration: none;
-  color: rgba(var(--color-foreground), 0.75);
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.header__menu-item:hover {
-  color: rgb(var(--color-foreground));
+.header__menu-item:hover,
+.header__menu-item:focus {
+  color: #000;
+}
+.header__menu-item::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #000;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.header__menu-item:hover::after,
+.header__menu-item:focus::after {
+  width: 100%;
+  left: 0;
 }
 
-.header__menu-item span {
-  transition: text-decoration var(--duration-short) ease;
-}
-
-.header__menu-item:hover span {
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
-}
-
-details[open] > .header__menu-item {
-  text-decoration: underline;
-}
-
-details[open]:hover > .header__menu-item {
-  text-decoration-thickness: 0.2rem;
-}
-
-details[open] > .header__menu-item .icon-caret {
-  transform: rotate(180deg);
-}
-
+/* Active menu item styles */
 .header__active-menu-item {
-  transition: text-decoration-thickness var(--duration-short) ease;
-  color: rgb(var(--color-foreground));
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
+  font-weight: bold;
+  color: #000; /* Ensure the text color is solid */
 }
 
-.header__menu-item:hover .header__active-menu-item {
-  text-decoration-thickness: 0.2rem;
+.header__active-menu-item::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%; /* Full width for the underline */
+  height: 2px;
+  background-color: #000; /* Match the underline color with the text */
+  opacity: 1; /* Ensure visibility */
 }
 
+/* Submenu functionality */
+details > summary::-webkit-details-marker {
+  display: none; /* Hide default arrow icon in Chrome/Safari */
+}
+
+details > summary {
+  list-style: none; /* Hide default arrow icon in Firefox */
+  cursor: pointer;
+}
+
+details[open] > summary ~ .header__submenu {
+  display: block; /* Show submenu when details are open */
+}
+
+/* needs to be fixed and customized NIKALA submenu */
 .header__submenu {
-  transition: opacity var(--duration-default) ease,
-    transform var(--duration-default) ease;
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 15px;
+  z-index: 1000;
 }
 
 .global-settings-popup,
@@ -2950,6 +2979,8 @@ details-disclosure > details {
     transform: translateY(0);
   }
 }
+
+/* END SUBMENU style, needs to be finished */
 
 .overflow-hidden-mobile,
 .overflow-hidden-tablet,
