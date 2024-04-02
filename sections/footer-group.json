@@ -20,9 +20,17 @@
           }
         }
       },
-      "block_order": ["footer-0", "footer-1"],
-      "settings": {}
+      "block_order": [
+        "footer-0",
+        "footer-1"
+      ],
+      "settings": {
+        "footer_logo": "shopify:\/\/shop_images\/emordial-white.svg",
+        "show_payment_icons": true
+      }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }
