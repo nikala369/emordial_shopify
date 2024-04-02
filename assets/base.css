@@ -2567,6 +2567,10 @@ product-info .loading__spinner:not(.hidden) ~ *,
   grid-area: icons;
   justify-self: end;
   padding-right: 0.8rem;
+
+  @media screen and (max-width: 420px) {
+    padding-right: 0rem;
+  }
 }
 
 .header__icons .shopify-app-block {
