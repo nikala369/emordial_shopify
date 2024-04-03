@@ -25,15 +25,16 @@
 
 
 {%- style -%}
+/* Core Styles */
 .card-product-wrapper {
-  transition: box-shadow 0.3s ease;
   cursor: pointer;
-  margin: 15px;
+  margin: 10px;
   text-align: center;
   background-color: #ffffff;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 .card-product-wrapper a {
@@ -42,48 +43,64 @@
 }
 
 .card-product-wrapper img {
-  transition: transform 0.3s ease;
   width: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 .card-product-content {
   padding: 20px;
+  transition: opacity 0.3s ease;
 }
 
+/* Font and Color Styles */
 .card-product-title {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 5px;
+  color: #333; /* Refined for luxury */
+  margin-bottom: 8px;
 }
 
 .card-product-price {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 10px;
+  font-size: 15px;
+  color: #666; /* Subtle elegance */
+  margin-bottom: 12px;
 }
 
-.card-product-wrapper:hover {
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+/* Hover & Active Effects */
+.card-product-wrapper:hover, .card-product-wrapper:active {
+  transform: scale(1.01); /* Subtle enlargement */
+  box-shadow: 0 2px 10px rgba(50, 50, 93, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Refined, modern shadow */
 }
 
-.card-product-wrapper:hover img {
-  transform: scale(1.05);
+.card-product-wrapper:hover img, .card-product-wrapper:active img {
+  transform: scale(1.03); /* Focused effect */
 }
 
-.card-product-wrapper:hover .card-product-content {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
+.card-product-wrapper:hover .card-product-content, .card-product-wrapper:active .card-product-content {
+  opacity: 0; /* Direct focus to image */
 }
 
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .card-product-wrapper {
-    margin: 10px;
+    margin: 5px;
+  }
+
+  .card-product-wrapper:active {
+    /* Ensuring distinct feedback for touch interactions */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    transform: scale(0.99);
+  }
+
+  .card-product-wrapper:active img {
+    transform: scale(1.03);
+  }
+
+  .card-product-wrapper:active .card-product-content {
+    opacity: 1; /* Slight visibility for interaction feedback */
   }
 }
-
 {%- endstyle -%}
 
 
