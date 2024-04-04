@@ -98,27 +98,25 @@
     margin: 5px;
   }
 
-  .card-product-wrapper:hover {
-    transform: none;
-    box-shadow: 0 0 0 0;
-  }
-
+  /* Override hover styles for mobile to prevent them from being activated */
+  .card-product-wrapper:hover,
   .card-product-wrapper:hover img {
     transform: none;
+    box-shadow: none;
   }
 
-  .card-product-wrapper:active {
-    /* Ensuring distinct feedback for touch interactions */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-    transform: scale(1.05);
+  /* Styles for touch interactions */
+  .card-product-wrapper.is-active {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow for feedback */
+    transform: scale(1.03); /* Scale up slightly for tactile feedback */
   }
 
-  .card-product-wrapper:active img {
-    transform: scale(1.05);
+  .card-product-wrapper.is-active img {
+    transform: scale(1.05); /* Slightly increase the scale of the image */
   }
 
-  .card-product-wrapper:active .card-product-content {
-    opacity: 1; /* Slight visibility for interaction feedback */
+  .card-product-wrapper.is-active .card-product-content {
+    opacity: 0; /* Hide content to focus attention on the image */
   }
 }
 {%- endstyle -%}
@@ -137,7 +135,7 @@
       assign ratio = 1
     endif
   -%}
-  <div class="card-wrapper card-product-wrapper product-card-wrapper underline-links-hover">
+  <div ontouchstart="handleTouchStart(this)" ontouchend="handleTouchEnd(this)" class="card-wrapper card-product-wrapper product-card-wrapper underline-links-hover">
     <div
       class="
         card card--{{ settings.card_style }}
@@ -212,6 +210,7 @@
               {% endif %}
             >
               <a
+                ontouchstart=""
                 href="{{ card_product.url }}"
                 id="StandardCardNoMediaLink-{{ section_id }}-{{ card_product.id }}"
                 class="full-unstyled-link"
@@ -479,3 +478,20 @@
     </div>
   </div>
 {%- endif -%}
+
+<script>
+  function handleTouchStart(element) {
+  element.classList.add('is-active');
+}
+
+function handleTouchEnd(element) {
+  element.classList.remove('is-active');
+}
+
+ // Attach event listeners
+ document.querySelectorAll('.card-product-wrapper').forEach(card => {
+    card.addEventListener('touchstart', () => handleTouchStart(card), false);
+    card.addEventListener('touchend', () => handleTouchEnd(card), false);
+    card.addEventListener('touchcancel', () => handleTouchEnd(card), false); // Ensure class is removed if the touch is cancelled
+  });
+</script>
