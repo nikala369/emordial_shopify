@@ -121,8 +121,8 @@
     top: -110%;
     /* Initial position off the visible area */
     left: -220%;
-    width: 200%;
-    height: 200%;
+    width: 220%;
+    height: 215%;
     background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, /* Light gloss in the middle */ rgba(255, 255, 255, 0) 100%);
     transition: all 0.4s ease;
     transform: rotate(25deg);
@@ -135,8 +135,8 @@
   .custom-main-button:focus::after {
     opacity: 1;
     /* Show gloss on hover/focus */
-    top: -30%;
-    left: -35%;
+    top: -27.5%;
+    left: -40%;
     transition-duration: 0.6s;
     /* Slightly longer duration for smooth appearance */
   }
@@ -252,7 +252,7 @@
                   {% else %}
                   href="{{ block.settings.button_link_1 }}"
                   {% endif %}
-                  class="button custom-main-button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}">
+                  class="button custom-main-button button--primary">
                   {{- block.settings.button_label_1 | escape -}}
                 </a>
               {%- endif -%}
