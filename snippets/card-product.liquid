@@ -35,7 +35,17 @@
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+
+@media (max-width: 768px) {
+  .card-product-wrapper {
+    pointer-events: none;
+  }
+  .card-product-wrapper * {
+    pointer-events: auto;
+  }
+ }
 }
+
 
 .card-product-wrapper a {
   text-decoration: none;
@@ -88,14 +98,23 @@
     margin: 5px;
   }
 
+  .card-product-wrapper:hover {
+    transform: none;
+    box-shadow: 0 0 0 0;
+  }
+
+  .card-product-wrapper:hover img {
+    transform: none;
+  }
+
   .card-product-wrapper:active {
     /* Ensuring distinct feedback for touch interactions */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-    transform: scale(0.99);
+    transform: scale(1.05);
   }
 
   .card-product-wrapper:active img {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
 
   .card-product-wrapper:active .card-product-content {

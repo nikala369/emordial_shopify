@@ -2447,12 +2447,15 @@ product-info .loading__spinner:not(.hidden) ~ *,
 .header__heading-logo {
   height: auto;
   max-width: 100%;
+  transition: max-height 0.39s ease-out;
 }
 
 .header__heading-logo-wrapper {
-  width: 100%;
   display: inline-block;
-  transition: width 0.4s cubic-bezier(0.52, 0, 0.61, 0.99);
+  width: 100%;
+
+  transform-origin: left center;
+  transition: width 0.39s cubic-bezier(0.52, 0, 0.61, 0.99);
 }
 
 @media screen and (max-width: 989px) {
