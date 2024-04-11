@@ -155,13 +155,18 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__close-button:focus,
 .menu-drawer__menu-item:hover,
 .menu-drawer__close-button:hover {
-  color: white;
-  background-color: #141010;
+  color: rgb(16, 16, 16);
+  /* background-color: #f5f6f9; */
 }
 
-.menu-drawer__menu-item--active:hover {
+.menu-drawer__menu-item--active {
   background-color: rgba(var(--color-foreground), 0.08);
 }
+
+/* .menu-drawer__menu-item--active:active {
+  background-color: black;
+  color: white;
+} */
 
 /* // drawer li style END */
 
@@ -205,6 +210,8 @@ details[open].menu-opening > .menu-drawer__submenu {
   font-family: var(--font-body-family);
   font-style: var(--font-body-style);
   text-align: left;
+  font-weight: 600;
+  color: rgb(41, 43, 45);
 }
 
 .no-js .menu-drawer__close-button {
