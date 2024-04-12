@@ -431,22 +431,6 @@
   </script>
 {%- endif -%}
 
-<script>
-  document.querySelectorAll('.header__menu-item').forEach(item => {
-  item.addEventListener('mouseover', function() {
-    // Detect submenu activation and toggle a class accordingly
-    const submenu = this.querySelector('.header__submenu');
-    if (submenu && submenu.classList.contains('is-active')) {
-    console.log('test 1')
-      this.classList.add('header__menu-item--no-hover');
-    } else {
-      console.log('test')
-      this.classList.remove('header__menu-item--no-hover');
-    }
-  });
-});
-</script>
-
 {% schema %}
 {
   "name": "t:sections.header.name",

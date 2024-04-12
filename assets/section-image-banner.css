@@ -88,6 +88,7 @@
   .banner--large:not(.banner--mobile-bottom):not(.banner--adapt)
     .banner__content {
     min-height: 39rem;
+    margin-top: 105px;
   }
 }
 
@@ -179,6 +180,10 @@
 
 .banner__media-half {
   width: 50%;
+
+  @media screen and (max-width: 749px) {
+    width: 70%;
+  }
 }
 
 .banner__media-half + .banner__media-half {
@@ -243,7 +248,7 @@
     background: transparent;
 
     /* my change */
-    top: 20px;
+    top: -65px;
   }
 
   .banner:not(.banner--mobile-bottom) .banner__box {
