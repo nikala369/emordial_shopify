@@ -30,148 +30,146 @@
   }
 
 
-  /*
-   .custom-margin-banner-section {
-   @media screen and (max-width: 768px) {
-   margin-top: 30px;
-   margin-bottom: 75px;
-   }
-   }
-*/
+  .custom-margin-banner-section {
+  @media screen and (max-width: 768px) {
+    margin-top: 30px;
+    margin-bottom: 75px;
+  }
+}
 
 
-  .logo {
-    width: 100px;
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    transition: transform 0.3s ease;
+.logo {
+  width: 100px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.03);
+}
+
+.custom-heading {
+  font-family: 'Cardo'
+  , serif;
+  font-size: 80px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1.1;
+  letter-spacing: 30px;
+  margin-left: 7.5px;
+  margin-top: 15px;
+  white-space: nowrap;
+
+  @media screen and (max-width: 768px) {
+    font-size: 42px;
+    letter-spacing: 12.5px;
   }
 
-  .logo:hover {
-    transform: scale(1.03);
+  @media screen and (max-width: 420px) {
+    font-size: 35px;
+    letter-spacing: 10px;
   }
 
-  .custom-heading {
-    font-family: 'Cardo'
-    , serif;
-    font-size: 80px;
-    font-weight: 700;
-    color: #000;
-    line-height: 1.1;
-    letter-spacing: 30px;
-    margin-left: 7.5px;
-    margin-top: 15px;
-    white-space: nowrap;
+}
 
-    @media screen and (max-width: 768px) {
-      font-size: 42px;
-      letter-spacing: 12.5px;
-    }
+.custom-subtitle {
+  font-family: 'Cardo'
+  , serif;
+  font-size: 20px;
+  color: #666;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
 
-    @media screen and (max-width: 420px) {
-      font-size: 35px;
-      letter-spacing: 10px;
-    }
-
-  }
-
+@media screen and (max-width: 768px) {
   .custom-subtitle {
-    font-family: 'Cardo'
-    , serif;
-    font-size: 20px;
-    color: #666;
-    line-height: 1.4;
-    letter-spacing: 1px;
-    margin-top: -10px;
-    margin-bottom: 30px;
-  }
-
-  @media screen and (max-width: 768px) {
-    .custom-subtitle {
-      font-size: 16px;
-    }
-  }
-
-
-  .custom-main-button {
-    font-family: 'Avenir Next'
-    , sans-serif;
     font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    /* White text for better contrast on the dark button */
-    background-color: #000;
-    /* Starting with a black background */
-    border: none;
-    /* No border needed for this design */
-    padding: 14px 36px;
-    border-radius: 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: transform 0.3s ease
-    , background-color 0.3s ease;
-    display: inline-block;
-    cursor: pointer;
-    outline: none;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    margin-top: 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    user-select: none;
-    /* Subtle shadow for depth */
-
   }
+}
 
-  @media screen and (max-width: 768px) {
-    .custom-main-button {
-      font-size: 14.5px;
-      /* Smaller font size */
-      padding: 10px 30px;
-      /* Smaller padding to reduce overall button size */
-      letter-spacing: 0.8px;
-      /* Less spacing to fit smaller screens */
-    }
-  }
 
-  .custom-main-button::after {
-    content: '';
-    position: absolute;
-    top: -110%;
-    /* Initial position off the visible area */
-    left: -220%;
-    width: 220%;
-    height: 215%;
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, /* Light gloss in the middle */ rgba(255, 255, 255, 0) 100%);
-    transition: all 0.4s ease;
-    transform: rotate(25deg);
-    opacity: 0;
-    /* Hide initially */
-    z-index: 0;
-  }
+.custom-main-button {
+  font-family: 'Avenir Next'
+  , sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  /* White text for better contrast on the dark button */
+  background-color: #000;
+  /* Starting with a black background */
+  border: none;
+  /* No border needed for this design */
+  padding: 14px 36px;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: transform 0.3s ease
+  , background-color 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  margin-top: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  /* Subtle shadow for depth */
 
-  .custom-main-button:hover::after,
-  .custom-main-button:focus::after {
-    opacity: 1;
-    /* Show gloss on hover/focus */
-    top: -27.5%;
-    left: -40%;
-    transition-duration: 0.6s;
-    /* Slightly longer duration for smooth appearance */
-  }
+}
 
-  .custom-main-button:active {
-    background-color: #333;
-    /* Darken button when pressed */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    /* Reduce depth effect on active */
-    transform: scale(0.98);
-    /* Slight push-down effect */
+@media screen and (max-width: 768px) {
+  .custom-main-button {
+    font-size: 14.5px;
+    /* Smaller font size */
+    padding: 10px 30px;
+    /* Smaller padding to reduce overall button size */
+    letter-spacing: 0.8px;
+    /* Less spacing to fit smaller screens */
   }
+}
+
+.custom-main-button::after {
+  content: '';
+  position: absolute;
+  top: -110%;
+  /* Initial position off the visible area */
+  left: -220%;
+  width: 220%;
+  height: 215%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, /* Light gloss in the middle */ rgba(255, 255, 255, 0) 100%);
+  transition: all 0.4s ease;
+  transform: rotate(25deg);
+  opacity: 0;
+  /* Hide initially */
+  z-index: 0;
+}
+
+.custom-main-button:hover::after,
+.custom-main-button:focus::after {
+  opacity: 1;
+  /* Show gloss on hover/focus */
+  top: -27.5%;
+  left: -40%;
+  transition-duration: 0.6s;
+  /* Slightly longer duration for smooth appearance */
+}
+
+.custom-main-button:active {
+  background-color: #333;
+  /* Darken button when pressed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Reduce depth effect on active */
+  transform: scale(0.98);
+  /* Slight push-down effect */
+}
 {%- endstyle -%}
 
 {%- liquid
@@ -243,7 +241,7 @@
     </div>
   {%- endif -%}
 
-  <div class="custom-margin-banner-section banner__content  banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+  <div class="banner__content  banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
 
       {% comment %} Logo upload {% endcomment %}
