@@ -3335,6 +3335,12 @@ details-disclosure > details {
   .scroll-trigger:not(.scroll-trigger--offscreen).animate--fade-in {
     opacity: 1;
     animation: var(--animation-fade-in);
+
+    /* //custom change */
+    @media screen and (max-width: 768px) {
+      margin-top: 60px;
+      margin-bottom: 80px;
+    }
   }
 
   .scroll-trigger:not(.scroll-trigger--offscreen).animate--slide-in {
