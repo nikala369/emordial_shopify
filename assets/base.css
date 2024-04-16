@@ -3335,6 +3335,9 @@ details-disclosure > details {
   .scroll-trigger:not(.scroll-trigger--offscreen).animate--fade-in {
     opacity: 1;
     animation: var(--animation-fade-in);
+
+    /* test this for grey line bug */
+    margin-top: 22px;
   }
 
   .scroll-trigger:not(.scroll-trigger--offscreen).animate--slide-in {
