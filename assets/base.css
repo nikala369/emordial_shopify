@@ -3338,8 +3338,8 @@ details-disclosure > details {
 
     /* //custom change */
     @media screen and (max-width: 768px) {
-      margin-top: 60px;
-      margin-bottom: 80px;
+      margin-top: 30px;
+      margin-bottom: 75px;
     }
   }
 
