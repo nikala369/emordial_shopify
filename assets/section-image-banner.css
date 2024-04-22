@@ -252,7 +252,7 @@
     background: transparent;
 
     /* my change */
-    top: 15px;
+    top: 5px;
   }
 
   .banner:not(.banner--mobile-bottom) .banner__box {
