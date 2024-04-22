@@ -3326,10 +3326,6 @@ details-disclosure > details {
   .scroll-trigger.animate--fade-in,
   .scroll-trigger.animate--slide-in {
     opacity: 0.01;
-
-    /* test this for grey line bug */
-    /* margin-top: 30px;
-    margin-bottom: 75px; */
   }
 
   .scroll-trigger.animate--slide-in {

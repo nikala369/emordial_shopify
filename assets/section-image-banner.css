@@ -176,6 +176,10 @@
   left: 0;
   top: 0;
   width: 100%;
+
+  @media screen and (max-width: 749px) {
+    height: 0;
+  }
 }
 
 .banner__media-half {
@@ -248,7 +252,7 @@
     background: transparent;
 
     /* my change */
-    /* top: -65px; */
+    top: 15px;
   }
 
   .banner:not(.banner--mobile-bottom) .banner__box {
@@ -394,7 +398,7 @@
   .banner__box {
     /* test this for grey line bug */
     margin-top: 30px;
-    margin-bottom: 75px;
+    margin-bottom: 85px;
   }
 
   .banner--mobile-bottom::after,
