@@ -5,7 +5,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -326,7 +326,7 @@
 
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
       {%- if section.settings.image_3 != blank -%}
-        /* // HERE WAS LOGO  ITS ON TOP OF THE PAGE !!!! */                                                                                                                                                                                                                                   
+        /* // HERE WAS LOGO  ITS ON TOP OF THE PAGE !!!! */                                                                                                                                                                                                                                                     
         /*
         <!-- Container for the 3D model -->
         */
@@ -430,28 +430,50 @@
   });
   modelContainer.addEventListener('touchend', () => {
     hoverEffect.isHovering = false;
-    resetHoverEffect();
+    startRecenteringAnimationMobile();
   });
 
   function resetHoverEffect() {
-    gsap.to(hoverEffect, {
-      angle: 0,
-      onUpdate: () => {
-        if (gltfModel) {
-          gltfModel.rotation.y = hoverEffect.angle;
-        }
-      },
-      onComplete: () => {
-        gsap.to(camera.position, {
-          duration: isMobile ? 0.6 : 1.1,
-          x: 0,
-          y: 0.6,
-          z: 4,
-          ease: "power3.out",
-          onUpdate: () => controls.update()
+  // Applying smooth transition for both desktop and mobile
+  gsap.to(hoverEffect, {
+    angle: 0,
+    onUpdate: () => {
+      if (gltfModel) {
+        gltfModel.rotation.y = hoverEffect.angle;
+      }
+    },
+    onComplete: () => {
+      gsap.to(camera.position, {
+        duration: 1,
+        x: 0,
+        y: 0.6,
+        z: 4,
+        ease: "power3.out", // Using 'power3.out' for a smooth deceleration
+        onUpdate: () => controls.update()
+      });
+    }
+  });
+  }
+
+  function startRecenteringAnimationMobile() {
+    gsap.to(camera.position, {
+    duration: 0.8,
+    x: 0,
+    y: 0.6,
+    z: 4,
+    ease: "power3.out", // Ensures a smooth but quick transition back to the center
+    onStart: () => {
+      if (gltfModel) {
+        // Adjust model rotation slightly for a smoother look
+        gsap.to(gltfModel.rotation, {
+          y: 0,
+          duration: 0.7,
+          ease: "power1.inOut"
         });
       }
-    });
+    },
+    onUpdate: () => controls.update()
+  });
   }
 
   // Improved lighting configuration
@@ -485,8 +507,8 @@
     modelContainer.style.opacity = '1';
 
     // Enhanced initial animation to indicate interactivity
-   gsap.fromTo(gltfModel.rotation, { y: -0.2 }, { y: 0.2, repeat: 1, yoyo: true, duration: 0.9, ease: "power1.inOut", onComplete: () =>
-   gsap.to(gltfModel.rotation, { y: 0, duration: 0.5, ease: "power1.inOut" }) });
+   gsap.fromTo(gltfModel.rotation, { y: -0.3 }, { y: 0.3, repeat: 1, yoyo: true, duration: 0.4, ease: "power1.inOut", onComplete: () =>
+   gsap.to(gltfModel.rotation, { y: 0, duration: 0.4, ease: "power1.inOut" }) });
 
   }, undefined, function (error) {
     console.error('An error happened during the loading of the model:', error);
