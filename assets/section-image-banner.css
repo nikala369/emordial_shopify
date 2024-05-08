@@ -252,7 +252,7 @@
     background: transparent;
 
     /* my change */
-    top: 5px;
+    top: 70px;
   }
 
   .banner:not(.banner--mobile-bottom) .banner__box {
@@ -382,7 +382,7 @@
     box-shadow: none;
 
     /* my change */
-    top: -140px;
+    top: -90px;
   }
 
   .banner--desktop-transparent .button--secondary {
