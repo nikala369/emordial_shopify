@@ -5,7 +5,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -326,7 +326,7 @@
 
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
       {%- if section.settings.image_3 != blank -%}
-        /* // HERE WAS LOGO  ITS ON TOP OF THE PAGE !!!! */                                                                                                                                                                                                                                
+        /* // HERE WAS LOGO  ITS ON TOP OF THE PAGE !!!! */                                                                                                                                                                                                                                   
         /*
         <!-- Container for the 3D model -->
         */
@@ -443,7 +443,7 @@
       },
       onComplete: () => {
         gsap.to(camera.position, {
-          duration: 1.1,
+          duration: isMobile ? 0.6 : 1.1,
           x: 0,
           y: 0.6,
           z: 4,
