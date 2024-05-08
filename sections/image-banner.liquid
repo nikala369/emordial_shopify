@@ -5,7 +5,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -326,7 +326,7 @@
 
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
       {%- if section.settings.image_3 != blank -%}
-        /* // HERE WAS LOGO  ITS ON TOP OF THE PAGE !!!! */                                                                                                                                                                                                     
+        /* // HERE WAS LOGO  ITS ON TOP OF THE PAGE !!!! */                                                                                                                                                                                                                               
         /*
         <!-- Container for the 3D model -->
         */
@@ -454,12 +454,17 @@
     });
   }
 
-  const ambientLight = new THREE.AmbientLight(0x303030);
+  // Improved lighting configuration
+  const ambientLight = new THREE.AmbientLight(0x404040, 0.6);  // Increased ambient light for softer shadows
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0xC0C0C0, 1);
-  directionalLight.position.set(-2, 1.2, 5);
+  const directionalLight = new THREE.DirectionalLight(0xC0C0C0, 0.8);  // Slightly reduced intensity
+  directionalLight.position.set(-1, 2, 4);  // Modified position for more even illumination
   scene.add(directionalLight);
+
+  const fillLight = new THREE.DirectionalLight(0xB0B0B0, 0.5);  // Additional fill light to soften dark areas
+  fillLight.position.set(2, -1, -2);
+  scene.add(fillLight);
 
   let gltfModel = null;
   const loader = new THREE.GLTFLoader();
@@ -474,15 +479,21 @@
         object.scale.set(0.6, 0.6, 0.4);
       }
     });
+
+    // Trigger fade-in after model is fully loaded
+    modelContainer.style.transition = 'opacity 0.5s';
+    modelContainer.style.opacity = '1';
+
+    // Enhanced initial animation to indicate interactivity
+   gsap.fromTo(gltfModel.rotation, { y: -0.2 }, { y: 0.2, repeat: 1, yoyo: true, duration: 0.9, ease: "power1.inOut", onComplete: () =>
+   gsap.to(gltfModel.rotation, { y: 0, duration: 0.5, ease: "power1.inOut" }) });
+
   }, undefined, function (error) {
     console.error('An error happened during the loading of the model:', error);
   });
+  
 
   modelContainer.style.opacity = '0';
-  setTimeout(() => {
-    modelContainer.style.transition = 'opacity 0.5s';
-    modelContainer.style.opacity = '1';
-  }, 400);
 
   function animate() {
     requestAnimationFrame(animate);
