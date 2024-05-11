@@ -2996,10 +2996,9 @@ details-disclosure > details {
 
 /* Enhanced hover effect for a smooth visual response */
 .badge:hover {
-  background-color: #990000; /* A slightly brighter shade of red on hover */
-  transform: scale(
-    1.1
-  ); /* More noticeable scale increase for better interaction feedback */
+  background-color: #990000;
+  transform: scale(1.1);
+  cursor: default;
 }
 
 .gradient {
