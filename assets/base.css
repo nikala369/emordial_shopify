@@ -2959,19 +2959,47 @@ details-disclosure > details {
   }
 }
 
+/* Define keyframes for a more subtle and gentle highlight sweep */
+@keyframes gentleSweep {
+  0%,
+  100% {
+    background-position: 0% center; /* Start and end with the highlight at the edge */
+  }
+  50% {
+    background-position: 100% center; /* Move the highlight across the button subtly */
+  }
+}
+
+/* Updated styles for the .badge class with a less intense effect */
 .badge {
-  border: 1px solid transparent;
-  border-radius: var(--badge-corner-radius);
+  border-radius: 4px; /* Slightly rounded edges for a modern look */
   display: inline-block;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
   line-height: 1;
-  padding: 0.5rem 1.3rem 0.6rem 1.3rem;
+  padding: 0.5rem 1.3rem;
   text-align: center;
-  background-color: rgb(var(--color-badge-background));
-  border-color: rgba(var(--color-badge-border), var(--alpha-badge-border));
-  color: rgb(var(--color-badge-foreground));
+  color: #ffffff; /* High contrast white text for readability */
   word-break: break-word;
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.05) 0%,
+      /* Even more subtle white highlight for a soft sheen */ #cc0000 50%,
+      /* Dark red at the center for a gentle focal point */
+        rgba(255, 255, 255, 0.05) 100% /* Subtle endpoint */
+    )
+    #800000; /* Dark red as the base color */
+  background-size: 200% 100%; /* Adjusted background size for a gentler transition */
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+  animation: gentleSweep 7s linear infinite; /* Apply the more subtle sweep animation */
+}
+
+/* Enhanced hover effect for a smooth visual response */
+.badge:hover {
+  background-color: #990000; /* A slightly brighter shade of red on hover */
+  transform: scale(
+    1.1
+  ); /* More noticeable scale increase for better interaction feedback */
 }
 
 .gradient {
