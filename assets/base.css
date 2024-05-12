@@ -2991,7 +2991,7 @@ details-disclosure > details {
     #800000; /* Dark red as the base color */
   background-size: 200% 100%; /* Adjusted background size for a gentler transition */
   transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
-  animation: gentleSweep 7s linear infinite; /* Apply the more subtle sweep animation */
+  animation: gentleSweep 5s linear infinite; /* Apply the more subtle sweep animation */
 }
 
 /* Enhanced hover effect for a smooth visual response */
