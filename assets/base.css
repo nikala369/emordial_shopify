@@ -2989,8 +2989,8 @@ details-disclosure > details {
         rgba(255, 255, 255, 0.05) 100% /* Subtle endpoint */
     )
     #800000; /* Dark red as the base color */
-  background-size: 200% 100%; /* Adjusted background size for a gentler transition */
-  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+  background-size: 200% 100%;
+  transition: all 0.3s ease-in-out;
   animation: gentleSweep 5s linear infinite; /* Apply the more subtle sweep animation */
 }
 
@@ -2999,6 +2999,23 @@ details-disclosure > details {
   background-color: #990000;
   transform: scale(1.1);
   cursor: default;
+}
+
+.badge-sold {
+  background: linear-gradient(
+      to right,
+      rgba(34, 34, 34, 0.1) 0%,
+      #970101 50%,
+      rgba(34, 34, 34, 0.1) 100%
+    )
+    #330000;
+  cursor: not-allowed;
+  animation: gentleSweep 5s linear infinite;
+}
+
+.badge-sold:hover {
+  background-color: #4b0000; /* Maintain very dark red even on hover */
+  transform: none; /* No transformation on hover */
 }
 
 .gradient {
