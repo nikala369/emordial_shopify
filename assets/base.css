@@ -3186,6 +3186,37 @@ details-disclosure > details {
   font-weight: var(--font-body-weight-bold);
 }
 
+.shopify-challenge__button {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  box-shadow: var(--button-box-shadow);
+
+  display: inline-block;
+  font-size: var(--button-font-size);
+  padding: 10px 50px;
+  border-radius: var(--button-border-radius);
+  transition: var(--button-transition);
+  cursor: pointer;
+  text-align: center;
+  width: auto;
+  border: 0;
+
+  position: relative;
+  top: 30px;
+
+  @media screen and (max-width: 768px) {
+    padding: 10px 40px;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, var(--button-hover-opacity));
+  }
+
+  &:active {
+    transform: var(--button-active-transform);
+  }
+}
+
 /* outline and border styling for Windows High Contrast Mode */
 @media (forced-colors: active) {
   .button,

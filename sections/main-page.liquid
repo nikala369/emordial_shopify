@@ -4,6 +4,7 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+
   }
 
   @media screen and (min-width: 750px) {
@@ -13,19 +14,114 @@
     }
   }
 
+  .title-centering-wrapper {
+    text-align: center;
+    width: 100%;
+  }
+
+  .business-emordial-title {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    letter-spacing: 5px;
+    font-weight: 500;
+    user-select: none;
+  }
+
+  .business-emordial-title::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    border-radius: 0.5px;
+    /* Slight rounding for a modern look */
+    background: linear-gradient(to right, #970101 0%, /* Darker base red for depth */ #ff0000 50%, /* Bright red for the core, vibrant effect */ #970101 100% /* Symmetry with dark base red */);
+    background-size: 200% 100%;
+    /* Expanded for a broader animation range */
+    animation: metallicShine 5s linear infinite;
+    /* Smooth, continuous metallic shine */
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+
+    font-weight: bold;
+  }
+
+  @keyframes metallicShine {
+    0% {
+      background-position: 100% center;
+    }
+    50% {
+      background-position: 0 center;
+    }
+    100% {
+      background-position: 100% center;
+    }
+  }
+
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .business-emordial-title {
+      font-size: 30px;
+      /* Adjusting for readability on smaller screens */
+      letter-spacing: 2px;
+      /* Moderate spacing for smaller displays */
+    }
+  }
+
+
+  .contacts-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .contact-image {
+    width: 140px;
+    height: auto;
+    overflow: hidden;
+
+    margin-top: 40px;
+    margin-bottom: 0;
+  }
+
   .custom-heading {
     text-align: center;
 
     @media screen and (max-width: 768px) {
       font-size: 35px;
+      letter-spacing: 2px;
     }
   }
+
 {%- endstyle -%}
 
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
-  <h1 class="custom-heading main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    {{ page.title | escape }}
-  </h1>
+  {% if page.title == 'EMORDIAL BUSINESS' %}
+    <div class="title-centering-wrapper">
+      <h1 class="main-page-title page-title h0 business-emordial-title{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        {{ page.title | escape }}
+      </h1>
+    </div>
+  {% else %}
+    <h1 class="custom-heading main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      {{ page.title | escape }}
+    </h1>
+  {% endif %}
+
+  {% if page.title == 'EMORDIAL BUSINESS' %}
+    <div class="contacts-container">
+      {% comment %} <img
+                                                                      class="contact-image"
+                                                                      src="{{ 'contact-nn.svg' | asset_url }}"
+                                                                      alt="Contact Business Emordial"
+                                                                      width="70"
+                                                      height="70"> {% endcomment %}
+
+    </div>
+  {% endif %}
+
   <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     {{ page.content }}
   </div>
