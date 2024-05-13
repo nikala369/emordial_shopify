@@ -14,12 +14,13 @@
   }
 
   .custom-title-center {
-    /* text-align: center; */
+    text-align: center;
     user-select: none;
+  }
 
-    @media screen and (max-width: 768px) {
-      font-size: 35px;
-    }
+  .button-size-custom {
+    padding: 14px 60px;
+    margin-bottom: 30px;
   }
 {%- endstyle -%}
 
@@ -139,7 +140,7 @@
         </label>
       </div>
       <div class="contact__button">
-        <button type="submit" class="button">
+        <button type="submit" class="button button-size-custom">
           {{ 'templates.contact.form.send' | t }}
         </button>
       </div>
