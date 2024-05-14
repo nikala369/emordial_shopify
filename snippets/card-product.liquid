@@ -45,7 +45,8 @@
   .card-product-wrapper img {
     width: 100%;
     object-fit: cover;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.5s ease-in;
+    opacity: 0;
   }
   
   .card-product-content {
@@ -196,6 +197,7 @@
                 {% endunless %}
                 width="{{ card_product.featured_media.width }}"
                 height="{{ card_product.featured_media.height }}"
+                onload="this.style.opacity='1';"
               >
               {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
 
@@ -217,6 +219,7 @@
                   loading="lazy"
                   width="{{ card_product.media[1].width }}"
                   height="{{ card_product.media[1].height }}"
+                  onload="this.style.opacity='1';"
                 >
               {%- endif -%}
             </div>
