@@ -23,121 +23,126 @@
 {{ 'component-rating.css' | asset_url | stylesheet_tag }}
 {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
 
-
 {%- style -%}
-/* Core Styles */
-.card-product-wrapper {
-  cursor: pointer;
-  margin: 10px;
-  text-align: center;
-  background-color: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-}
-
-.card-product-wrapper a {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
-
-.card-product-wrapper img {
-  width: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.card-product-content {
-  padding: 20px;
-  transition: opacity 0.3s ease;
-}
-
-/* Font and Color Styles */
-.card-product-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333; /* Refined for luxury */
-  margin-bottom: 8px;
-
-  @media (max-width: 768px) {
-    font-size: 15.5px;
-  }
-}
-
-.card-product-price {
-  font-size: 15px;
-  color: #666; /* Subtle elegance */
-  margin-bottom: 12px;
-
-  @media (max-width: 768px) {
-  font-size: 14px;
-  }
-}
-
-/* Hover & Active Effects */
-@media (hover: hover) and (pointer: fine) {
-  .card-product-wrapper:hover {
-    transform: scale(1.02); /* Slight enlargement for hover */
-    box-shadow: 0 2px 10px rgba(50, 50, 93, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
-  }
-
-  .card-product-wrapper:hover img {
-    transform: scale(1.05); /* Zoom in the image slightly */
-  }
-
-  .card-product-wrapper:hover .card-product-content {
-    opacity: 0.5; /* Reduce opacity to bring focus to the image */
-  }
-}
-
-.card-product-wrapper:active {
-  transform: scale(0.98); /* Press down effect */
-  box-shadow: 0 2px 8px rgba(50, 50, 93, 0.1), 0 4px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for active state */
-}
-
-.card-product-wrapper:active img {
-  transform: scale(1.02); /* Ensure the image is the focal point */
-}
-
-.card-product-wrapper:active .card-product-content {
-  opacity: 0; /* Hide content to focus on image */
-}
-
-/* Responsive Adjustments for Touch Interactions */
-@media (max-width: 768px) {
+  /* Core Styles */
   .card-product-wrapper {
-    margin: 5px;
+    cursor: pointer;
+    margin: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
   }
-
-  /* Disable hover effects for touch devices */
-  .card-product-wrapper:hover,
-  .card-product-wrapper:hover img,
-  .card-product-wrapper:hover .card-product-content {
-    transform: none;
-    box-shadow: none;
-    opacity: 1;
+  
+  .card-product-wrapper a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
-
-  .card-product-wrapper.is-active {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2); /* Distinct feedback for active state */
-    transform: scale(1.03); /* Tactile feedback with scale */
-    transition-delay: 0.1s; /* Slight delay for a smoother effect */
+  
+  .card-product-wrapper img {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
   }
-
-  .card-product-wrapper.is-active img {
-    transform: scale(1.05); /* Increase focus on the image */
+  
+  .card-product-content {
+    padding: 20px;
+    transition: opacity 0.2s ease;
   }
-
-  .card-product-wrapper.is-active .card-product-content {
-    opacity: 0; /* Hide content to enhance image focus */
+  
+  /* Font and Color Styles */
+  .card-product-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333; /* Refined for luxury */
+    margin-bottom: 8px;
+  
+    @media (max-width: 768px) {
+      font-size: 15.5px;
+    }
   }
-}
-
+  
+  .card-product-price {
+    font-size: 15px;
+    color: #666; /* Subtle elegance */
+    margin-bottom: 12px;
+  
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
+  }
+  
+  /* Hover & Active Effects */
+  @media (hover: hover) and (pointer: fine) {
+    .card-product-wrapper:hover {
+      transform: scale(1.01); /* Slight enlargement for hover */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05); /* Lighter shadow for sleekness */
+    }
+  
+    .card-product-wrapper:hover img {
+      transform: scale(1.02); /* Slight zoom for hover */
+    }
+  
+    .card-product-wrapper:hover .card-product-content {
+      opacity: 0.8; /* Slight opacity change to focus on the image */
+    }
+  }
+  
+  .card-product-wrapper:active {
+    transform: scale(0.99); /* Slight press down effect */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05); /* Very light shadow for active state */
+  }
+  
+  .card-product-wrapper:active img {
+    transform: scale(1.01); /* Slight zoom for active state */
+  }
+  
+  .card-product-wrapper:active .card-product-content {
+    opacity: 0; /* Hide content to focus on image */
+  }
+  
+  /* Responsive Adjustments for Touch Interactions */
+  @media (max-width: 768px) {
+    .card-product-wrapper {
+      margin: 5px;
+    }
+  
+    /* Disable hover effects for touch devices */
+    .card-product-wrapper:hover,
+    .card-product-wrapper:hover img,
+    .card-product-wrapper:hover .card-product-content {
+      transform: none;
+      box-shadow: none;
+      opacity: 1;
+    }
+  
+    .card-product-wrapper.is-active {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Slight feedback for active state */
+      transform: scale(1.02); /* Slight scale for active state */
+      transition-delay: 0.1s; /* Slight delay for smoother effect */
+    }
+  
+    .card-product-wrapper.is-active img {
+      transform: scale(1.03); /* Slight zoom for active state */
+    }
+  
+    .card-product-wrapper.is-active .card-product-content {
+      opacity: 0; /* Hide content to enhance image focus */
+    }
+  }
 {%- endstyle -%}
 
-
+{% comment %}
+  Helper function to generate responsive image srcset and sizes attributes
+{% endcomment %}
+{% assign image_sizes = "(
+  min-width: 1200px) 33vw, 
+  (min-width: 768px) 50vw, 
+  100vw
+" %}
 
 {%- if card_product and card_product != empty -%}
   {%- liquid
@@ -183,7 +188,7 @@
                   {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
                 "
                 src="{{ card_product.featured_media | image_url: width: 533 }}"
-                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                sizes="{{ image_sizes }}"
                 alt="{{ card_product.featured_media.alt | escape }}"
                 class="motion-reduce"
                 {% unless lazy_load == false %}
@@ -206,7 +211,7 @@
                     {{ card_product.media[1] | image_url }} {{ card_product.media[1].width }}w
                   "
                   src="{{ card_product.media[1] | image_url: width: 533 }}"
-                  sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                  sizes="{{ image_sizes }}"
                   alt=""
                   class="motion-reduce"
                   loading="lazy"
@@ -497,17 +502,19 @@
 
 <script>
   function handleTouchStart(element) {
-  element.classList.add('is-active');
-}
+    element.classList.add('is-active');
+  }
 
-function handleTouchEnd(element) {
-  element.classList.remove('is-active');
-}
+  function handleTouchEnd(element) {
+    element.classList.remove('is-active');
+  }
 
- // Attach event listeners
- document.querySelectorAll('.card-product-wrapper').forEach(card => {
-    card.addEventListener('touchstart', () => handleTouchStart(card), false);
-    card.addEventListener('touchend', () => handleTouchEnd(card), false);
-    card.addEventListener('touchcancel', () => handleTouchEnd(card), false);
-  });
+  // Attach event listeners for touch devices only
+  if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
+    document.querySelectorAll('.card-product-wrapper').forEach(card => {
+      card.addEventListener('touchstart', () => handleTouchStart(card), false);
+      card.addEventListener('touchend', () => handleTouchEnd(card), false);
+      card.addEventListener('touchcancel', () => handleTouchEnd(card), false);
+    });
+  }
 </script>
