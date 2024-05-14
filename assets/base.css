@@ -2850,18 +2850,16 @@ details > summary {
 
 details[open] > summary ~ .header__submenu {
   display: block; /* Show submenu when details are open */
-
-  /* custom box px */
   margin-top: 15px;
   margin-left: 17px;
 }
 
-/* // this is fixing bug for submenu hover */
+/* Fixing bug for submenu hover */
 details[open] .header__menu-item::after {
   display: none;
 }
 
-/* needs to be fixed and customized NIKALA submenu */
+/* Customized submenu */
 .header__submenu {
   display: none;
   position: absolute;
@@ -2870,46 +2868,31 @@ details[open] .header__menu-item::after {
   border-radius: 4px;
   padding: 15px;
   z-index: 1000;
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth animation */
+  opacity: 0;
+  transform: translateY(-1rem);
 }
 
-.global-settings-popup,
-.header__submenu.global-settings-popup {
-  border-radius: var(--popup-corner-radius);
-  border-color: rgba(var(--color-foreground), var(--popup-border-opacity));
-  border-style: solid;
-  border-width: var(--popup-border-width);
-  box-shadow: var(--popup-shadow-horizontal-offset)
-    var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius)
-    rgba(var(--color-shadow), var(--popup-shadow-opacity));
-  z-index: -1;
-}
-
-.header__submenu.list-menu {
-  padding: 1rem 0;
-}
-
-.header__submenu .header__submenu {
-  /* background-color: rgba(var(--color-foreground), 0.03); */
-  padding: 1rem 0;
-  margin: 1rem 0;
-}
-
-.header__submenu .header__menu-item:after {
-  right: 2rem;
+details[open] .header__submenu {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .header__submenu .header__menu-item {
   justify-content: space-between;
   padding: 0.5rem 1rem;
   margin-bottom: 10px;
-}
-
-.header__submenu .header__menu-item:first-child {
-  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.7); /* Consistent color scheme */
+  transition: color 0.3s ease;
 }
 
 .header__submenu .header__menu-item:hover {
   text-decoration-line: underline;
+  color: #000;
+}
+
+.header__submenu .header__menu-item:first-child {
+  margin-top: 10px;
 }
 
 .header__menu-item .icon-caret {
@@ -2932,14 +2915,11 @@ details-disclosure > details {
     opacity: 0;
     transform: translateY(-1.5rem);
   }
-
   100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
-/* END SUBMENU style, needs to be finished */
 
 .overflow-hidden-mobile,
 .overflow-hidden-tablet,
@@ -2959,7 +2939,6 @@ details-disclosure > details {
   }
 }
 
-/* Define keyframes for a more subtle and gentle highlight sweep */
 @keyframes gentleSweep {
   0%,
   100% {
@@ -2967,6 +2946,44 @@ details-disclosure > details {
   }
   50% {
     background-position: 100% center; /* Move the highlight across the button subtly */
+  }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .header__menu {
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #121212; /* Dark background for mobile */
+  }
+
+  .header__menu-item {
+    margin: 10px 0;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9); /* Light text for contrast */
+  }
+
+  .header__submenu {
+    position: static;
+    box-shadow: none;
+    margin-top: 10px;
+    background-color: #121212; /* Consistent background color */
+  }
+
+  details[open] .header__submenu {
+    transform: none;
+  }
+
+  .header__submenu .header__menu-item {
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 5px;
+    color: rgba(255, 255, 255, 0.9); /* Light text for contrast */
+  }
+
+  .header__submenu .header__menu-item:hover {
+    text-decoration-line: underline;
+    color: #fff;
   }
 }
 

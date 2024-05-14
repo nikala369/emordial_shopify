@@ -148,27 +148,68 @@ details[open].menu-opening > .menu-drawer__submenu {
   right: 3rem;
 }
 
-/* // drawer li mobile style */
+/* Drawer li mobile styles */
+.menu-drawer__menu-item,
+.menu-drawer__close-button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-.menu-drawer__menu-item--active,
-.menu-drawer__menu-item:focus,
-.menu-drawer__close-button:focus,
 .menu-drawer__menu-item:hover,
 .menu-drawer__close-button:hover {
-  color: rgb(16, 16, 16);
-  /* background-color: #f5f6f9; */
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.85); /* Darker background on hover/focus */
 }
 
 .menu-drawer__menu-item--active {
-  background-color: rgba(var(--color-foreground), 0.08);
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.9
+  ); /* Slightly lighter black for active state */
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+  animation: shineEffect 1s linear infinite; /* Adjusted animation duration */
 }
 
-/* .menu-drawer__menu-item--active:active {
-  background-color: black;
-  color: white;
-} */
+.menu-drawer__menu-item--active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 300%; /* Increased width to avoid the corner issue */
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: skewX(-30deg);
+  background-size: 200% auto;
+  animation: shineEffect 8s linear infinite; /* Smooth and slow animation */
+}
 
-/* // drawer li style END */
+.menu-drawer__menu-item--active:hover::before {
+  left: 100%;
+}
+
+.menu-drawer__menu-item:active {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #ffffff;
+}
+
+/* Shining effect animation */
+@keyframes shineEffect {
+  0% {
+    background-position: -300%;
+  }
+  100% {
+    background-position: 300%;
+  }
+}
+/* // Drawer li mobile styles END */
 
 .js .menu-drawer__menu-item .icon-caret,
 .no-js .menu-drawer .icon-arrow {
