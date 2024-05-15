@@ -4,10 +4,11 @@
     justify-content: space-between;
     margin-bottom: 55px;
     margin-top: 25px;
-
+    flex-wrap: wrap;
 
     @media (max-width: 768px) {
-      flex-direction: row;
+      flex-direction: column;
+      align-items: center;
       padding: 10px;
     }
   }
@@ -17,6 +18,7 @@
 
     @media (max-width: 768px) {
       width: auto;
+      text-align: center;
     }
   }
 
@@ -24,7 +26,6 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-
     width: 150px;
 
     @media (max-width: 768px) {
@@ -36,122 +37,125 @@
     margin-bottom: 0.25rem;
   }
 
-  .footer-logo img {
-    max-width: 85px;
-    height: auto;
-
-    @media (max-width: 768px) {
-      width: 60px;
-    }
-  }
-
+  .ul-style-media-links-mobile {
   @media (max-width: 767px) {
-    #footerLogo {
-      display: none;
-      /* Hide logo on mobile */
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
   }
+}
 
-  @media (min-width: 768px) {
-    #footerLogo {
-      display: flex;
-      /* Show logo on desktop */
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
-  @media (min-width: 767px) {
-    #footerLogoMobile {
-      display: none;
-      /* Hide logo on mobile */
-    }
-  }
+.footer-logo img {
+  max-width: 85px;
+  height: auto;
 
   @media (max-width: 768px) {
-    #footerLogoMobile {
-      display: flex;
-      /* Show logo on desktop */
-      justify-content: center;
-      align-items: center;
-    }
+    width: 60px;
   }
+}
 
-  .footer-payment-icons img {
-    max-height: 30px;
-    margin-right: 0.5rem;
+@media (max-width: 767px) {
+  #footerLogo {
+    display: none;
   }
+}
 
-  .back-to-top {
-    display: inline-block;
-    margin: 50px auto 20px;
-    cursor: pointer;
-    text-align: center;
-    transition: transform 0.3s ease
-    , color 0.3s ease;
-    background-color: black;
-    /* Set background color to black */
-    color: white;
-    /* Set text/icon color to white */
-    border: none;
-    /* Remove any borders */
-    padding: 10px 20px;
-    /* Add some padding */
-    border-radius: 5px;
-  }
-
-  .back-to-top:hover,
-  .back-to-top:focus {
-    transform: scale(1.1);
-    /* Slightly increase the size on hover/focus */
-    color: white;
-    /* Maintain white color for text/icon on hover/focus */
-  }
-
-  .back-to-top svg {
-    fill: white;
-    /* Set SVG icon color to white */
-  }
-
-  .back-to-top:hover svg,
-  .back-to-top:focus svg {
-    fill: white;
-    /* Maintain the SVG icon color as white on hover/focus */
-  }
-
-  .button-container {
+@media (min-width: 768px) {
+  #footerLogo {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
   }
+}
 
-  .footer-menu-heading {
-    color: #ffffff;
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    font-family: 'Montserrat'
-    , sans-serif;
-    letter-spacing: 1px;
-    font-weight: 600;
-
-    @media (max-width: 768px) {
-      font-size: 1.6rem;
-    }
+@media (min-width: 767px) {
+  #footerLogoMobile {
+    display: none;
   }
+}
 
-  .follow-us-block-header-mobile {
-    display: block;
-    @media (max-width: 768px) {
-      display: none;
-    }
-
+@media (max-width: 768px) {
+  #footerLogoMobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
   }
+}
 
-  .social-icons-margin {
+.footer-payment-icons img {
+  max-height: 30px;
+  margin-right: 0.5rem;
+}
+
+.back-to-top {
+  display: inline-block;
+  margin: 50px auto 20px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.3s ease
+  , color 0.3s ease;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.back-to-top:hover,
+.back-to-top:focus {
+  transform: scale(1.1);
+  color: white;
+}
+
+.back-to-top svg {
+  fill: white;
+}
+
+.back-to-top:hover svg,
+.back-to-top:focus svg {
+  fill: white;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100px;
+}
+
+.footer-menu-heading {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-family: 'Montserrat'
+  , sans-serif;
+  letter-spacing: 1px;
+  font-weight: 600;
+
   @media (max-width: 768px) {
-    margin-top: 25px;
+    font-size: 1.6rem;
   }
+}
+
+.follow-us-block-header-mobile {
+  display: block;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.social-icons-margin {
+@media (max-width: 768px) {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 }
 
 .footer-menu-link {
@@ -162,9 +166,7 @@
   padding: 0.5rem 0;
   text-decoration: none;
   display: block;
-  /* Make the link fill the li element */
   width: 100%;
-  /* Ensure the link uses the full width */
   position: relative;
 
   @media (max-width: 768px) {
@@ -176,7 +178,6 @@
   content: '';
   position: absolute;
   width: 100%;
-  /* Full width of the parent */
   height: 2px;
   background-color: #ffffff;
   left: 0;
@@ -199,7 +200,6 @@
 
 .footer-text a {
   color: #cccccc;
-  /* Text color remains constant */
   text-decoration: none;
   position: relative;
   transition: color 0.2s ease-in-out;
@@ -210,12 +210,9 @@
   position: absolute;
   width: 0;
   height: 2px;
-  /* Thickness of the underline */
   bottom: -5px;
-  /* Position of the underline */
   left: 50%;
   background-color: #ffffff;
-  /* Color of the underline */
   transition: width 0.2s ease-in-out
   , left 0.2s ease-in-out;
 }
@@ -229,22 +226,19 @@
 .footer-text a:hover,
 .footer-text a:focus {
   color: white;
-  /* Keeps the text color the same as the non-hover state */
 }
-
 
 .social-media-links {
   width: 35px;
+  margin-bottom: 10px;
 }
 
 .social-media-links .facebook-icon {
   color: #1877f2;
-  /* Facebook Blue */
 }
 
 .social-media-links .twitter-icon {
   color: #1da1f2;
-  /* Twitter Blue */
 }
 
 .social-media-links .instagram-icon {
@@ -259,6 +253,28 @@
   color: white;
 }
 
+/* Center back-to-top button on mobile */
+@media (max-width: 768px) {
+  .button-container {
+    width: 100%;
+  }
+
+  .back-to-top {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+}
+
+/* Remove list-style-type */
+.ul-style,
+.ul-style li {
+  list-style-type: none;
+}
 {%- endstyle -%}
 
 <footer style="background-color: black; color: white; padding: 32px 0;">
@@ -324,11 +340,10 @@
         {% endcase %}
       {% endfor %}
 
-
-      {% comment %} social media icons render {% endcomment %}
-      <div class="div-block-footer">
+      <!-- Social Media Links -->
+      <div class="div-block-footer social-icons-margin">
         <h1 class="footer-menu-heading follow-us-block-header-mobile">FOLLOW US</h1>
-        <ul class="ul-style social-icons-margin">
+        <ul class="ul-style ul-style-media-links-mobile">
           <li class="padding-top-li">
             <a
               style="display: inline-block;"
@@ -340,7 +355,6 @@
               </div>
             </a>
           </li>
-
           <li class="padding-top-li">
             <a
               style="display: inline-block;"
@@ -352,7 +366,6 @@
               </div>
             </a>
           </li>
-
           <li class="padding-top-li">
             <a
               style="display: inline-block;"
@@ -366,7 +379,6 @@
           </li>
         </ul>
       </div>
-
 
     </div>
 
@@ -393,16 +405,15 @@
       </div>
     </div>
 
+    <!-- Back to Top Button -->
     <div class="button-container">
       <button class="back-to-top" id="backToTop">
         {% render 'icon-up-arrow' %}
       </button>
     </div>
 
-
   </div>
 </footer>
-
 
 {% schema %}
   {
@@ -454,7 +465,6 @@
     ]
   }
 {% endschema %}
-
 
 <script>
     document.getElementById('backToTop').addEventListener('click', function(event) {
