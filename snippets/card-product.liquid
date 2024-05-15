@@ -79,12 +79,8 @@
   /* Hover & Active Effects */
   @media (hover: hover) and (pointer: fine) {
     .card-product-wrapper:hover {
-      transform: scale(1.01); /* Slight enlargement for hover */
+      /* transform: scale(1.01); */
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05); /* Lighter shadow for sleekness */
-    }
-  
-    .card-product-wrapper:hover img {
-      transform: scale(1.02); /* Slight zoom for hover */
     }
   
     .card-product-wrapper:hover .card-product-content {
@@ -122,13 +118,8 @@
   
     .card-product-wrapper.is-active {
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Slight feedback for active state */
-      transform: scale(1.02); /* Slight scale for active state */
-      transition-delay: 0.1s; /* Slight delay for smoother effect */
     }
   
-    .card-product-wrapper.is-active img {
-      transform: scale(1.03); /* Slight zoom for active state */
-    }
   
     .card-product-wrapper.is-active .card-product-content {
       opacity: 0; /* Hide content to enhance image focus */
