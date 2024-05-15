@@ -26,15 +26,11 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    width: 150px;
-
-    @media (max-width: 768px) {
-      width: auto;
-    }
   }
 
   .ul-style li {
     margin-bottom: 0.25rem;
+    font-size: 15px;
   }
 
   .ul-style-media-links-mobile {
@@ -42,7 +38,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 180px;
+    width: 150px;
   }
 }
 
@@ -170,7 +166,8 @@
   position: relative;
 
   @media (max-width: 768px) {
-    font-size: 13px;
+    font-size: 18px;
+    /* Increased font size for mobile */
   }
 }
 
@@ -231,6 +228,11 @@
 .social-media-links {
   width: 35px;
   margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+    /* Remove bottom margin on mobile */
+  }
 }
 
 .social-media-links .facebook-icon {
@@ -467,8 +469,8 @@
 {% endschema %}
 
 <script>
-    document.getElementById('backToTop').addEventListener('click', function(event) {
-        event.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  document.getElementById('backToTop').addEventListener('click', function(event) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 </script>
