@@ -32,9 +32,13 @@
     background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
     position: relative;
+
+  @media (max-width: 768px) {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+}
   
   .card-product-wrapper a {
     text-decoration: none;
@@ -51,7 +55,7 @@
   
   .card-product-content {
     padding: 20px;
-    transition: opacity 0.2s ease;
+    /* transition: opacity 0.2s ease; */
   }
   
   /* Font and Color Styles */
@@ -80,7 +84,7 @@
   @media (hover: hover) and (pointer: fine) {
     .card-product-wrapper:hover {
       /* transform: scale(1.01); */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05); /* Lighter shadow for sleekness */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
     }
   
     .card-product-wrapper:hover .card-product-content {
