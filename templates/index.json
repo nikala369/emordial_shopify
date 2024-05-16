@@ -56,7 +56,8 @@
         "featured_collection_Lap8Kg": {
           "type": "featured_collection",
           "settings": {
-            "collection": "earrings"
+            "collection": "earrings",
+            "background_image": "shopify:\/\/shop_images\/Emordial_main_BANNER.png"
           }
         },
         "featured_collection_d3YpkY": {
