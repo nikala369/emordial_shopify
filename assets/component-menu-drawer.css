@@ -154,59 +154,56 @@ details[open].menu-opening > .menu-drawer__submenu {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Hover effect for menu items and close button */
 .menu-drawer__menu-item:hover,
 .menu-drawer__close-button:hover {
   color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.85); /* Darker background on hover/focus */
+  background-color: rgba(0, 0, 0, 0.85);
 }
 
+/* Active menu item styling */
 .menu-drawer__menu-item--active {
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.9
-  ); /* Slightly lighter black for active state */
+  background-color: rgba(0, 0, 0, 0.9);
   position: relative;
   overflow: hidden;
   color: #ffffff;
-  animation: shineEffect 1s linear infinite; /* Adjusted animation duration */
 }
 
+/* Subtle gradient background for active menu item */
 .menu-drawer__menu-item--active::before {
   content: "";
   position: absolute;
   top: 0;
   left: -100%;
-  width: 300%; /* Increased width to avoid the corner issue */
+  width: 300%;
   height: 100%;
   background: linear-gradient(
     120deg,
     transparent,
-    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1),
     transparent
   );
   transform: skewX(-30deg);
   background-size: 200% auto;
-  animation: shineEffect 8s linear infinite; /* Smooth and slow animation */
+  animation: gentleSweep 5s linear infinite;
 }
 
-.menu-drawer__menu-item--active:hover::before {
-  left: 100%;
-}
-
+/* Active state styling */
 .menu-drawer__menu-item:active {
   background-color: rgba(0, 0, 0, 0.85);
   color: #ffffff;
 }
 
 /* Shining effect animation */
-@keyframes shineEffect {
+@keyframes gentleSweep {
   0% {
-    background-position: -300%;
+    background-position: -200%;
+  }
+  50% {
+    background-position: 0%;
   }
   100% {
-    background-position: 300%;
+    background-position: 200%;
   }
 }
 /* // Drawer li mobile styles END */

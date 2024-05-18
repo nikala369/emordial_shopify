@@ -2955,6 +2955,19 @@ details-disclosure > details {
     flex-direction: column;
     padding: 1rem;
     background-color: #121212; /* Dark background for mobile */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+  }
+
+  .header__menu--open {
+    transform: translateX(0);
   }
 
   .header__menu-item {
@@ -2984,6 +2997,35 @@ details-disclosure > details {
   .header__submenu .header__menu-item:hover {
     text-decoration-line: underline;
     color: #fff;
+  }
+
+  .header__menu-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1002;
+  }
+
+  .header__menu-toggle:before,
+  .header__menu-toggle:after {
+    content: "";
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: #fff;
+    margin: 6px 0;
+    transition: transform 0.3s ease;
+  }
+
+  .header__menu-toggle--open:before {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .header__menu-toggle--open:after {
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 }
 
