@@ -310,3 +310,54 @@
     </div>
   </details>
 </header-drawer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const menuItems = document.querySelectorAll('.menu-drawer__menu-item');
+  const subMenuItems = document.querySelectorAll('.menu-drawer__submenu .menu-drawer__menu-item');
+
+  // Function to update active class
+  function updateActiveClass() {
+    const currentPath = window.location.pathname;
+    let isSubMenuActive = false;
+    let activeParent = null;
+
+    subMenuItems.forEach(item => {
+      const itemPath = item.getAttribute('href');
+      if (currentPath === itemPath) {
+        item.classList.add('menu-drawer__menu-item--active');
+        isSubMenuActive = true;
+        activeParent = item.closest('.menu-drawer__submenu').previousElementSibling;
+      } else {
+        item.classList.remove('menu-drawer__menu-item--active');
+      }
+    });
+
+    menuItems.forEach(item => {
+      const itemPath = item.getAttribute('href');
+      if (currentPath === itemPath || (isSubMenuActive && item === activeParent)) {
+        item.classList.add('menu-drawer__menu-item--active');
+      } else {
+        item.classList.remove('menu-drawer__menu-item--active');
+      }
+    });
+  }
+
+  // Initial update
+  updateActiveClass();
+
+  // Update on navigation change
+  menuItems.forEach(item => {
+    item.addEventListener('click', function() {
+      setTimeout(updateActiveClass, 100); // Delay to allow navigation to complete
+    });
+  });
+
+  subMenuItems.forEach(item => {
+    item.addEventListener('click', function() {
+      setTimeout(updateActiveClass, 100); // Delay to allow navigation to complete
+    });
+  });
+});
+
+</script>

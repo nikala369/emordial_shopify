@@ -188,11 +188,10 @@ details[open].menu-opening > .menu-drawer__submenu {
   animation: gentleSweep 5s linear infinite;
 }
 
-/* Active state styling */
-/* .menu-drawer__menu-item:active {
-  background-color: rgba(0, 0, 0, 0.85);
-  color: #ffffff;
-} */
+/* Hover effect for shining animation */
+.menu-drawer__menu-item--active:hover::before {
+  left: 100%;
+}
 
 /* Shining effect animation */
 @keyframes gentleSweep {
@@ -206,6 +205,14 @@ details[open].menu-opening > .menu-drawer__submenu {
     background-position: 200%;
   }
 }
+
+/* Remove underline and bold styling */
+.menu-drawer__menu-item--active,
+.submenu-item--active {
+  font-weight: normal;
+  text-decoration: none;
+}
+
 /* // Drawer li mobile styles END */
 
 .js .menu-drawer__menu-item .icon-caret,
