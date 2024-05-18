@@ -322,23 +322,25 @@ document.addEventListener("DOMContentLoaded", function() {
     let isSubMenuActive = false;
     let activeParent = null;
 
+    // Clear all active states first
+    menuItems.forEach(item => item.classList.remove('menu-drawer__menu-item--active'));
+    subMenuItems.forEach(item => item.classList.remove('menu-drawer__menu-item--active'));
+
+    // Check submenu items
     subMenuItems.forEach(item => {
       const itemPath = item.getAttribute('href');
       if (currentPath === itemPath) {
         item.classList.add('menu-drawer__menu-item--active');
         isSubMenuActive = true;
         activeParent = item.closest('.menu-drawer__submenu').previousElementSibling;
-      } else {
-        item.classList.remove('menu-drawer__menu-item--active');
       }
     });
 
+    // Check main menu items
     menuItems.forEach(item => {
       const itemPath = item.getAttribute('href');
       if (currentPath === itemPath || (isSubMenuActive && item === activeParent)) {
         item.classList.add('menu-drawer__menu-item--active');
-      } else {
-        item.classList.remove('menu-drawer__menu-item--active');
       }
     });
   }
