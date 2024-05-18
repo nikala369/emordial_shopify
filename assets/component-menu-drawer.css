@@ -155,7 +155,6 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 /* Hover effect for menu items and close button */
-.menu-drawer__menu-item:hover,
 .menu-drawer__close-button:hover {
   color: #ffffff;
   background-color: rgba(0, 0, 0, 0.85);
