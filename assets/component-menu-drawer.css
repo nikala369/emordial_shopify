@@ -189,10 +189,10 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 /* Active state styling */
-.menu-drawer__menu-item:active {
+/* .menu-drawer__menu-item:active {
   background-color: rgba(0, 0, 0, 0.85);
   color: #ffffff;
-}
+} */
 
 /* Shining effect animation */
 @keyframes gentleSweep {
