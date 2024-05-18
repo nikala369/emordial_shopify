@@ -18,10 +18,21 @@
     user-select: none;
   }
 
-  .button-size-custom {
-    padding: 14px 60px;
-    margin-bottom: 30px;
+  .parent-div-button {
+  @media screen and (max-width: 768px) {
+    text-align: center;
   }
+}
+
+.button-size-custom {
+  padding: 14px 60px;
+  margin-bottom: 30px;
+
+  @media screen and (max-width: 768px) {
+    padding: 13px 60px;
+    margin-top: 20px;
+  }
+}
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
@@ -139,7 +150,7 @@
           {{- 'templates.contact.form.comment' | t -}}
         </label>
       </div>
-      <div class="contact__button">
+      <div class="contact__button parent-div-button">
         <button type="submit" class="button button-size-custom">
           {{ 'templates.contact.form.send' | t }}
         </button>
