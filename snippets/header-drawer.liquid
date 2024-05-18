@@ -48,15 +48,15 @@
                               <li>
                                 {%- if childlink.links == blank -%}
                                   <a
-                                    id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                    href="{{ childlink.url }}"
-                                    class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                    {% if childlink.current %}
-                                      aria-current="page"
-                                    {% endif %}
-                                  >
-                                    {{ childlink.title | escape }}
-                                  </a>
+                                  id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                  href="{{ childlink.url }}"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                  {% if childlink.current %}
+                                    aria-current="page"
+                                  {% endif %}
+                                >
+                                  {{ childlink.title | escape }}
+                                </a>
                                 {%- else -%}
                                   <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
                                     <summary
@@ -312,6 +312,7 @@
 </header-drawer>
 
 <script>
+
 document.addEventListener("DOMContentLoaded", function() {
   const menuItems = document.querySelectorAll('.menu-drawer__menu-item');
   const subMenuItems = document.querySelectorAll('.menu-drawer__submenu .menu-drawer__menu-item');
@@ -322,25 +323,41 @@ document.addEventListener("DOMContentLoaded", function() {
     let isSubMenuActive = false;
     let activeParent = null;
 
+    // Debugging logs
+    console.log("Current Path: ", currentPath);
+
     // Clear all active states first
     menuItems.forEach(item => item.classList.remove('menu-drawer__menu-item--active'));
     subMenuItems.forEach(item => item.classList.remove('menu-drawer__menu-item--active'));
 
-    // Check submenu items
+    // Check submenu items and update parent active state
     subMenuItems.forEach(item => {
-      const itemPath = item.getAttribute('href');
+      const itemPath = new URL(item.getAttribute('href'), document.baseURI).pathname;
+      console.log("SubMenu Item Path: ", itemPath);
       if (currentPath === itemPath) {
         item.classList.add('menu-drawer__menu-item--active');
         isSubMenuActive = true;
-        activeParent = item.closest('.menu-drawer__submenu').previousElementSibling;
+        activeParent = item.closest('details').querySelector('summary');
+        console.log("SubMenu Item Active: ", item);
       }
     });
 
     // Check main menu items
     menuItems.forEach(item => {
-      const itemPath = item.getAttribute('href');
+      const itemPath = new URL(item.getAttribute('href'), document.baseURI).pathname;
+      console.log("Menu Item Path: ", itemPath);
       if (currentPath === itemPath || (isSubMenuActive && item === activeParent)) {
         item.classList.add('menu-drawer__menu-item--active');
+        console.log("Menu Item Active: ", item);
+      }
+    });
+
+    // Check parent items for submenus
+    document.querySelectorAll('details').forEach(details => {
+      const summary = details.querySelector('summary');
+      const submenuActive = details.querySelector('.menu-drawer__menu-item--active');
+      if (submenuActive) {
+        summary.classList.add('menu-drawer__menu-item--active');
       }
     });
   }
@@ -361,5 +378,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+
 
 </script>

@@ -213,6 +213,48 @@ details[open].menu-opening > .menu-drawer__submenu {
   text-decoration: none;
 }
 
+/* Close button specific styles */
+.menu-drawer__close-button {
+  background-color: transparent; /* Ensure the close button has a transparent background */
+  color: #000000; /* Default text color */
+  padding: 0.5rem 1rem; /* Padding for better clickability */
+}
+
+.menu-drawer__close-button--active {
+  background-color: transparent; /* Ensure active state also has transparent background */
+  color: #000000; /* Default text color */
+}
+
+/* Additional styles for better UX */
+.menu-drawer__close-button:active {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.2
+  ); /* Slightly darker background on active state */
+  color: #ffffff; /* Change text color on active state */
+}
+
+/* Toggle button styles */
+.header__icon--menu {
+  background-color: transparent; /* Ensure the toggle button has a transparent background */
+  color: #000000; /* Default text color */
+  padding: 0.5rem; /* Padding for better clickability */
+  border: none; /* Remove border */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header__icon--menu:active {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    1
+  ); /* Slightly darker background on active state */
+  color: #ffffff; /* Change text color on active state */
+}
+
 /* // Drawer li mobile styles END */
 
 .js .menu-drawer__menu-item .icon-caret,
