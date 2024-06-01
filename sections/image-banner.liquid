@@ -5,7 +5,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -212,10 +212,10 @@
     .emordial-svg-2 {
       display: block;
       position: absolute;
-      top: 25%;
+      top: 5%;
       /* Adjust vertically as needed */
-      width: 80vw;
-      height: 80vw;
+      width: 77.5vw;
+      height: 100vw;
       /* Maintain aspect ratio */
       z-index: 1;
     }
@@ -312,21 +312,20 @@
   <div class="banner__content relative-content  banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <img
       class="emordial-svg-1"
-      src="{{ 'character1.svg' | asset_url }}"
+      src="{{ '1e-01.svg' | asset_url }}"
       alt="Emordial svg character for home page"
-      width="350"
-      height="350">
+      width="500"
+      height="500">
 
     <img
       class="emordial-svg-2"
-      src="{{ 'character2.svg' | asset_url }}"
+      src="{{ 'e4-01.svg' | asset_url }}"
       alt="Emordial svg character boy for home page"
-      width="350"
-      height="350">
+      width="500"
+      height="500">
 
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
       {%- if section.settings.image_3 != blank -%}
-        /* // HERE WAS LOGO  ITS ON TOP OF THE PAGE !!!! */                                                                                                                                                                                                                                                     
         /*
         <!-- Container for the 3D model -->
         */
