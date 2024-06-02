@@ -57,14 +57,14 @@
           "type": "featured_collection",
           "settings": {
             "collection": "earrings",
-            "background_image": "shopify:\/\/shop_images\/productitemtest.svg"
+            "background_image": "shopify:\/\/shop_images\/emordial_logo_1_final-01.svg"
           }
         },
         "featured_collection_d3YpkY": {
           "type": "featured_collection",
           "settings": {
             "collection": "accessories",
-            "background_image": "shopify:\/\/shop_images\/emordial_logo_1_final-01.svg"
+            "background_image": "shopify:\/\/shop_images\/productitemtest.svg"
           }
         }
       },
