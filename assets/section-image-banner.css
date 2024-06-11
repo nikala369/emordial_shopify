@@ -183,7 +183,7 @@
 }
 
 .banner__media-half {
-  width: 50%;
+  width: 51%;
 
   @media screen and (max-width: 749px) {
     width: 70%;
