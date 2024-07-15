@@ -2791,7 +2791,8 @@ details[open] > .header__submenu {
   margin: 0 20px;
   position: relative;
   font-family: "Avenir Next", sans-serif;
-  font-size: 16px;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
   cursor: pointer;
