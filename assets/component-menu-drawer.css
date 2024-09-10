@@ -294,7 +294,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .collection-icon {
   width: 100px; /* Keep current width */
-  height: 39.3px; /* Keep current height */
+  height: 39px; /* Keep current height */
   object-fit: cover; /* Ensure the image fills the space properly */
   display: inline-block; /* Keep the image inline with the text */
   vertical-align: middle; /* Align the icon with the text */
