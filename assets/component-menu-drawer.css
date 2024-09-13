@@ -306,6 +306,14 @@ details[open].menu-opening > .menu-drawer__submenu {
   transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease; */
 }
 
+@media (min-width: 990px) {
+  .collection-icon {
+    width: 80px;
+    height: 35px;
+    margin-right: 20px;
+  }
+}
+
 .menu-drawer__close-button {
   margin-top: 1.5rem;
   padding: 1.2rem 2.6rem 1.2rem 3rem;

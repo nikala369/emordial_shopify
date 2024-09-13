@@ -2790,8 +2790,8 @@ details[open] > .header__submenu {
 .header__menu-item {
   margin: 0 20px;
   position: relative;
-  font-family: "Avenir Next", sans-serif;
-  font-size: 1.3rem;
+  font-family: "GT America Condensed";
+  font-size: 1.1rem;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
@@ -2894,7 +2894,9 @@ details[open] .header__submenu {
 }
 
 .header__submenu .header__menu-item {
-  height: 32.5px;
+  font-family: "GT America Condensed";
+  font-size: 11.5px;
+  height: 50px;
 }
 
 .header__menu-item .icon-caret {

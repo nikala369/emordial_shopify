@@ -32,7 +32,7 @@
                 tabindex="-1"
               >
                 {%- for childlink in link.links -%}
-                  <li>
+                  <li style="display: flex; justify-content: space-between; align-items: center;">
                     {%- if childlink.links == blank -%}
                       <a
                         id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
@@ -44,6 +44,29 @@
                       >
                         {{ childlink.title | escape }}
                       </a>
+
+                      {%- assign child_title = childlink.title | downcase -%}
+                      
+                      {%- if child_title contains 'earring' -%}
+                        <img 
+                          src="{{ 'earrings-collection-img-url.svg' | asset_url }}" 
+                          alt="Earrings Icon" 
+                          class="collection-icon" 
+                          width="40" 
+                          height="40"
+                        />
+                      {%- elsif child_title contains 'accessories' -%}
+                        <img 
+                          src="{{ 'accessories-collection-img-url.svg' | asset_url }}" 
+                          alt="Accessories Icon" 
+                          class="collection-icon" 
+                          width="40" 
+                          height="40"
+                        />
+                      {%- else -%}
+                        <!-- No icon for unrecognized categories -->
+                      {%- endif -%}
+
                     {%- else -%}
                       <details id="Details-HeaderSubMenu-{{ link.handle }}-{{ childlink.handle }}">
                         <summary
