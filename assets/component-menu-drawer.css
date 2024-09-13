@@ -125,7 +125,15 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__menu-item {
   padding: 1.1rem 3rem;
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.3rem;
+  font-family: "GT America Condensed";
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensures the items take full width */
+  white-space: nowrap; /* Prevents the text from wrapping */
+  text-overflow: ellipsis; /* Truncates text if it's too long */
 }
 
 .no-js .menu-drawer__menu-item {
@@ -282,6 +290,28 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .js .menu-drawer__submenu .menu-drawer__submenu {
   overflow-y: auto;
+}
+
+.collection-icon {
+  width: 100px;
+  height: 38.4px;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+
+  /* Enhancements for visibility */
+  /* border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease; */
+}
+
+@media (min-width: 990px) {
+  .collection-icon {
+    width: 80px;
+    height: 35px;
+    margin-right: 20px;
+  }
 }
 
 .menu-drawer__close-button {

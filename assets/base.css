@@ -510,9 +510,9 @@ h6:empty {
   color: rgb(var(--color-foreground));
 }
 
-.link--text:hover {
+/* .link--text:hover {
   color: rgba(var(--color-foreground), 0.75);
-}
+} */
 
 .link-with-icon {
   display: inline-flex;
@@ -2790,9 +2790,9 @@ details[open] > .header__submenu {
 .header__menu-item {
   margin: 0 20px;
   position: relative;
-  font-family: "Avenir Next", sans-serif;
+  font-family: "GT America Condensed";
+  font-size: 1.1rem;
   font-weight: 600;
-  font-size: 1.3rem;
   color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
   cursor: pointer;
@@ -2853,6 +2853,7 @@ details[open] > summary ~ .header__submenu {
   display: block; /* Show submenu when details are open */
   margin-top: 15px;
   margin-left: 17px;
+  padding: 17.5px 5px;
 }
 
 /* Fixing bug for submenu hover */
@@ -2882,7 +2883,7 @@ details[open] .header__submenu {
 .header__submenu .header__menu-item {
   justify-content: space-between;
   padding: 0.5rem 1rem;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   color: rgba(0, 0, 0, 0.7); /* Consistent color scheme */
   transition: color 0.3s ease;
 }
@@ -2892,8 +2893,10 @@ details[open] .header__submenu {
   color: #000;
 }
 
-.header__submenu .header__menu-item:first-child {
-  margin-top: 10px;
+.header__submenu .header__menu-item {
+  font-family: "GT America Condensed";
+  font-size: 11.5px;
+  height: 50px;
 }
 
 .header__menu-item .icon-caret {
