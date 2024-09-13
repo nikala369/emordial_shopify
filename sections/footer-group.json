@@ -1,3 +1,12 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
   "name": "t:sections.footer.name",
   "type": "footer",
@@ -25,7 +34,7 @@
         "footer-1"
       ],
       "settings": {
-        "footer_logo": "shopify:\/\/shop_images\/silver-logo_6db42b02-8d71-4e3b-85cd-7e7dfcaea437.svg",
+        "footer_logo": "shopify:\/\/shop_images\/silver-logo.svg",
         "show_payment_icons": true
       }
     }
