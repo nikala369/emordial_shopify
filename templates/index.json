@@ -46,6 +46,7 @@
       "settings": {
         "image": "shopify:\/\/shop_images\/home-banner1.svg",
         "image_2": "shopify:\/\/shop_images\/homepage-right_f65f2736-efac-408d-bd1f-4620d8d44e82.svg",
+        "image_3": "shopify:\/\/shop_images\/emordial-logo.svg",
         "image_overlay_opacity": 0,
         "image_height": "large",
         "desktop_content_position": "bottom-center",
