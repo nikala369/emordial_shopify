@@ -584,13 +584,33 @@
     <!-- Payment Icons -->
     {% if section.settings.show_payment_icons %}
       <div class="footer-payment-icons" style="display: flex; justify-content: center; margin-bottom: 24px;">
-        {% for type in shop.enabled_payment_types %}
-          <span class="payment-icon" style="margin-right: 0.5rem;">
-            {{ type | payment_type_svg_tag: class: 'h-8' }}
-          </span>
-        {% endfor %}
+        <!-- Apple Pay -->
+        <span class="payment-icon" style="margin-right: 0.5rem;">
+          {{ 'apple_pay' | payment_type_svg_tag: class: 'h-8' }}
+        </span>
+        <!-- MasterCard -->
+        <span class="payment-icon" style="margin-right: 0.5rem;">
+          {{ 'master' | payment_type_svg_tag: class: 'h-8' }}
+        </span>
+        <!-- Visa -->
+        <span class="payment-icon" style="margin-right: 0.5rem;">
+          {{ 'visa' | payment_type_svg_tag: class: 'h-8' }}
+        </span>
+        <!-- Shop Pay -->
+        <span class="payment-icon" style="margin-right: 0.5rem;">
+          {{ 'shopify_pay' | payment_type_svg_tag: class: 'h-8' }}
+        </span>
+        <!-- Venmo -->
+        <span class="payment-icon" style="margin-right: 0.5rem;">
+          {{ 'venmo' | payment_type_svg_tag: class: 'h-8' }}
+        </span>
+        <!-- Amex -->
+        <span class="payment-icon" style="margin-right: 0.5rem;">
+          {{ 'american_express' | payment_type_svg_tag: class: 'h-8' }}
+        </span>
       </div>
     {% endif %}
+
 
     <!-- Copyright and Policies -->
     <div class="footer-text" style="text-align: center; margin-top: 32px; font-size: 14px;">
