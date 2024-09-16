@@ -126,14 +126,14 @@
 .footer-menu-heading {
   color: #ffffff;
   margin-bottom: 1rem;
-  font-size: 2rem;
-  font-family: 'Montserrat'
-  , sans-serif;
+
+  font-size: 1.8rem;
+  font-family: 'GT America Condensed';
   letter-spacing: 1px;
   font-weight: 600;
 
   @media (max-width: 768px) {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -158,7 +158,8 @@
   color: #cccccc;
   transition: color 0.3s ease
   , transform 0.3s ease;
-  font-size: 16px;
+  font-family: 'GT America Condensed';
+  font-size: 14px;
   padding: 0.5rem 0;
   text-decoration: none;
   display: block;
@@ -166,7 +167,7 @@
   position: relative;
 
   @media (max-width: 768px) {
-    font-size: 15px;
+    font-size: 12px;
     /* Increased font size for mobile */
   }
 }
@@ -277,6 +278,132 @@
 .ul-style li {
   list-style-type: none;
 }
+
+/* Newsletter Form Styles */
+.footer-block--newsletter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+
+.footer-block__heading {
+  font-family: 'GT America Condensed'
+  , sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.newsletter-form__field-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 700px;
+  /* Adjusted for desktop */
+  position: relative;
+  flex-direction: column;
+}
+
+.field {
+  position: relative;
+  width: 100%;
+}
+
+.field__input {
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  color: black;
+  background-color: white;
+  transition: border-color 0.3s ease
+  , padding 0.3s ease;
+  box-sizing: border-box;
+  /* Ensures consistent width */
+}
+
+.field__input::placeholder {
+  color: #aaa;
+  padding: 20px;
+  font-size: 16px;
+}
+
+.field__input:focus {
+  padding: 0 20px;
+  border: 2px solid transparent;
+  /* Fix to prevent border or padding tweaks */
+}
+
+.newsletter-form__label {
+  font-family: 'GT America Condensed'
+  , sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #888;
+  /* Light grey */
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.field__input:focus + .newsletter-form__label,
+.field__input:not(:placeholder-shown) + .newsletter-form__label {
+  top: -10px;
+  font-size: 14px;
+  color: #000;
+}
+
+.newsletter-form__button {
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  color: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.newsletter-form__button::before {
+  content: '→';
+  color: black;
+  font-size: 18px;
+  display: block;
+}
+
+.newsletter-form__message {
+  margin-top: 10px;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .footer-block__heading {
+    font-size: 1.3rem;
+  }
+
+  .field__input,
+  .newsletter-form__button {
+    font-size: 14px;
+  }
+
+  .newsletter-form__field-wrapper {
+    max-width: 100%;
+  }
+}
+
+
 {%- endstyle -%}
 
 <footer style="background-color: black; color: white; padding: 32px 0;">
@@ -306,6 +433,8 @@
         {% if section.settings.footer_logo != blank %}
           <a href="/" title="Back to Home">
             <img
+              width="85px"
+              height="auto"
               class="footer-logo"
               src="{{ section.settings.footer_logo | img_url: 'master' }}"
               alt="{{ shop.name | escape }}">
@@ -383,6 +512,72 @@
       </div>
 
     </div>
+
+    <div class="footer-block--newsletter">
+      <div class="footer-block__newsletter">
+        <h2 class="footer-block__heading inline-richtext">Subscribe to our Newsletter</h2>
+
+        {%- form 'customer'
+          , id: 'ContactFooter'
+          , class: 'footer__newsletter newsletter-form' -%}
+          <input
+            type="hidden"
+            name="contact[tags]"
+            value="newsletter">
+
+          <div class="newsletter-form__field-wrapper">
+            <div class="field">
+              <input
+                id="NewsletterForm--{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                class="field__input"
+                value="{{ form.email }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                {% if form.errors %}
+                autofocus
+                aria-invalid="true"
+                aria-describedby="ContactFooter-error"
+                {% elsif form.posted_successfully? %}
+                aria-describedby="ContactFooter-success"
+                {% endif %}
+                placeholder=" ">
+              <label for="NewsletterForm--{{ section.id }}" class="newsletter-form__label">Email</label>
+              <button
+                type="submit"
+                class="newsletter-form__button"
+                name="commit"
+                id="Subscribe"
+                aria-label="Subscribe"></button>
+            </div>
+
+            {%- if form.errors -%}
+              <small class="newsletter-form__message form__message" id="ContactFooter-error">
+                {%- render 'icon-error' -%}
+                {{- form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email -}}
+              </small>
+            {%- endif -%}
+          </div>
+
+          {%- if form.posted_successfully? -%}
+            <h3
+              class="newsletter-form__message newsletter-form__message--success form__message"
+              id="ContactFooter-success"
+              tabindex="-1"
+              autofocus>
+              {% render 'icon-success' %}
+              {{- 'newsletter.success' | t }}
+            </h3>
+          {%- endif -%}
+
+        {%- endform -%}
+      </div>
+    </div>
+
 
     <!-- Payment Icons -->
     {% if section.settings.show_payment_icons %}
