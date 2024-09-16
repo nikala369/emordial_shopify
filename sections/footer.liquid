@@ -302,7 +302,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 700px;
+  max-width: 1000px;
   /* Adjusted for desktop */
   position: relative;
   flex-direction: column;
@@ -315,7 +315,8 @@
 
 .field__input {
   width: 100%;
-  font-size: 18px;
+  padding: 0 15px;
+  font-size: 16px;
   border: none;
   border-radius: 0;
   outline: none;
@@ -329,8 +330,8 @@
 
 .field__input::placeholder {
   color: #aaa;
-  padding: 20px;
-  font-size: 16px;
+  padding: 0 20px;
+  font-size: 13px;
 }
 
 .field__input:focus {
@@ -342,7 +343,7 @@
 .newsletter-form__label {
   font-family: 'GT America Condensed'
   , sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #888;
   /* Light grey */
@@ -544,7 +545,8 @@
                 {% elsif form.posted_successfully? %}
                 aria-describedby="ContactFooter-success"
                 {% endif %}
-                placeholder=" ">
+                placeholder=" "
+                required>
               <label for="NewsletterForm--{{ section.id }}" class="newsletter-form__label">Email</label>
               <button
                 type="submit"
