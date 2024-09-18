@@ -41,13 +41,12 @@
 
   .custom-margin-banner-section {
   @media screen and (max-width: 768px) {
-  ;
-  /* height: calc(100vh - 37.5vh); */
-  /* margin-top: 30px; */
-  /* margin-bottom: 75px; */
+    /* height: calc(100vh - 37.5vh); */
+    /* margin-top: 30px; */
+    /* margin-bottom: 75px; */
 
-  height: calc(100vh - 37.5vh);
-}
+    height: auto;
+  }
 }
 
 
@@ -553,51 +552,36 @@
     const banner = document.querySelector('.custom-margin-banner-section');
     const header = document.querySelector('.header-wrapper--border-bottom');
     const announcementBar = document.querySelector('.shopify-section-group-header-group');
-    let bannerHeightSet = false;  // Flag to prevent height recalculation
 
     // Function to update banner height for mobile devices
     function updateBannerHeight() {
-      if (bannerHeightSet) return;  // Prevent further recalculation after first load
-      const headerHeight = header ? header.offsetHeight : 0;
-      const announcementHeight = announcementBar ? announcementBar.offsetHeight : 0;
-      const totalHeight = headerHeight + announcementHeight + 69;
+        const headerHeight = header ? header.offsetHeight : 0;
+        const announcementHeight = announcementBar ? announcementBar.offsetHeight : 0;
+        const totalHeight = headerHeight + announcementHeight + 69;  // Extra padding to account for margins
+        console.log("Total Height to Subtract: " + totalHeight);
 
-      console.log("Total Height to Subtract: " + totalHeight);
+        // Set banner height to 100vh minus the height of the header and announcement bar
+        const bannerHeight = window.innerHeight - totalHeight;
+        banner.style.height = `${bannerHeight}px`;
 
-      // Set banner height to 100vh minus the height of the header and announcement bar
-      const bannerHeight = window.innerHeight - totalHeight;
-      banner.style.height = `${bannerHeight}px`;
-
-      console.log("Calculated Banner Height: " + bannerHeight);
-      bannerHeightSet = true;  // Lock the height after setting it once
+        console.log("Calculated Banner Height: " + bannerHeight);
     }
 
-    // Check if screen width is under 800px
+    // Check if screen width is under 800px and update banner height only during initial page load
     function checkScreenWidth() {
-      if (window.innerWidth <= 800) {
-        updateBannerHeight();
-      } else {
-        banner.style.height = 'auto';
-      }
+        if (window.innerWidth <= 800) {
+            updateBannerHeight();
+        } else {
+            banner.style.height = 'auto';
+        }
     }
 
-    // Lock banner height after rendering
-    function lockBannerHeight() {
-      if (window.innerWidth <= 800 && !bannerHeightSet) {
-        updateBannerHeight();
-      }
-    }
-
+    // Initial check for screen width and set height accordingly
     checkScreenWidth();
 
-    // Adjust banner height on window resize, but only once
-    window.addEventListener('resize', () => {
-      bannerHeightSet = false;  // Allow recalculation on resize
-      checkScreenWidth();
-    });
-
-    // Lock the banner height after the page is fully rendered, so no recalculation happens on scroll
-    window.addEventListener('scroll', lockBannerHeight);
+    // Remove resize event listener after setting the height on page load
+    // So the banner height won't change after the page has rendered
+    window.removeEventListener('resize', checkScreenWidth);
   });
 </script>
 
