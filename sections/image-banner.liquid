@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -552,9 +552,11 @@
     const banner = document.querySelector('.custom-margin-banner-section');
     const header = document.querySelector('.header-wrapper--border-bottom');
     const announcementBar = document.querySelector('.shopify-section-group-header-group');
+    let bannerHeightSet = false;  // Flag to prevent height recalculation
 
     // Function to update banner height for mobile devices
     function updateBannerHeight() {
+      if (bannerHeightSet) return;  // Prevent further recalculation after first load
       const headerHeight = header ? header.offsetHeight : 0;
       const announcementHeight = announcementBar ? announcementBar.offsetHeight : 0;
       const totalHeight = headerHeight + announcementHeight + 69;
@@ -566,6 +568,7 @@
       banner.style.height = `${bannerHeight}px`;
 
       console.log("Calculated Banner Height: " + bannerHeight);
+      bannerHeightSet = true;  // Lock the height after setting it once
     }
 
     // Check if screen width is under 800px
@@ -579,8 +582,11 @@
 
     checkScreenWidth();
 
-    // Adjust banner height on window resize
-    window.addEventListener('resize', checkScreenWidth);
+    // Adjust banner height on window resize, but only once
+    window.addEventListener('resize', () => {
+      bannerHeightSet = false;  // Allow recalculation on resize
+      checkScreenWidth();
+    });
   });
 </script>
 
