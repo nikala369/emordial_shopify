@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -41,12 +41,13 @@
 
   .custom-margin-banner-section {
   @media screen and (max-width: 768px) {
-    /* height: calc(100vh - 37.5vh); */
-    /* margin-top: 30px; */
-    /* margin-bottom: 75px; */
+  ;
+  /* height: calc(100vh - 37.5vh); */
+  /* margin-top: 30px; */
+  /* margin-bottom: 75px; */
 
-    height: calc(100vh - 37.5vh);
-  }
+  /* height: calc(100vh - 37.5vh); */
+}
 }
 
 
@@ -575,9 +576,7 @@
     function checkScreenWidth() {
       if (window.innerWidth <= 800) {
         updateBannerHeight();
-      } else {
-        banner.style.height = 'auto';
-      }
+      } 
     }
 
     checkScreenWidth();
