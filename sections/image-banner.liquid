@@ -1,11 +1,9 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 
 
-{% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
-
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -41,203 +39,221 @@
   }
 
 
+  .custom-margin-banner-section {
+  @media screen and (max-width: 768px) {
+    /* height: calc(100vh - 37.5vh); */
+    /* margin-top: 30px; */
+    /* margin-bottom: 75px; */
+
+    height: calc(100vh - 37.5vh);
+  }
+}
+
+
+#model-container {
+  position: absolute;
+  top: 30%;
+  /* Adjusted to center vertically */
+  left: 50%;
+  /* Adjusted to center horizontally */
+  transform: translate(-50%, -50%);
+  z-index: 10;
+
+  margin-top: -140px;
+
+  @media screen and (max-width: 768px) {
+    margin-top: -70px;
+  }
+}
+
+.logo {
+  width: 100px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.03);
+}
+
+.custom-heading {
+  font-family: 'Cardo'
+  , serif;
+  font-size: 80px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1.1;
+  letter-spacing: 30px;
+  margin-left: 7.5px;
+  margin-top: 15px;
+  white-space: nowrap;
+
+  @media screen and (max-width: 768px) {
+    font-size: 42px;
+    letter-spacing: 12.5px;
+  }
+
+  @media screen and (max-width: 420px) {
+    font-size: 35px;
+    letter-spacing: 10px;
+  }
+
+}
+
+.custom-subtitle {
+  font-family: 'Cardo'
+  , serif;
+  font-size: 20px;
+  color: #666;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .custom-subtitle {
+    font-size: 16px;
+  }
+}
+
+/* ------------------------- */
+
+/* Base styles for the custom button */.custom-main-button {
+  font-family: 'Avenir Next'
+  , sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: transform 0.3s ease
+  , background-color 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  margin-top: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+  .custom-main-button {
+    font-size: 14.5px;
+    padding: 10px 30px;
+    letter-spacing: 0.8px;
+  }
+}
+
+/* Pseudo-element for the lightning effect */
+.custom-main-button::after {
+  content: '';
+  position: absolute;
+  top: -110%;
+  left: -220%;
+  width: 220%;
+  height: 215%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+  opacity: 1;
+  /* Change opacity to 1 for default visibility */
+  z-index: 0;
+  animation: lightning 2s linear infinite;
+  transition: opacity 0.4s ease;
+}
+
+/* Lightning animation */
+@keyframes lightning {
+  0% {
+    left: -220%;
+  }
+  100% {
+    left: 220%;
+  }
+}
+
+/* Active state styles */
+.custom-main-button:active {
+  background-color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(0.98);
+}
+
+/* Different effect on click */
+.custom-main-button.clicked::after {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+
+/* -------------------------------- */
+
+
+/* Base styles for SVG containers, applying only to mobile */@media (max-width: 768px) {
+  .banner__content {
+    position: relative;
+    overflow: hidden;
+    /* Cuts off any part of the SVGs that overflows */
+  }
+
+  .emordial-svg-1,
+  .emordial-svg-2 {
+    display: block;
+    position: absolute;
+    top: 5%;
+    /* Adjust vertically as needed */
+    /* width: 77.5vw; */
+    width: 85vw;
+    height: 100vw;
+    /* Maintain aspect ratio */
+    z-index: 1;
+
+    @media screen and (max-width: 768px) {
+      top: 10%;
+    }
+  }
+
+
   /*
-   .custom-margin-banner-section {
-   @media screen and (max-width: 768px) {
-   margin-top: 30px;
-   margin-bottom: 75px;
+   .emordial-svg-1 {
+   left: -38.5vw;
    }
+
+   .emordial-svg-2 {
+   left: 61.5vw;
    }
 */
 
-  #model-container {
-    position: absolute;
-    top: 30%;
-    /* Adjusted to center vertically */
-    left: 50%;
-    /* Adjusted to center horizontally */
-    transform: translate(-50%, -50%);
-    z-index: 10;
-
-    margin-top: -140px;
-
-    @media screen and (max-width: 768px) {
-      margin-top: -70px;
-    }
+  .emordial-svg-1 {
+    left: -42.5vw;
+    /* Adjust to keep part of the image off-screen */
   }
 
-  .logo {
-    width: 100px;
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    transition: transform 0.3s ease;
+  .emordial-svg-2 {
+    left: 57.5vw;
+    /* Adjust for the second image to align as needed */
   }
+}
 
-  .logo:hover {
-    transform: scale(1.03);
+/* Hide SVGs on desktop */
+@media (min-width: 769px) {
+  .emordial-svg-1,
+  .emordial-svg-2 {
+    display: none;
   }
-
-  .custom-heading {
-    font-family: 'Cardo'
-    , serif;
-    font-size: 80px;
-    font-weight: 700;
-    color: #000;
-    line-height: 1.1;
-    letter-spacing: 30px;
-    margin-left: 7.5px;
-    margin-top: 15px;
-    white-space: nowrap;
-
-    @media screen and (max-width: 768px) {
-      font-size: 42px;
-      letter-spacing: 12.5px;
-    }
-
-    @media screen and (max-width: 420px) {
-      font-size: 35px;
-      letter-spacing: 10px;
-    }
-
-  }
-
-  .custom-subtitle {
-    font-family: 'Cardo'
-    , serif;
-    font-size: 20px;
-    color: #666;
-    line-height: 1.4;
-    letter-spacing: 1px;
-    margin-top: -10px;
-    margin-bottom: 30px;
-  }
-
-  @media screen and (max-width: 768px) {
-    .custom-subtitle {
-      font-size: 16px;
-    }
-  }
-
-  /* ------------------------- */
-
-  /* Base styles for the custom button */.custom-main-button {
-    font-family: 'Avenir Next'
-    , sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #000;
-    border: none;
-    padding: 14px 36px;
-    border-radius: 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: transform 0.3s ease
-    , background-color 0.3s ease;
-    display: inline-block;
-    cursor: pointer;
-    outline: none;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    margin-top: 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    user-select: none;
-  }
-
-  /* Responsive styles for smaller screens */
-  @media screen and (max-width: 768px) {
-    .custom-main-button {
-      font-size: 14.5px;
-      padding: 10px 30px;
-      letter-spacing: 0.8px;
-    }
-  }
-
-  /* Pseudo-element for the lightning effect */
-  .custom-main-button::after {
-    content: '';
-    position: absolute;
-    top: -110%;
-    left: -220%;
-    width: 220%;
-    height: 215%;
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
-    opacity: 1;
-    /* Change opacity to 1 for default visibility */
-    z-index: 0;
-    animation: lightning 2s linear infinite;
-    transition: opacity 0.4s ease;
-  }
-
-  /* Lightning animation */
-  @keyframes lightning {
-    0% {
-      left: -220%;
-    }
-    100% {
-      left: 220%;
-    }
-  }
-
-  /* Active state styles */
-  .custom-main-button:active {
-    background-color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: scale(0.98);
-  }
-
-  /* Different effect on click */
-  .custom-main-button.clicked::after {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-
-  /* -------------------------------- */
-
-
-  /* Base styles for SVG containers, applying only to mobile */@media (max-width: 768px) {
-    .banner__content {
-      position: relative;
-      overflow: hidden;
-      /* Cuts off any part of the SVGs that overflows */
-    }
-
-    .emordial-svg-1,
-    .emordial-svg-2 {
-      display: block;
-      position: absolute;
-      top: 5%;
-      /* Adjust vertically as needed */
-      width: 77.5vw;
-      height: 100vw;
-      /* Maintain aspect ratio */
-      z-index: 1;
-    }
-
-    .emordial-svg-1 {
-      left: -38.5vw;
-      /* Adjust to keep part of the image off-screen */
-    }
-
-    .emordial-svg-2 {
-      left: 61.5vw;
-      /* Adjust for the second image to align as needed */
-    }
-  }
-
-  /* Hide SVGs on desktop */
-  @media (min-width: 769px) {
-    .emordial-svg-1,
-    .emordial-svg-2 {
-      display: none;
-    }
-  }
+}
 {%- endstyle -%}
 
 {%- liquid
@@ -528,6 +544,43 @@
     renderer.render(scene, camera);
   }
   animate();
+  });
+
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // Select the banner, header, and announcement bar elements
+    const banner = document.querySelector('.custom-margin-banner-section');
+    const header = document.querySelector('.header-wrapper--border-bottom');
+    const announcementBar = document.querySelector('.shopify-section-group-header-group');
+
+    // Function to update banner height for mobile devices
+    function updateBannerHeight() {
+      const headerHeight = header ? header.offsetHeight : 0;
+      const announcementHeight = announcementBar ? announcementBar.offsetHeight : 0;
+      const totalHeight = headerHeight + announcementHeight + 69;
+
+      console.log("Total Height to Subtract: " + totalHeight);
+
+      // Set banner height to 100vh minus the height of the header and announcement bar
+      const bannerHeight = window.innerHeight - totalHeight;
+      banner.style.height = `${bannerHeight}px`;
+
+      console.log("Calculated Banner Height: " + bannerHeight);
+    }
+
+    // Check if screen width is under 800px
+    function checkScreenWidth() {
+      if (window.innerWidth <= 800) {
+        updateBannerHeight();
+      } else {
+        banner.style.height = 'auto';
+      }
+    }
+
+    checkScreenWidth();
+
+    // Adjust banner height on window resize
+    window.addEventListener('resize', checkScreenWidth);
   });
 </script>
 
