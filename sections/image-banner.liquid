@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -41,14 +41,9 @@
 
   .custom-margin-banner-section {
   @media screen and (max-width: 768px) {
-    /* height: calc(100vh - 37.5vh); */
-    /* margin-top: 30px; */
-    /* margin-bottom: 75px; */
-
     height: calc(100vh - 25vh);
   }
 
-  /* For screens between 769px and 950px wide */
   @media screen and (min-width: 769px) and(max-width: 950px) {
     height: calc(100vh - 10vh);
   }
@@ -58,7 +53,6 @@
 #model-container {
   position: absolute;
   top: 30%;
-  /* Adjusted to center vertically */
   left: 50%;
   /* Adjusted to center horizontally */
   transform: translate(-50%, -50%);
@@ -612,32 +606,24 @@
   if (window.innerWidth <= 768) {
   setTimeout(() => {
     downArrow.style.display = 'block';
-    downArrow.classList.add('pulsing');
-  }, 1700);
+    downArrow.classList.add('pulsing'); // Add pulsing animation
+  }, 2000); // Delay for 2 seconds
   }
 
-  // Importing GSAP and ScrollTrigger
-  gsap.registerPlugin(ScrollTrigger);
-  function smoothScroll() {
-  gsap.to(window, {
-    duration: 1.5, // Smooth and slow scroll
-    scrollTo: { y: window.innerHeight - 50, autoKill: true },
-    ease: "power4.inOut", // Luxury cubic easing
-  });
-  }
-
-  // Attach smoothScroll function to the arrow click
-  downArrow.addEventListener("click", function (event) {
-  event.preventDefault(); // Prevent default behavior
-  downArrow.style.display = "none"; // Hide the arrow after click
-  smoothScroll();
+   // Smooth scroll to the next section when the arrow is clicked
+   downArrow.addEventListener('click', function (event) {
+    event.preventDefault();
+    downArrow.style.display = 'none';
+    window.scrollBy({
+      top: window.innerHeight - 50,
+      behavior: 'smooth',
+    });
   });
 
-  // Hide arrow after manual scroll
-  window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    downArrow.style.opacity = "0"; // Gradually fade out the arrow
-    downArrow.style.pointerEvents = "none"; // Disable further interactions
+  // Hide the arrow when the user scrolls down
+  window.addEventListener('scroll', function () {
+  if (window.scrollY > 40) {
+    downArrow.style.display = 'none';
   }
   });
 
