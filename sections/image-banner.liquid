@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -599,78 +599,74 @@
   });
 
 
-  document.addEventListener("DOMContentLoaded", function () {
-  const downArrow = document.getElementById("down-arrow");
+  document.addEventListener("DOMContentLoaded", function() {
+    const downArrow = document.getElementById('down-arrow');
 
   // Show the arrow with pulse effect after 2 seconds on mobile devices
   if (window.innerWidth <= 768) {
-    setTimeout(() => {
-      downArrow.style.display = "block";
-      downArrow.classList.add("pulsing");
-    }, 1700);
+  setTimeout(() => {
+    downArrow.style.display = 'block';
+    downArrow.classList.add('pulsing'); // Add pulsing animation
+  }, 2000); // Delay for 2 seconds
   }
 
-  // Smooth scroll to the next section when the arrow is clicked
-  downArrow.addEventListener("click", function (event) {
+   // Smooth scroll to the next section when the arrow is clicked
+   downArrow.addEventListener('click', function (event) {
     event.preventDefault();
-    downArrow.style.display = "none";
-    gsap.to(window, {
-      duration: 1.5, // Smooth and slow scroll
-      scrollTo: { y: window.innerHeight - 50, autoKill: true },
-      ease: "power4.inOut", // Luxury cubic easing
+    downArrow.style.display = 'none';
+    window.scrollBy({
+      top: window.innerHeight - 50,
+      behavior: 'smooth',
     });
   });
 
-  // Hide the arrow when the user scrolls down manually
-  window.addEventListener("scroll", function () {
-    if (window.scrollY > 40) {
-      downArrow.style.display = "none";
-    }
+  // Hide the arrow when the user scrolls down
+  window.addEventListener('scroll', function () {
+  if (window.scrollY > 40) {
+    downArrow.style.display = 'none';
+  }
   });
 
-  // Manage scroll restoration to always start from the top on page load
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual"; // Prevent browser from remembering scroll position
+   // Manage scroll restoration to always start from the top on page load
+   if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual'; // Prevent browser from remembering scroll position
   }
 
-  // Select the banner, header, and announcement bar elements
-  const banner = document.querySelector(".custom-margin-banner-section");
-  const header = document.querySelector(".header-wrapper--border-bottom");
-  const announcementBar = document.querySelector(".shopify-section-group-header-group");
+    // Select the banner, header, and announcement bar elements
+    const banner = document.querySelector('.custom-margin-banner-section');
+    const header = document.querySelector('.header-wrapper--border-bottom');
+    const announcementBar = document.querySelector('.shopify-section-group-header-group');
 
-  // Function to update banner height for mobile devices
-  function updateBannerHeight() {
-    const headerHeight = header ? header.offsetHeight : 0;
-    const announcementHeight = announcementBar ? announcementBar.offsetHeight : 0;
-    const totalHeight = headerHeight + announcementHeight + 69; // Extra padding to account for margins
+    // Function to update banner height for mobile devices
+    function updateBannerHeight() {
+        const headerHeight = header ? header.offsetHeight : 0;
+        const announcementHeight = announcementBar ? announcementBar.offsetHeight : 0;
+        const totalHeight = headerHeight + announcementHeight + 69;  // Extra padding to account for margins
+        console.log("Total Height to Subtract: " + totalHeight);
 
-    // Set banner height to 100vh minus the height of the header and announcement bar
-    const bannerHeight = window.innerHeight - totalHeight;
-    banner.style.height = `${bannerHeight}px`;
-  }
+        // Set banner height to 100vh minus the height of the header and announcement bar
+        const bannerHeight = window.innerHeight - totalHeight;
+        banner.style.height = `${bannerHeight}px`;
 
-  // Check if screen width is under 800px and update banner height only during initial page load
-  function checkScreenWidth() {
-    if (window.innerWidth <= 800) {
-      updateBannerHeight();
-    } else {
-      banner.style.height = "auto";
+        console.log("Calculated Banner Height: " + bannerHeight);
     }
-  }
 
-  // Initial check for screen width and set height accordingly
-  checkScreenWidth();
-
-  // Adjust banner height on initial load and prevent resizing behavior after the page is rendered
-  window.addEventListener("resize", () => {
-    // Restrict the height adjustment to initial load to prevent unintended changes
-    if (!document.body.classList.contains("height-adjusted")) {
-      checkScreenWidth();
-      document.body.classList.add("height-adjusted");
+    // Check if screen width is under 800px and update banner height only during initial page load
+    function checkScreenWidth() {
+        if (window.innerWidth <= 800) {
+            updateBannerHeight();
+        } else {
+            banner.style.height = 'auto';
+        }
     }
-  });
-  });
 
+    // Initial check for screen width and set height accordingly
+    checkScreenWidth();
+
+    // Remove resize event listener after setting the height on page load
+    // So the banner height won't change after the page has rendered
+    window.removeEventListener('resize', checkScreenWidth);
+  });
 </script>
 
 
