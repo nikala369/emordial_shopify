@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -45,7 +45,7 @@
     /* margin-top: 30px; */
     /* margin-bottom: 75px; */
 
-    height: calc(100vh - 37.5vh);
+    height: 100vh;
   }
 }
 
@@ -254,6 +254,48 @@
     display: none;
   }
 }
+
+/* Down arrow styling for mobile only */
+.down-arrow {
+  position: absolute;
+  z-index: 4;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-45deg);
+  width: 20px;
+  height: 20px;
+  border-left: 2px solid white;
+  /* Initial arrow color */
+  border-bottom: 2px solid white;
+  /* Initial arrow color */
+  opacity: 1;
+  display: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+/* Animation for pulsing effect from white to light grey */
+@keyframes pulse {
+  0,
+  100% {
+    border-color: white;
+  }
+  50% {
+    border-color: lightgrey;
+  }
+}
+
+/* Apply pulse animation */
+.down-arrow.pulsing {
+  animation: pulse 2s infinite;
+}
+
+/* Show arrow only on mobile */
+@media screen and (max-width: 768px) {
+  .down-arrow {
+    display: block;
+  }
+}
 {%- endstyle -%}
 
 {%- liquid
@@ -388,6 +430,8 @@
       {%- endfor -%}
     </div>
   </div>
+
+  <div class="down-arrow" id="down-arrow"></div>
 </div>
 
 <script>
@@ -548,6 +592,33 @@
 
 
   document.addEventListener("DOMContentLoaded", function() {
+    const downArrow = document.getElementById('down-arrow');
+
+  // Show the arrow with pulse effect after 2 seconds on mobile devices
+  if (window.innerWidth <= 768) {
+  setTimeout(() => {
+    downArrow.style.display = 'block';
+    downArrow.classList.add('pulsing'); // Add pulsing animation
+  }, 2000); // Delay for 2 seconds
+  }
+
+  // Smooth scroll to the next section when the arrow is clicked
+  downArrow.addEventListener('click', function () {
+  downArrow.style.display = 'none'; // Hide arrow after click
+  window.scrollBy({
+    top: window.innerHeight,
+    behavior: 'smooth',
+  });
+  });
+
+  // Hide the arrow when the user scrolls down
+  window.addEventListener('scroll', function () {
+  if (window.scrollY > 60) {
+    downArrow.style.display = 'none';
+  }
+  });
+
+
     // Select the banner, header, and announcement bar elements
     const banner = document.querySelector('.custom-margin-banner-section');
     const header = document.querySelector('.header-wrapper--border-bottom');
