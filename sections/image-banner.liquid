@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -271,7 +271,12 @@
   opacity: 1;
   display: none;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  outline: none;
+  transition: opacity 0.4s ease;
+}
+
+.down-arrow:focus {
+  outline: none;
 }
 
 /* Animation for pulsing effect from white to light grey */
@@ -602,22 +607,27 @@
   }, 2000); // Delay for 2 seconds
   }
 
-  // Smooth scroll to the next section when the arrow is clicked
-  downArrow.addEventListener('click', function () {
-  downArrow.style.display = 'none'; // Hide arrow after click
-  window.scrollBy({
-    top: window.innerHeight,
-    behavior: 'smooth',
-  });
+   // Smooth scroll to the next section when the arrow is clicked
+   downArrow.addEventListener('click', function (event) {
+    event.preventDefault();
+    downArrow.style.display = 'none';
+    window.scrollBy({
+      top: window.innerHeight - 30,
+      behavior: 'smooth',
+    });
   });
 
   // Hide the arrow when the user scrolls down
   window.addEventListener('scroll', function () {
-  if (window.scrollY > 60) {
+  if (window.scrollY > 50) {
     downArrow.style.display = 'none';
   }
   });
 
+   // Manage scroll restoration to always start from the top on page load
+   if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual'; // Prevent browser from remembering scroll position
+  }
 
     // Select the banner, header, and announcement bar elements
     const banner = document.querySelector('.custom-margin-banner-section');
