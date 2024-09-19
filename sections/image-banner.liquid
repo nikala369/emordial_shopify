@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -221,7 +221,7 @@
     z-index: 1;
 
     @media screen and (max-width: 768px) {
-      top: 8%;
+      top: 7%;
     }
   }
 
@@ -269,14 +269,18 @@
   border-bottom: 2px solid white;
   /* Initial arrow color */
   opacity: 1;
-  display: none;
   cursor: pointer;
+  display: none;
   outline: none;
+  /* Prevent focus outline */
+  -webkit-tap-highlight-color: transparent;
   transition: opacity 0.4s ease;
 }
 
-.down-arrow:focus {
+.down-arrow:focus,
+.down-arrow:active {
   outline: none;
+  box-shadow: none;
 }
 
 /* Animation for pulsing effect from white to light grey */
@@ -612,7 +616,7 @@
     event.preventDefault();
     downArrow.style.display = 'none';
     window.scrollBy({
-      top: window.innerHeight - 30,
+      top: window.innerHeight - 50,
       behavior: 'smooth',
     });
   });
