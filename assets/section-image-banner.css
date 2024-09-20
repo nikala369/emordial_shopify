@@ -253,6 +253,10 @@
 
     /* my change */
     top: 70px;
+
+    @media screen and (max-width: 768px) {
+      top: 35px;
+    }
   }
 
   .banner:not(.banner--mobile-bottom) .banner__box {
