@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -41,7 +41,7 @@
 
   .custom-margin-banner-section {
   @media screen and (max-width: 768px) {
-    height: calc(100vh - 30vh);
+    height: calc(100vh - 32.5vh);
   }
 
   @media screen and (min-width: 769px) and(max-width: 950px) {
@@ -104,11 +104,10 @@
 }
 
 .custom-subtitle {
-  font-family: 'Cardo'
-  , serif;
-  font-size: 20px;
-  color: #666;
-  line-height: 1.4;
+  font-family: "GT America Condensed";
+  font-size: 18px;
+  color: #999;
+  line-height: 1.3;
   letter-spacing: 1px;
   margin-top: -10px;
   margin-bottom: 30px;
@@ -116,7 +115,7 @@
 
 @media screen and (max-width: 768px) {
   .custom-subtitle {
-    font-size: 16px;
+    font-size: 13px;
   }
 }
 
@@ -642,13 +641,11 @@
         const headerHeight = header ? header.offsetHeight : 0;
         const announcementHeight = announcementBar ? announcementBar.offsetHeight : 0;
         const totalHeight = headerHeight + announcementHeight + 69;  // Extra padding to account for margins
-        console.log("Total Height to Subtract: " + totalHeight);
 
         // Set banner height to 100vh minus the height of the header and announcement bar
         const bannerHeight = window.innerHeight - totalHeight;
         banner.style.height = `${bannerHeight}px`;
 
-        console.log("Calculated Banner Height: " + bannerHeight);
     }
 
     // Check if screen width is under 800px and update banner height only during initial page load
