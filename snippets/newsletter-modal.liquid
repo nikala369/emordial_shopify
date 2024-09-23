@@ -36,6 +36,10 @@
       border: none;
       cursor: pointer;
       z-index: 10001; /* Ensure close button stays on top */
+
+      @media (max-width: 768px) {
+        top: 35px;
+    }
     }
     
     /* Modal Image and Text */
@@ -59,9 +63,14 @@
     
     .modal-heading {
       font-family: 'GT America Condensed', sans-serif;
-      font-size: 2rem;
+      font-size: 2.1rem;
       margin: 10px 0;
       color: #333;
+
+    @media (max-width: 768px) {
+      font-size: 1.9rem;
+    }
+
     }
     
     .modal-subtitle {
