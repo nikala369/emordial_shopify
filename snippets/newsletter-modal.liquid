@@ -39,8 +39,7 @@
       z-index: 10001; /* Ensure close button stays on top */
 
       @media (max-width: 768px) {
-        top: 30px;
-      right: 10px;
+      right: 0px;
     }
     }
     
@@ -177,6 +176,10 @@
       cursor: pointer;
       text-align: center;
       transition: color 0.3s ease;
+
+    @media (max-width: 768px) {
+      margin-top: 20px;
+    }
     }
     
     .no-thank-you-btn:hover {
