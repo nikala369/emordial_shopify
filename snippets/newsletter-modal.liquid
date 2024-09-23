@@ -35,7 +35,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      color: darkgrey;
+      color: #171719;
       z-index: 10001; /* Ensure close button stays on top */
 
       @media (max-width: 768px) {
@@ -172,14 +172,10 @@
       font-size: 1.2rem;
       font-family: 'GT America Condensed', sans-serif;
       color: #888;
-      margin-top: 10px;
+      margin-top: 20px;
       cursor: pointer;
       text-align: center;
       transition: color 0.3s ease;
-
-    @media (max-width: 768px) {
-      margin-top: 20px;
-    }
     }
     
     .no-thank-you-btn:hover {
@@ -249,13 +245,12 @@
       const label = document.querySelector('.custom-label-focus');
       const noThankYouBtn = document.querySelector(".no-thank-you-btn");
     
-      // Show modal after 15 seconds
       if (!sessionStorage.getItem('newsletterModalShown')) {
         setTimeout(() => {
           modal.style.display = "flex";
           sessionStorage.setItem('newsletterModalShown', 'true');
           document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }, 2000); // Show after 15 seconds
+        }, 3000);
       }
     
       // Close modal function
