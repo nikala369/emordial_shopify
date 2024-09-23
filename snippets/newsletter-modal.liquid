@@ -1,348 +1,280 @@
 {%- style -%}
-/* Modal Base Styles */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Dark background overlay */
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.3s ease;
-}
-
-.modal-content {
-  background-color: #fff;
-  max-width: 600px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  animation: modalSlideIn 0.5s ease;
-}
-
-/* Close Button */
-.modal-close {
-  position: absolute;
-  top: 17.5px;
-  right: 20px;
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* Modal Image and Text */
-.modal-image {
-    width: 100%;
-    background: #DFE9C2;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-image img {
-  max-width: 400px !important;
-  width: 350px;
-}
-
-.modal-text {
-    padding: 25px;
-}
-
-.modal-heading {
-  font-family: 'GT America Condensed', sans-serif;
-  font-size: 2rem;
-  margin: 10px 0;
-  color: #333;
-  text-align: center;
-}
-
-.modal-subtitle {
-  font-size: 1.2rem;
-  color: #666;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* Form Input */
-/* OTHER INPUT STYLE AT FOOTER */
-.field__input:focus + .newsletter-form__label,
-.field__input:not(:placeholder-shown) + .newsletter-form__label {
-  top: -18px;
-  font-size: 12px;
-}
-
-.custom-label-focus {
-    color: grey ! important;
-}
-
-.field__input:focus + .custom-label-focus{
-    color: white ! important;
-}
-
-/* Class added when input has content */
-.label-active {
-  color: white !important;
-}
-
-.newsletter-form__button-modal {
-  padding: 0 25px; 
-  font-size: 0.9rem; // Slightly smaller font size for a balanced look
-  height: 45px; // Match the input height for uniformity
-  color: #fff;
-  background-color: #000;
-  border: none;
-  cursor: pointer;
-  border-radius: 0 4px 4px 0; // Rounded corner on the right side only
-  transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition effects
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin: 0;
-}
-
-.newsletter-form__button-modal::before {
-  content: '→';
-  color: white;
-  font-size: 18px;
-  display: block;
-}
-
-/* Hover and Focus States for better interactivity */
-.newsletter-form__button-modal:hover:not(:disabled),
-.newsletter-form__button-modal:focus:not(:disabled) {
-  background-color: #333; // Slightly darker for hover state
-  color: white;
-}
-
-/* Disabled Button Style */
-.newsletter-form__button-modal:disabled {
-  background-color: #ddd;
-  color: #999;
-  cursor: not-allowed;
-  border: 1px solid #ccc;
-  opacity: 0.6;
-  transform: none; // Prevents any animations when disabled
-}
-
-/* Consent Checkbox */
-.modal-consent {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  color: #888; /* Light gray color for text */
-  font-size: 0.90rem;
-}
-
-.modal-consent input[type='checkbox'] {
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-/* Links within Consent */
-.modal-consent a {
-  color: #888;
-  text-decoration: underline;
-  margin-left: 4px;
-  transition: color 0.3s ease;
-}
-
-.modal-consent a:hover {
-  color: #333;
-}
-
-/* Mobile View */
-@media (max-width: 768px) {
-  .modal-content {
-    width: 100%;
-    height: 100vh;
-  }
-}
-
-/* Animations */
-@keyframes modalSlideIn {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.newsletter-form__field-wrapper1 {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 1000px;
-  /* Adjusted for desktop */
-  position: relative;
-  flex-direction: column;
-
-  /* @media (min-width: 768px) {
-    margin-bottom: 25px;
-} */
-
-}
-
-.no-thank-you-btn {
-  font-size: 1.2rem;
-  font-family: 'GT America Condensed', sans-serif;
-  color: #888;
-  background: none;
-  border: none;
-
-  margin-top: 10px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  text-align: center;
-
-@media (max-width: 768px) {
-  margin-top: 25px;
-}
-}
-
-.no-thank-you-btn:hover {
-  color: #333;
-}
-
-{%- endstyle -%}
-
-
-<div id="newsletterModal" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Close modal">&times;</button>
-    <div class="modal-image">
-      <img src="{{ '/newsletter-banner.svg' | asset_url }}" width="100px" height="auto" alt="Emordial Character Design, for newsletter" />
-    </div>
-    <div class="modal-text">
-      <h2 class="modal-heading">Subscribe to Our Newsletter</h2>
-      <p class="modal-subtitle">
-        Join the Emordial family and stay updated with our latest collections
-        and exclusive offers!
-      </p>
-      <!-- Form starts -->
-      <form
-        id="modalNewsletterForm"
-        action="/contact#contact_form"
-        method="post"
-        accept-charset="UTF-8"
-        class="modal-newsletter-form"
-      >
-        <input type="hidden" name="contact[tags]" value="newsletter" />
-
-         <!-- Consent Checkbox -->
-         <div class="modal-consent">
-            <input type="checkbox" id="privacyConsent" />
-            <label for="privacyConsent">
-              I agree to the
-              <a href="/privacy-policy" target="_blank">Privacy Policy</a> and
-              <a href="/terms-of-service" target="_blank">Terms of Service</a>.
-            </label>
-          </div>
-
-        <div class="newsletter-form__field-wrapper1">
-          <div class="field">
-            <input
-              id="ModalNewsletterForm--modal"
-              type="email"
-              name="contact[email]"
-              class="field__input"
-              aria-required="true"
-              autocorrect="off"
-              autocapitalize="off"
-              autocomplete="email"
-              placeholder=" "
-              required
-            />
-            <label for="ModalNewsletterForm--modal" class="newsletter-form__label custom-label-focus"
-              >Email</label
-            >
-            <button
-              type="submit"
-              class="newsletter-form__button-modal"
-              name="commit"
-              aria-label="Subscribe"
-              disabled
-            ></button>
-          </div>
-          <small
-            class="newsletter-form__message form__message"
-            id="ModalContactFooter-error"
-          ></small>
+    /* Modal Base Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000; /* Ensure modal is on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Dark background overlay */
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.3s ease;
+      overflow: auto; /* Enable scrolling within the modal if content overflows */
+    }
+    
+    .modal-content {
+      background-color: #fff;
+      max-width: 600px;
+      width: 90%; /* Responsive for mobile */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      animation: modalSlideIn 0.5s ease;
+    }
+    
+    /* Close Button */
+    .modal-close {
+      position: absolute;
+      top: 17.5px;
+      right: 20px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 10001; /* Ensure close button stays on top */
+    }
+    
+    /* Modal Image and Text */
+    .modal-image {
+      width: 100%;
+      background: #DFE9C2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-image img {
+      max-width: 400px !important;
+      width: 350px;
+    }
+    
+    .modal-text {
+      padding: 25px;
+      text-align: center;
+    }
+    
+    .modal-heading {
+      font-family: 'GT America Condensed', sans-serif;
+      font-size: 2rem;
+      margin: 10px 0;
+      color: #333;
+    }
+    
+    .modal-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    /* Form Input Styles */
+    .field__input:focus + .newsletter-form__label,
+    .field__input:not(:placeholder-shown) + .newsletter-form__label {
+      top: -18px;
+      font-size: 12px;
+    }
+    
+    .custom-label-focus {
+      color: grey !important;
+    }
+    
+    .field__input:focus + .custom-label-focus {
+      color: white !important;
+    }
+    
+    /* Class added when input has content */
+    .label-active {
+      color: white !important;
+    }
+    
+    .newsletter-form__button-modal {
+      padding: 0 25px;
+      font-size: 0.9rem;
+      height: 45px;
+      color: #fff;
+      background-color: #000;
+      border: none;
+      cursor: pointer;
+      border-radius: 0 4px 4px 0;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0;
+    }
+    
+    .newsletter-form__button-modal::before {
+      content: '→';
+      color: white; /* Default color when enabled */
+      font-size: 18px;
+      display: block;
+    }
+    
+    /* Hover and Focus States */
+    .newsletter-form__button-modal:hover:not(:disabled),
+    .newsletter-form__button-modal:focus:not(:disabled) {
+      background-color: #333;
+    }
+    
+    /* Disabled Button Style */
+    .newsletter-form__button-modal:disabled {
+      background-color: #ddd;
+      cursor: not-allowed;
+    }
+    
+    .newsletter-form__button-modal:disabled::before {
+      color: #666; /* Adjusted arrow color for disabled state */
+    }
+    
+    .modal-consent {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      color: #888;
+      font-size: 0.90rem;
+    }
+    
+    .modal-consent input[type='checkbox'] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+    
+    /* Links within Consent */
+    .modal-consent a {
+      color: #888;
+      text-decoration: underline;
+      margin-left: 4px;
+      transition: color 0.3s ease;
+    }
+    
+    .modal-consent a:hover {
+      color: #333;
+    }
+    
+    .no-thank-you-btn {
+      font-size: 1.2rem;
+      font-family: 'GT America Condensed', sans-serif;
+      color: #888;
+      margin-top: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: color 0.3s ease;
+    }
+    
+    .no-thank-you-btn:hover {
+      color: #333;
+    }
+    
+    /* Mobile View */
+    @media (max-width: 768px) {
+      .modal-content {
+        width: 95%;
+        height: auto;
+        margin: 0 10px;
+      }
+    
+      .modal-image {
+        margin-top: 20px;
+      }
+    }
+    
+    @keyframes modalSlideIn {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    {%- endstyle -%}
+    
+    <div id="newsletterModal" class="modal">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <div class="modal-image">
+          <img src="{{ '/newsletter-banner.svg' | asset_url }}" alt="Emordial Character Design, for newsletter" />
         </div>
-
-      <div class="no-thank-you-btn">NO, THANK YOU</div>
-
-      </form>
-      <!-- Form ends -->
-
+        <div class="modal-text">
+          <h2 class="modal-heading">Subscribe to Our Newsletter</h2>
+          <p class="modal-subtitle">
+            Join the Emordial family and stay updated with our latest collections and exclusive offers!
+          </p>
+          <form id="modalNewsletterForm" action="/contact#contact_form" method="post" accept-charset="UTF-8" class="modal-newsletter-form">
+            <input type="hidden" name="contact[tags]" value="newsletter" />
+            <div class="modal-consent">
+              <input type="checkbox" id="privacyConsent" />
+              <label for="privacyConsent">
+                I agree to the <a href="/privacy-policy" target="_blank">Privacy Policy</a> and <a href="/terms-of-service" target="_blank">Terms of Service</a>.
+              </label>
+            </div>
+            <div class="newsletter-form__field-wrapper1">
+              <div class="field">
+                <input id="ModalNewsletterForm--modal" type="email" name="contact[email]" class="field__input" aria-required="true" autocorrect="off" autocapitalize="off" autocomplete="email" placeholder=" " required />
+                <label for="ModalNewsletterForm--modal" class="newsletter-form__label custom-label-focus">Email</label>
+                <button type="submit" class="newsletter-form__button-modal" name="commit" aria-label="Subscribe" disabled></button>
+              </div>
+            </div>
+            <div class="no-thank-you-btn">NO, THANK YOU</div>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.getElementById("newsletterModal");
-  const inputField = document.querySelector('.field__input');
-  const closeModalBtn = document.querySelector(".modal-close");
-  const subscribeButton = document.querySelector(".newsletter-form__button-modal");
-  const consentCheckbox = document.getElementById("privacyConsent");
-  const label = document.querySelector('.custom-label-focus');
-  const noThankYouBtn = document.querySelector(".no-thank-you-btn");
-
-  // Show modal after 15 seconds
-  if (!sessionStorage.getItem('newsletterModalShown')) {
-    setTimeout(() => {
-      modal.style.display = "flex";
-      sessionStorage.setItem('newsletterModalShown', 'true');
-    }, 1000); // Show after 10 seconds
-  }
-
-  // Close modal function
-  closeModalBtn.addEventListener("click", function () {
-    modal.style.display = "none";
-  });
-
-  noThankYouBtn.addEventListener("click", function () {
-    modal.style.display = "none";
-  });
-
-  // Enable submit button when consent is checked
-  consentCheckbox.addEventListener("change", function () {
-    if (consentCheckbox.checked) {
-      subscribeButton.disabled = false;
-    } else {
-      subscribeButton.disabled = true;
-    }
-  });
-
-  // Hide modal if the user clicks outside of it
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  };
-
- // Check input value on blur (when the input loses focus)
- inputField.addEventListener('blur', function () {
-    if (inputField.value.trim() !== '') {
-      label.classList.add('label-active');
-    } else {
-      label.classList.remove('label-active');
-    }
-  });
-
-});
-
-
-</script>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = document.getElementById("newsletterModal");
+      const inputField = document.querySelector('.field__input');
+      const closeModalBtn = document.querySelector(".modal-close");
+      const subscribeButton = document.querySelector(".newsletter-form__button-modal");
+      const consentCheckbox = document.getElementById("privacyConsent");
+      const label = document.querySelector('.custom-label-focus');
+      const noThankYouBtn = document.querySelector(".no-thank-you-btn");
+    
+      // Show modal after 15 seconds
+      if (!sessionStorage.getItem('newsletterModalShown')) {
+        setTimeout(() => {
+          modal.style.display = "flex";
+          sessionStorage.setItem('newsletterModalShown', 'true');
+          document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }, 2000); // Show after 15 seconds
+      }
+    
+      // Close modal function
+      function closeModal() {
+        modal.style.display = "none";
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    
+      closeModalBtn.addEventListener("click", closeModal);
+      noThankYouBtn.addEventListener("click", closeModal);
+    
+      // Enable submit button when consent is checked
+      consentCheckbox.addEventListener("change", function () {
+        subscribeButton.disabled = !consentCheckbox.checked;
+      });
+    
+      // Hide modal if the user clicks outside of it
+      window.onclick = function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      };
+    
+      // Check input value on blur (when the input loses focus)
+      inputField.addEventListener('blur', function () {
+        if (inputField.value.trim() !== '') {
+          label.classList.add('label-active');
+        } else {
+          label.classList.remove('label-active');
+        }
+      });
+    });
+    </script>
+    
