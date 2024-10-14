@@ -313,9 +313,15 @@
   width: 100%;
 }
 
-.field__input {
+.field__input::placeholder {
+  color: #aaa;
+  padding: 0 20px;
+  font-size: 13px;
+}
+
+.field-input-custom {
   width: 100%;
-  padding: 0 15px;
+  padding: 0 20px !important;
   font-size: 16px;
   border: none;
   border-radius: 0;
@@ -328,15 +334,9 @@
   /* Ensures consistent width */
 }
 
-.field__input::placeholder {
-  color: #aaa;
+.field-input-custom:focus {
   padding: 0 20px;
-  font-size: 13px;
-}
-
-.field__input:focus {
-  padding: 0 20px;
-  border: 2px solid transparent;
+  /* border: 2px solid transparent; */
   /* Fix to prevent border or padding tweaks */
 }
 
@@ -532,7 +532,7 @@
                 id="NewsletterForm--{{ section.id }}"
                 type="email"
                 name="contact[email]"
-                class="field__input"
+                class="field__input field-input-custom"
                 value="{{ form.email }}"
                 aria-required="true"
                 autocorrect="off"
