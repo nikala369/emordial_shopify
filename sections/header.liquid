@@ -88,7 +88,48 @@
 {%- style -%}
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 1.2rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 1.2rem;
+    /* position: relative; */
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
   }
+
+
+/* Horizontal Shining Underline */
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c0c0c0, #e0e0e0, #c0c0c0, transparent);
+  filter: blur(2px);
+  opacity: 0.7;
+  transform: translateX(-50%);
+  animation: horizontalShine 1s ease-out forwards;
+}
+
+/* Keyframes for Symmetrical Shining Animation from Center */
+@keyframes horizontalShine {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* When scrolled back to top, apply solid line without animation */
+.header.scrolled::after {
+  animation: none;
+  width: 100%;
+  left: 0;
+  transform: none;
+  background: linear-gradient(90deg, #c0c0c0, #e0e0e0, #c0c0c0);
+}
 
   .section-header {
     position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
@@ -387,6 +428,26 @@
       this.searchModal.close(false);
     }
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+  const headerNav = document.querySelector('.header');
+
+  // Add the class to start animation
+  headerNav.classList.add('animate-once');
+
+  // Listen for the end of the animation to remove the class
+  headerNav.addEventListener('animationend', () => {
+    headerNav.classList.remove('animate-once');
+  });
+
+  // Stop the animation from playing again on scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+      headerNav.classList.remove('animate-once');
+    }
+  });
+});
+
 
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
