@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -218,9 +218,20 @@
     /* Maintain aspect ratio */
     z-index: 1;
 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease
+    , visibility 0.3s ease;
+
     @media screen and (max-width: 768px) {
       top: 7%;
     }
+  }
+
+  body.loaded .emordial-svg-1,
+  body.loaded .emordial-svg-2 {
+    opacity: 1;
+    visibility: visible;
   }
 
 
@@ -381,7 +392,6 @@
       alt="Emordial svg character for home page"
       width="500"
       height="500">
-
     <img
       class="emordial-svg-2"
       src="{{ 'e4-01.svg' | asset_url }}"
@@ -444,6 +454,11 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
   const modelContainer = document.getElementById('model-container');
+  
+  setTimeout(() => {
+    document.body.classList.add("loaded");
+  }, 100);
+
   if (!modelContainer) {
     console.error('3D Model container not found');
     return;
