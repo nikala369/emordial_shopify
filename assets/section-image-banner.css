@@ -505,7 +505,7 @@
 }
 
 .banner__box > * + .banner__buttons {
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 @media screen and (max-width: 749px) {
