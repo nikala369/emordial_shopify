@@ -72,7 +72,8 @@
         "featured_collection_d3YpkY": {
           "type": "featured_collection",
           "settings": {
-            "collection": "accessories"
+            "collection": "accessories",
+            "background_image": "shopify://shop_images/accessories-collection-img-url.svg"
           }
         }
       },
