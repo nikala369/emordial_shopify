@@ -65,7 +65,8 @@
         "featured_collection_Lap8Kg": {
           "type": "featured_collection",
           "settings": {
-            "collection": "earrings"
+            "collection": "earrings",
+            "background_image": "shopify://shop_images/collection1.svg"
           }
         },
         "featured_collection_d3YpkY": {
