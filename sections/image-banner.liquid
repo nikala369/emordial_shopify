@@ -3,7 +3,7 @@
 
 {% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
 {% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
 </div> {% endcomment %}
 
 {% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
@@ -273,39 +273,48 @@
   transform: translateX(-50%) rotate(-45deg);
   width: 20px;
   height: 20px;
-  border-left: 2px solid white;
-  /* Initial arrow color */
-  border-bottom: 2px solid white;
-  /* Initial arrow color */
+  border-left: 3px solid rgba(255, 255, 255, 0.9);
+  /* Thicker and more visible */
+  border-bottom: 3px solid rgba(255, 255, 255, 0.9);
+  /* Thicker and more visible */
   opacity: 1;
-  cursor: pointer;
   display: none;
+  /* Hidden by default, visible when needed */
   outline: none;
-  /* Prevent focus outline */
   -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.4s ease;
+  /* Prevent mobile highlight */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  /* Add a subtle glow */
+  transition: border-color 0.3s ease
+  , box-shadow 0.3s ease
+  , opacity 0.4s ease;
 }
 
+/* Focus and active states for better accessibility */
 .down-arrow:focus,
 .down-arrow:active {
   outline: none;
-  box-shadow: none;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 1);
+  /* Brighter glow when active */
 }
 
 /* Animation for pulsing effect from white to light grey */
 @keyframes pulse {
   0,
   100% {
-    border-color: white;
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
   }
   50% {
-    border-color: lightgrey;
+    border-color: rgba(200, 200, 200, 0.7);
+    box-shadow: 0 0 10px rgba(200, 200, 200, 0.8);
   }
 }
 
 /* Apply pulse animation */
 .down-arrow.pulsing {
-  animation: pulse 2s infinite;
+  animation: pulse 1.5s infinite ease-in-out;
+  /* Smooth pulsing effect */
 }
 
 /* Show arrow only on mobile */
@@ -620,11 +629,11 @@
   if (window.innerWidth <= 768) {
   setTimeout(() => {
     downArrow.style.display = 'block';
-    downArrow.classList.add('pulsing'); // Add pulsing animation
-  }, 1700); // Delay for 2 seconds
+    downArrow.classList.add('pulsing');
+  }, 1400); // 1.4 sec
   }
 
-   // Smooth scroll to the next section when the arrow is clicked
+   // arrow clicked
    downArrow.addEventListener('click', function (event) {
     event.preventDefault();
     downArrow.style.display = 'none';
@@ -634,7 +643,7 @@
     });
   });
 
-  // Hide the arrow when the user scrolls down
+  // Hide arrow down test41
   window.addEventListener('scroll', function () {
   if (window.scrollY > 40) {
     downArrow.style.display = 'none';
