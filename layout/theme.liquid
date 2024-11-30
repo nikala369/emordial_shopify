@@ -419,5 +419,19 @@ body {
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const isHomepage = window.location.href.includes('emordial.com');
+    const isNotReloaded = performance.getEntriesByType('navigation')[0]?.type !== 'reload';
+
+    if (isHomepage && isNotReloaded) {
+      if (!sessionStorage.getItem('emordialHomepageLoaded')) {
+        sessionStorage.setItem('emordialHomepageLoaded', 'true');
+        window.location.reload();
+      }
+    }
+  });
+</script>
   </body>
 </html>
