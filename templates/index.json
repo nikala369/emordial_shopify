@@ -44,7 +44,7 @@
         "button"
       ],
       "settings": {
-        "image": "shopify://shop_images/homepage-left_a880b1bb-ec81-47ad-ac63-6df828ac77da.svg",
+        "image": "shopify://shop_images/home-banner1.svg",
         "image_2": "shopify://shop_images/homepage-right_f65f2736-efac-408d-bd1f-4620d8d44e82.svg",
         "image_3": "shopify://shop_images/emordial-logo.svg",
         "image_overlay_opacity": 0,
@@ -65,13 +65,15 @@
         "featured_collection_Lap8Kg": {
           "type": "featured_collection",
           "settings": {
-            "collection": "earrings"
+            "collection": "earrings",
+            "background_image": "shopify://shop_images/collection1.svg"
           }
         },
         "featured_collection_d3YpkY": {
           "type": "featured_collection",
           "settings": {
-            "collection": "accessories"
+            "collection": "accessories",
+            "background_image": "shopify://shop_images/accessories-collection-img-url.svg"
           }
         }
       },
