@@ -35,6 +35,38 @@
       column-gap: 4px;
     }
   }
+
+  /* Wrapper for the logo above footer */
+  .footer-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-top: 120px;
+
+    @media screen and (min-width: 750px) {
+      padding-top: 140px;
+      padding-bottom: 0;
+    }
+  }
+
+  /* Logo styling */
+  .footer-logo-svg {
+    width: 70px;
+    /* Adjust based on your desired size */
+    height: auto;
+    transition: transform 0.3s ease;
+
+    @media screen and (min-width: 750px) {
+      width: 82.5px;
+    }
+  }
+
+  .footer-logo-svg:hover,
+  .footer-logo-svg:focus {
+    transform: scale(1.03);
+    /* Elegant hover effect */
+  }
 {%- endstyle -%}
 
 {%- liquid
@@ -170,6 +202,17 @@
     {% if section.settings.image_shape == 'arch' %}
       {% render 'mask-arch' %}
     {%- endif -%}
+
+
+    <div class="footer-logo-wrapper">
+      <img
+        class="footer-logo-svg"
+        width="50"
+        height="50"
+        src="{{ 'emordial-original-logo.svg' | asset_url }}"
+        alt="Emordial Logo">
+    </div>
+
   </div>
 </div>
 
