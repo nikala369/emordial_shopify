@@ -421,17 +421,16 @@ body {
     {%- endif -%}
 
     <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const isHomepage = window.location.href.includes('emordial.com');
-    const isNotReloaded = performance.getEntriesByType('navigation')[0]?.type !== 'reload';
-
-    if (isHomepage && isNotReloaded) {
-      if (!sessionStorage.getItem('emordialHomepageLoaded')) {
-        sessionStorage.setItem('emordialHomepageLoaded', 'true');
-        window.location.reload();
-      }
-    }
-  });
-</script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const isHomepage = window.location.hostname === 'emordial.com' && window.location.pathname === '/';
+        const hasRefreshed = sessionStorage.getItem('emordialHomepageRefreshed') === 'true';
+    
+        if (isHomepage && !hasRefreshed) {
+          // Mark the page as refreshed in the session storage
+          sessionStorage.setItem('emordialHomepageRefreshed', 'true');
+          window.location.reload();
+        }
+      });
+    </script>
   </body>
 </html>
