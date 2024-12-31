@@ -4,30 +4,54 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 768px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .section-{{ section.id }}-padding {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
   .title-centering-wrapper {
     text-align: center;
     width: 100%;
+    margin-bottom: 1rem;
   }
 
   .business-emordial-title {
     display: inline-block;
     position: relative;
-    text-align: center;
-    margin: 0 auto 40px;
+    margin: 0 auto;
     padding: 0.5rem 3rem;
-    letter-spacing: 5px;
-    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    color: #222;
     user-select: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    .business-emordial-title {
+      font-size: 40px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .business-emordial-title {
+      font-size: 45px;
+    }
   }
 
   .business-emordial-title::after {
@@ -36,17 +60,12 @@
     width: 100%;
     height: 3px;
     border-radius: 0.5px;
-    /* Slight rounding for a modern look */
-    background: linear-gradient(to right, #970101 0%, /* Darker base red for depth */ #ff0000 50%, /* Bright red for the core, vibrant effect */ #970101 100% /* Symmetry with dark base red */);
+    background: linear-gradient(to right, #970101, #ff0000, #970101);
     background-size: 200% 100%;
-    /* Expanded for a broader animation range */
     animation: metallicShine 5s linear infinite;
-    /* Smooth, continuous metallic shine */
     position: absolute;
     bottom: -5px;
     left: 0;
-
-    font-weight: bold;
   }
 
   @keyframes metallicShine {
@@ -61,81 +80,63 @@
     }
   }
 
-  /* Responsive adjustments */
-  @media screen and (max-width: 768px) {
-    .business-emordial-title {
-      font-size: 30px;
-      /* Adjusting for readability on smaller screens */
-      letter-spacing: 2px;
-      /* Moderate spacing for smaller displays */
-    }
+  .page-specific-styling.about-us {
+    background: #f9f9f9;
+    padding: 20px;
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
   }
 
-
-  .contacts-container {
-    display: flex;
-    justify-content: center;
-  }
-
-  .contact-image {
-    width: 140px;
-    height: auto;
-    overflow: hidden;
-
-    margin-top: 40px;
-    margin-bottom: 0;
-  }
-
-  .custom-heading {
+  .privacy-policy-subtitle {
     text-align: center;
-
-    @media screen and (max-width: 768px) {
-      font-size: 35px;
-      letter-spacing: 2px;
-    }
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 2rem;
+    font-style: italic;
   }
 
+  .rte {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+    color: #333;
+    font-size: 18px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .rte {
+      max-width: 800px;
+    }
+  }
 {%- endstyle -%}
 
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
-  {% if page.title == 'EMORDIAL BUSINESS' %}
-    <div class="title-centering-wrapper">
-      <h1 class="main-page-title page-title h0 business-emordial-title{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-        {{ page.title | escape }}
-      </h1>
-    </div>
-  {% else %}
-    <h1 class="custom-heading main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  <div class="title-centering-wrapper">
+    <h1 class="main-page-title page-title h0 business-emordial-title{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {{ page.title | escape }}
     </h1>
+  </div>
+
+  {% if page.title == 'Privacy Policy' %}
+    <p class="privacy-policy-subtitle">
+      Last updated: {{ 'now' | date: '%B %d, %Y' }}
+    </p>
   {% endif %}
 
-  {% if page.title == 'EMORDIAL BUSINESS' %}
-    <div class="contacts-container">
-      {% comment %} <img
-                                                                                                                                      class="contact-image"
-                                                                                                                                      src="{{ 'contact-nn.svg' | asset_url }}"
-                                                                                                                                      alt="Contact Business Emordial"
-                                                                                                                                      width="70"
-                                                                                                      height="70"> {% endcomment %}
-
-    </div>
-  {% endif %}
-
-  <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+  <div class="rte page-specific-styling {% if page.title == 'About Us' %}about-us{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     {{ page.content }}
   </div>
 </div>
 
 {% schema %}
   {
-    "name": "t:sections.main-page.name",
-    "tag": "section",
-    "class": "section",
+    "name": "Dynamic Page Section",
     "settings": [
       {
         "type": "header",
-        "content": "t:sections.all.padding.section_padding_heading"
+        "content": "Page Section Settings"
       }, {
         "type": "range",
         "id": "padding_top",
@@ -143,7 +144,7 @@
         "max": 100,
         "step": 4,
         "unit": "px",
-        "label": "t:sections.all.padding.padding_top",
+        "label": "Padding Top",
         "default": 36
       }, {
         "type": "range",
@@ -152,7 +153,7 @@
         "max": 100,
         "step": 4,
         "unit": "px",
-        "label": "t:sections.all.padding.padding_bottom",
+        "label": "Padding Bottom",
         "default": 36
       }
     ]
