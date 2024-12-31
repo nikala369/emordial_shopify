@@ -80,15 +80,6 @@
     }
   }
 
-  .page-specific-styling.about-us {
-    background: #f9f9f9;
-    padding: 20px;
-    text-align: left;
-    font-size: 18px;
-    line-height: 1.8;
-    color: #555;
-  }
-
   .privacy-policy-subtitle {
     text-align: center;
     color: #666;
@@ -125,7 +116,7 @@
     </p>
   {% endif %}
 
-  <div class="rte page-specific-styling {% if page.title == 'About Us' %}about-us{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+  <div class="rte page-specific-styling {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     {{ page.content }}
   </div>
 </div>

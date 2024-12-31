@@ -1,12 +1,20 @@
 {
   "sections": {
     "main": {
-      "type": "about-us",
+      "type": "main-page",
       "settings": {
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "about": {
+      "type": "about-us",
+      "settings": {
+        "heading": "About Emordial",
+        "description": "Welcome to Emordial! We design unique jewelry pieces with precision, passion, and a commitment to quality. Our mission is to redefine elegance and creativity in the jewelry world.",
+        "image": "shopify://shop_images/example_about_us_image.jpg"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "about"]
 }
