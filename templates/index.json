@@ -72,7 +72,8 @@
         "featured_collection_d3YpkY": {
           "type": "featured_collection",
           "settings": {
-            "collection": "accessories"
+            "collection": "accessories",
+            "background_image": "shopify://shop_images/emordial_logo_1_final-01.svg"
           }
         }
       },
