@@ -14,7 +14,7 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
-        "text": "<p><strong>25% OFF WITH CODE: EMORDIAL20</strong></p>",
+        "text": "<p><strong>50% OFF WITH CODE: EMORDIAL50</strong></p>",
         "bg_color": "#ffffff",
         "text_color": "#000000"
       }
