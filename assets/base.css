@@ -2545,6 +2545,21 @@ product-info .loading__spinner:not(.hidden) ~ *,
   transform: scale(1.04);
 }
 
+/* Remove grey tap highlight on mobile (iOS/Android) */
+.icon {
+  -webkit-tap-highlight-color: transparent; /* For iOS and Safari */
+}
+
+/* Remove outline when focused/clicked */
+.icon:focus {
+  outline: none;
+}
+
+/* Optional: Remove the active state style */
+.icon:active {
+  outline: none;
+}
+
 .header__icon .icon {
   height: 2.4rem;
   width: 2.4rem;
