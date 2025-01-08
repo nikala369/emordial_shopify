@@ -6,7 +6,7 @@
   position: absolute;
   min-width: 100%;
   width: 35rem;
-  border: 1.4px solid rgba(47, 47, 52, 0.4);
+  border: 1.4px solid rgba(0, 0, 0, 0.895);
 }
 
 .list-menu--disclosure:focus {
