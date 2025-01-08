@@ -2345,7 +2345,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
   bottom: -2px;
   left: 50%;
   width: 0;
-  height: 2px;
+  height: 1.4px;
   background: linear-gradient(
     90deg,
     transparent,
@@ -2363,18 +2363,21 @@ product-info .loading__spinner:not(.hidden) ~ *,
 @keyframes horizontalShine {
   0% {
     width: 0;
+    height: 3px;
   }
   50% {
     width: 50%;
   }
   100% {
     width: 100%;
+    height: 1.4px;
   }
 }
 
 /* sticky-border-bottom */
 .header-wrapper--border-bottom {
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-bottom: 1.4px solid rgba(47, 47, 52, 0.4);
+  transition: all 0.3s ease-in-out;
 }
 
 .header {
@@ -2923,10 +2926,12 @@ details > summary {
 
 details[open] > summary ~ .header__submenu {
   display: block; /* Show submenu when details are open */
-  margin-top: 15px;
+  margin-top: 24.5px;
   margin-left: 17px;
   padding: 17.5px 5px;
-  background: #121212;
+
+  border-radius: 0;
+  /* background: #121212; */
 }
 
 /* Fixing bug for submenu hover */
@@ -2957,7 +2962,7 @@ details[open] .header__submenu {
   justify-content: space-between;
   padding: 0.5rem 1rem;
   /* margin-bottom: 10px; */
-  color: white; /* Consistent color scheme */
+  /* color: rgba(19, 19, 20, 0.675); */
   transition: color 0.3s ease;
 }
 
