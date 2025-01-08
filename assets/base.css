@@ -2363,7 +2363,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
 @keyframes horizontalShine {
   0% {
     width: 0;
-    height: 3px;
+    height: 5px;
   }
   50% {
     width: 50%;
@@ -2580,7 +2580,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
 
 .header__icon:hover .icon,
 .modal__close-button:hover .icon {
-  transform: scale(1.04);
+  /* transform: scale(1.04); */
 }
 
 /* Remove grey tap highlight on mobile (iOS/Android) */

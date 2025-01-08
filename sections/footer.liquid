@@ -18,7 +18,7 @@
     flex-wrap: wrap;
 
     @media (min-width: 769px) {
-      justify-content: space-evenly;
+      justify-content: space-around;
       /* Equal spacing for sections on desktop */
       align-items: flex-start;
       /* Align items to the top */
@@ -27,7 +27,7 @@
     }
 
     @media (max-width: 768px) {
-      flex-direction: column;
+      justify-content: space-evenly;
       align-items: center;
       padding: 10px 10px 5px;
     }
@@ -438,6 +438,24 @@
   }
 }
 
+.desktop-version {
+  display: block;
+}
+
+.mobile-version {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .desktop-version {
+    display: none;
+  }
+  .mobile-version {
+    display: block;
+    display: flex;
+  }
+}
+
 
 {%- endstyle -%}
 
@@ -446,40 +464,40 @@
 
     <!-- Logo -->
     {% comment %} <div class="footer-logo" id="footerLogoMobile">
-                                                                                                                                                                                                                                                                                                                                          {% if section.settings.footer_logo != blank %}
-                                                                                                                                                                                                                                                                                                                                            <a href="/" title="Back to Home">
-                                                                                                                                                                                                                                                                                                                                              <img
-                                                                                                                                                                                                                                                                                                                                                class="footer-logo"
-                                                                                                                                                                                                                                                                                                                                                src="{{ section.settings.footer_logo | img_url: 'master' }}"
-                                                                                                                                                                                                                                                                                                                                                alt="{{ shop.name | escape }}">
-                                                                                                                                                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                                                                                                                                                          {% else %}
-                                                                                                                                                                                                                                                                                                                                            <a href="/" title="Back to Home">
-                                                                                                                                                                                                                                                                                                                                              <p class="footer-default-text" style="color: #ffffff;">Your Logo Here</p>
-                                                                                                                                                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                                                                                                                                                          {% endif %}
-                                                                                                                                                                                                                            </div> {% endcomment %}
+                                                                                                                                                                                                                                                                                                                                                                                          {% if section.settings.footer_logo != blank %}
+                                                                                                                                                                                                                                                                                                                                                                                            <a href="/" title="Back to Home">
+                                                                                                                                                                                                                                                                                                                                                                                              <img
+                                                                                                                                                                                                                                                                                                                                                                                                class="footer-logo"
+                                                                                                                                                                                                                                                                                                                                                                                                src="{{ section.settings.footer_logo | img_url: 'master' }}"
+                                                                                                                                                                                                                                                                                                                                                                                                alt="{{ shop.name | escape }}">
+                                                                                                                                                                                                                                                                                                                                                                                            </a>
+                                                                                                                                                                                                                                                                                                                                                                                          {% else %}
+                                                                                                                                                                                                                                                                                                                                                                                            <a href="/" title="Back to Home">
+                                                                                                                                                                                                                                                                                                                                                                                              <p class="footer-default-text" style="color: #ffffff;">Your Logo Here</p>
+                                                                                                                                                                                                                                                                                                                                                                                            </a>
+                                                                                                                                                                                                                                                                                                                                                                                          {% endif %}
+                                                                                                                                                                                                                                                            </div> {% endcomment %}
 
     <!-- Menus and Social Media Links -->
     <div class="grid-space-on-mobile">
 
       <!-- Logo -->
       {% comment %} <div class="footer-logo" id="footerLogo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                {% if section.settings.footer_logo != blank %}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  <a href="/" title="Back to Home">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    <img
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      width="85px"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      height="auto"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      class="footer-logo"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      src="{{ section.settings.footer_logo | img_url: 'master' }}"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      alt="{{ shop.name | escape }}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  </a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                {% else %}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  <a href="/" title="Back to Home">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p class="footer-default-text" style="color: #ffffff;">Your Logo Here</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  </a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                {% endif %}
-                                                                                                                                                                                                                                                                                                                                    </div> {% endcomment %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {% if section.settings.footer_logo != blank %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <a href="/" title="Back to Home">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <img
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      width="85px"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      height="auto"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      class="footer-logo"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      src="{{ section.settings.footer_logo | img_url: 'master' }}"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      alt="{{ shop.name | escape }}">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {% else %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <a href="/" title="Back to Home">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p class="footer-default-text" style="color: #ffffff;">Your Logo Here</p>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {% endif %}
+                                                                                                                                                                                                                                                                                                                                                                                    </div> {% endcomment %}
 
       {% for block in section.blocks %}
         {% case block.type %}
@@ -507,7 +525,7 @@
       {% endfor %}
 
       <!-- Social Media Links -->
-      <div class="div-block-footer social-icons-margin">
+      <div class="div-block-footer social-icons-margin desktop-version">
         <h1 class="footer-menu-heading follow-us-block-header-mobile">FOLLOW US</h1>
         <ul class="ul-style ul-style-media-links-mobile follow-us-ul">
           <li class="padding-top-li">
@@ -614,36 +632,76 @@
       </div>
     </div>
 
+    <!-- Social Media Links -->
+    <div class="div-block-footer social-icons-margin mobile-version">
+      <h1 class="footer-menu-heading follow-us-block-header-mobile">FOLLOW US</h1>
+      <ul class="ul-style ul-style-media-links-mobile follow-us-ul">
+        <li class="padding-top-li">
+          <a
+            style="display: inline-block;"
+            href="{{ section.settings.instagram_link }}"
+            class="social-link"
+            target="_blank">
+            <div class="social-media-links">
+              {% render 'icon-instagram' %}
+            </div>
+          </a>
+        </li>
+        <li class="padding-top-li">
+          <a
+            style="display: inline-block;"
+            href="{{ section.settings.facebook_link }}"
+            class="social-link"
+            target="_blank">
+            <div class="social-media-links">
+              {% render 'icon-facebook' %}
+            </div>
+          </a>
+        </li>
+        <li class="padding-top-li">
+          <a
+            style="display: inline-block;"
+            href="{{ section.settings.twitter_link }}"
+            class="social-link"
+            target="_blank">
+            <div class="social-media-links">
+              {% render 'icon-tiktok' %}
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
 
     <!-- Payment Icons -->
     {% comment %} {% if section.settings.show_payment_icons %}
-                                                                                                                                                                                                                                                                                                <div class="footer-payment-icons" style="display: flex; justify-content: center; margin-bottom: 24px;">
+                                                                                                                                                                                                                                                                                                                                                <div class="footer-payment-icons" style="display: flex; justify-content: center; margin-bottom: 24px;">
 
-                                                                                                                                                                                                                                                                                                <span class="payment-icon" style="margin-right: 0.5rem;">
-                                                                                                                                                                                                                                                                                                    {{ 'apple_pay' | payment_type_svg_tag: class: 'h-8' }}
-                                                                                                                                                                                                                                                                                                  </span>
+                                                                                                                                                                                                                                                                                                                                                <span class="payment-icon" style="margin-right: 0.5rem;">
+                                                                                                                                                                                                                                                                                                                                                    {{ 'apple_pay' | payment_type_svg_tag: class: 'h-8' }}
+                                                                                                                                                                                                                                                                                                                                                  </span>
 
-                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
-                                                                                                                                                                                                                                                                                                    {{ 'master' | payment_type_svg_tag: class: 'h-8' }}
-                                                                                                                                                                                                                                                                                                  </span>
+                                                                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
+                                                                                                                                                                                                                                                                                                                                                    {{ 'master' | payment_type_svg_tag: class: 'h-8' }}
+                                                                                                                                                                                                                                                                                                                                                  </span>
 
-                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
-                                                                                                                                                                                                                                                                                                    {{ 'visa' | payment_type_svg_tag: class: 'h-8' }}
-                                                                                                                                                                                                                                                                                                  </span>
+                                                                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
+                                                                                                                                                                                                                                                                                                                                                    {{ 'visa' | payment_type_svg_tag: class: 'h-8' }}
+                                                                                                                                                                                                                                                                                                                                                  </span>
 
-                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
-                                                                                                                                                                                                                                                                                                    {{ 'shopify_pay' | payment_type_svg_tag: class: 'h-8' }}
-                                                                                                                                                                                                                                                                                                  </span>
+                                                                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
+                                                                                                                                                                                                                                                                                                                                                    {{ 'shopify_pay' | payment_type_svg_tag: class: 'h-8' }}
+                                                                                                                                                                                                                                                                                                                                                  </span>
 
-                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
-                                                                                                                                                                                                                                                                                                    {{ 'venmo' | payment_type_svg_tag: class: 'h-8' }}
-                                                                                                                                                                                                                                                                                                  </span>
+                                                                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
+                                                                                                                                                                                                                                                                                                                                                    {{ 'venmo' | payment_type_svg_tag: class: 'h-8' }}
+                                                                                                                                                                                                                                                                                                                                                  </span>
 
-                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
-                                                                                                                                                                                                                                                                                                    {{ 'american_express' | payment_type_svg_tag: class: 'h-8' }}
-                                                                                                                                                                                                                                                                                                  </span>
-                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                {% endif %} {% endcomment %}
+                                                                                                                                                                                                                                                                                                                                                  <span class="payment-icon" style="margin-right: 0.5rem;">
+                                                                                                                                                                                                                                                                                                                                                    {{ 'american_express' | payment_type_svg_tag: class: 'h-8' }}
+                                                                                                                                                                                                                                                                                                                                                  </span>
+                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                {% endif %} {% endcomment %}
 
 
     <!-- Copyright and Policies -->
