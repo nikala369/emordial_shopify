@@ -247,7 +247,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 .header__icon--menu {
   background-color: transparent; /* Ensure the toggle button has a transparent background */
   color: #000000; /* Default text color */
-  padding: 0.5rem; /* Padding for better clickability */
+  padding-left: 7.5px; /* Padding for better clickability */
   border: none; /* Remove border */
   transition: background-color 0.3s ease, color 0.3s ease;
 }

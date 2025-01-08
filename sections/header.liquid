@@ -89,13 +89,13 @@
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 1.2rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 1.2rem;
     /* position: relative; */
-    border-bottom: 2px solid transparent;
+    /* border-bottom: 2px solid transparent; */
     transition: border-color 0.3s ease;
   }
 
 
 /* Horizontal Shining Underline */
-.header::after {
+/* .header::after {
   content: '';
   position: absolute;
   bottom: -2px;
@@ -107,10 +107,10 @@
   opacity: 0.7;
   transform: translateX(-50%);
   animation: horizontalShine 1s ease-out forwards;
-}
+} */
 
 /* Keyframes for Symmetrical Shining Animation from Center */
-@keyframes horizontalShine {
+/* @keyframes horizontalShine {
   0% {
     width: 0;
   }
@@ -120,7 +120,7 @@
   100% {
     width: 100%;
   }
-}
+} */
 
 /* When scrolled back to top, apply solid line without animation */
 .header.scrolled::after {
