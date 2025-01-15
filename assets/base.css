@@ -94,7 +94,7 @@ html.no-js .no-js-hidden {
 }
 
 .page-width {
-  max-width: var(--page-width);
+  /* max-width: var(--page-width); */
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -2399,6 +2399,8 @@ product-info .loading__spinner:not(.hidden) ~ *,
   grid-template-areas: "left-icons heading icons";
   grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
+
+  height: 4.5rem;
 }
 
 @media screen and (max-width: 749px) {
@@ -2441,6 +2443,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
 
   .header--middle-center a.header__heading-link {
     text-align: center;
+    user-select: none;
   }
 
   .header--top-center {
@@ -2616,6 +2619,15 @@ product-info .loading__spinner:not(.hidden) ~ *,
 .header__icon .icon {
   height: 2.4rem;
   width: 2.4rem;
+  fill: none;
+  vertical-align: middle;
+
+  /* margin-top: 1.5px; */
+}
+
+.header__icon .icon-close {
+  height: 2.4rem;
+  width: 2rem;
   fill: none;
   vertical-align: middle;
 
@@ -2941,7 +2953,7 @@ details > summary {
 
 details[open] > summary ~ .header__submenu {
   display: block; /* Show submenu when details are open */
-  margin-top: 25.5px;
+  margin-top: 9.5px;
   margin-left: 17px;
   padding: 17.5px 5px;
 

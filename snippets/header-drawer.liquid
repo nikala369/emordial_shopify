@@ -11,10 +11,10 @@
       class="header__icon header__icon--menu header__icon--summary link focus-inset"
       aria-label="{{ 'sections.header.menu' | t }}"
     >
-      <span>
+      <div>
         {% render 'icon-hamburger' %}
         {% render 'icon-close' %}
-      </span>
+      </div>
     </summary>
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
       <div class="menu-drawer__inner-container">
@@ -61,15 +61,22 @@
                                 </a>
                                 
                                 {%- assign child_title = childlink.title | downcase -%}
-                              
-                                {%- if child_title contains 'earring' -%}
+                                {%- if child_title contains 'all products' -%}
                                   <img 
-                                    src="{{ 'earrings-collection-img-url.svg' | asset_url }}" 
+                                    src="{{ 'allproducts-collection-img-url.svg' | asset_url }}" 
                                     alt="Earrings Icon" 
                                     class="collection-icon" 
                                     width="40" 
                                     height="40"
                                 />
+                                {%- elsif child_title contains 'earring' -%}
+                                  <img 
+                                  src="{{ 'earrings-collection-img-url.svg' | asset_url }}" 
+                                  alt="Earrings Icon" 
+                                  class="collection-icon" 
+                                  width="40" 
+                                  height="40"
+                              />
                                 {%- elsif child_title contains 'accessories' -%}
                                   <img 
                                     src="{{ 'accessories-collection-img-url.svg' | asset_url }}" 
@@ -149,8 +156,6 @@
           </ul>
         </nav>
         
-        
-          
 
           <div class="menu-drawer__utility-links">
             {%- if shop.customer_accounts_enabled -%}
