@@ -2731,7 +2731,7 @@ details[open] > .search-modal {
   margin-top: 55px;
 
   @media screen and (max-width: 990px) {
-    height: 80px;
+    height: 67.5px;
     /* margin-top: 45px; */
   }
 }
@@ -2779,7 +2779,7 @@ details[open] .modal-overlay::after {
   bottom: calc((var(--inputs-margin-offset) / 2));
 
   @media screen and (max-width: 990px) {
-    padding-top: 9.5px;
+    padding-top: 5px;
   }
 
   @media screen and (min-width: 990px) {

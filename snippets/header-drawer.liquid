@@ -5,6 +5,46 @@
   {% render 'header-drawer' %}
 {% endcomment %}
 
+{% style %}
+.custom-privacy-container {
+  padding: 15px 0px;
+  /* background: lightgrey; */
+}
+
+.custom-color {
+  font-size: 10.5px;
+  color: #191919 !important;
+}
+
+.container-login-mobile-emordial {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem; /* Add space between the log in link and the logo */
+}
+
+.container-login-mobile-emordial a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.15rem;
+  gap: 0.5rem; /* Add space between the icon and the text */
+}
+
+.container-login-mobile-emordial .emordial-font-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-login-mobile-emordial .emordial-svg-heading-header {
+  width: 130px; /* Set a consistent width for the logo */
+  height: auto;
+}
+
+{% endstyle %}
+
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
     <summary
@@ -159,22 +199,35 @@
 
           <div class="menu-drawer__utility-links">
             {%- if shop.customer_accounts_enabled -%}
-              <a
-                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-                class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
-              >
-              <span style="margin-right: 7.5px;">
-                {% render 'icon-custom-profile' %}
-              </span>
-                {%- liquid
-                  if customer
-                    echo 'customer.account_fallback' | t
-                  else
-                    echo 'customer.log_in' | t
-                  endif
-                -%}
-              </a>
+              <div class="container-login-mobile-emordial">
+                  <a
+                    href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                    class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide">
+                      <span style="margin-right: 7.5px;">
+                        {% render 'icon-custom-profile' %}
+                      </span>
+                        {%- liquid
+                          if customer
+                            echo 'customer.account_fallback' | t
+                          else
+                            echo 'customer.log_in_register' | t
+                          endif
+                        -%}
+                   </a>
+
+                   <div class="emordial-font-box">
+                    <img
+                    class="emordial-svg-heading-header"
+                    src="{{ 'white-custom-font.svg' | asset_url }}"
+                    alt="Emordial font svg"
+                    width="100%"
+                    height="auto">
+                   </div>
+              </div>
+           
             {%- endif -%}
+
+            
             {%- if localization.available_countries or localization.available_languages -%}
               <div class="menu-drawer__localization header-localization">
                 {%- if localization.available_countries and localization.available_countries.size > 1 -%}
@@ -341,6 +394,19 @@
               {%- endif -%}
             </ul>
           </div>
+
+          <div class="custom-privacy-container">
+           <!-- Copyright and Policies -->
+            <div class="footer-text" style="color: #000; text-align: center; font-size: 11px;">
+              <div>
+                <a class="custom-color" href="/pages/terms-of-services">Terms & Policies</a>
+                |
+                <a class="custom-color" href="/pages/privacy-policy">Privacy Policy</a>
+              </div>
+              &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

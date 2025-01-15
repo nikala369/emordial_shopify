@@ -167,8 +167,8 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 /* Hover effect for menu items and close button */
 .menu-drawer__close-button:hover {
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.85);
+  /* color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.85); */
 }
 
 /* Active menu item styling */
@@ -349,7 +349,8 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .menu-drawer__utility-links {
   padding: 0;
-  background-color: rgba(var(--color-foreground), 0.03);
+  /* background-color: rgba(var(--color-foreground), 0.03); */
+  background-color: #000;
   position: relative;
 }
 
@@ -362,7 +363,7 @@ details[open].menu-opening > .menu-drawer__submenu {
       :not(.header--has-social):not(.header--has-localizations)
     )
     .menu-drawer__utility-links {
-    padding: 2rem 3rem;
+    padding: 0.5rem 2rem;
   }
 }
 
@@ -386,6 +387,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__utility-links:has(.menu-drawer__localization)
   .menu-drawer__account {
   margin: 0;
+  color: white;
 }
 
 .menu-drawer__account .icon-account {
