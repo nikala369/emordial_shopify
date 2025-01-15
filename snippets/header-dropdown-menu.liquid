@@ -5,6 +5,19 @@
   {% render 'header-dropdown-menu' %}
 {% endcomment %}
 
+{%- style -%}
+.custom-li-disclosure {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1.4px solid #000
+}
+
+
+{%- endstyle -%}
+
+
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
@@ -33,7 +46,7 @@
                 tabindex="-1"
               >
                 {%- for childlink in link.links -%}
-                  <li style="display: flex; justify-content: space-between; align-items: center;">
+                  <li class="custom-li-disclosure">
                     {%- if childlink.links == blank -%}
                       <a
                         id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
@@ -48,14 +61,22 @@
 
                       {%- assign child_title = childlink.title | downcase -%}
                       
-                      {%- if child_title contains 'earring' -%}
+                      {%- if child_title contains 'all products' -%}
                         <img 
-                          src="{{ 'earrings-collection-img-url.svg' | asset_url }}" 
+                          src="{{ 'allproducts-collection-img-url.svg' | asset_url }}" 
                           alt="Earrings Icon" 
                           class="collection-icon" 
                           width="40" 
                           height="40"
                         />
+                      {%- elsif child_title contains 'earring' -%}
+                        <img 
+                        src="{{ 'earrings-collection-img-url.svg' | asset_url }}" 
+                        alt="Earrings Icon" 
+                        class="collection-icon" 
+                        width="40" 
+                        height="40"
+                      />
                       {%- elsif child_title contains 'accessories' -%}
                         <img 
                           src="{{ 'accessories-collection-img-url.svg' | asset_url }}" 

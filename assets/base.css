@@ -2726,6 +2726,14 @@ menu-drawer + .header__search {
 details[open] > .search-modal {
   opacity: 1;
   animation: animateMenuOpen var(--duration-default) ease;
+
+  height: 75px;
+  margin-top: 55px;
+
+  @media screen and (max-width: 990px) {
+    height: 80px;
+    /* margin-top: 45px; */
+  }
 }
 
 details[open] .modal-overlay {
@@ -2758,7 +2766,7 @@ details[open] .modal-overlay::after {
 
 .search-modal__content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   height: 100%;
@@ -2769,6 +2777,14 @@ details[open] .modal-overlay::after {
 
 .search-modal__content-bottom {
   bottom: calc((var(--inputs-margin-offset) / 2));
+
+  @media screen and (max-width: 990px) {
+    padding-top: 9.5px;
+  }
+
+  @media screen and (min-width: 990px) {
+    margin-top: 20px;
+  }
 }
 
 .search-modal__content-top {
@@ -2790,7 +2806,13 @@ details[open] .modal-overlay::after {
   }
 
   .search-modal__content {
-    padding: 0 6rem;
+    padding: 0px 6rem;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 990px) {
+  .search-modal__content {
+    padding: 10px 6rem;
   }
 }
 
@@ -2952,14 +2974,16 @@ details > summary {
 }
 
 details[open] > summary ~ .header__submenu {
-  display: block; /* Show submenu when details are open */
+  display: block;
   margin-top: 9.5px;
   margin-left: 17px;
-  padding: 17.5px 5px;
-
+  /* padding: 34.5px 0px; */
+  padding-bottom: 0px;
   border-top: 0;
+  border-bottom: 0;
   border-radius: 0;
   /* background: #121212; */
+  padding-top: 0px;
 }
 
 /* Fixing bug for submenu hover */
@@ -3001,7 +3025,7 @@ details[open] .header__submenu {
 
 .header__submenu .header__menu-item {
   font-family: "GT America Condensed";
-  font-size: 1rem;
+  font-size: 1.05rem;
   height: 55px;
 }
 
