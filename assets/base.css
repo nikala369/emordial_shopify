@@ -710,9 +710,9 @@ summary::-webkit-details-marker {
 
 *:focus-visible {
   outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
-  outline-offset: 0.3rem;
+  /* outline-offset: 0.3rem;
   box-shadow: 0 0 0 0.3rem rgb(var(--color-background)),
-    0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
+    0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3); */
 }
 
 /* Fallback - for browsers that don't support :focus-visible, a fallback is set for :focus */
@@ -1599,38 +1599,51 @@ details[open] > .share-button__fallback {
   color: rgba(var(--color-foreground), 0.75);
 }
 
-.field:hover.field:after,
+/* General Hover Styles for Inputs */
+/* .field:hover.field:after,
 .select:hover.select:after,
 .select__select:hover.select__select:after,
 .customer .field:hover.field:after,
 .customer select:hover.select:after,
 .localization-form__select:hover.localization-form__select:after {
-  box-shadow: 0 0 0 calc(0.1rem + var(--inputs-border-width))
-    rgba(var(--color-foreground), var(--inputs-border-opacity));
-  outline: 0;
-  border-radius: var(--inputs-radius);
-}
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.5); /* Subtle thin black border */
+/* outline: none; */
+/* border-radius: var(--inputs-radius); */
+/* transition: box-shadow 0.2s ease-in-out; */
+/* }  */
 
-.field__input:focus-visible,
-.select__select:focus-visible,
-.customer .field input:focus-visible,
-.customer select:focus-visible,
-.localization-form__select:focus-visible.localization-form__select:after {
-  box-shadow: 0 0 0 calc(0.1rem + var(--inputs-border-width))
-    rgba(var(--color-foreground));
-  outline: 0;
-  border-radius: var(--inputs-radius);
-}
-
+/* Focus Styles for Inputs */
 .field__input:focus,
 .select__select:focus,
 .customer .field input:focus,
 .customer select:focus,
 .localization-form__select:focus.localization-form__select:after {
-  box-shadow: 0 0 0 calc(0.1rem + var(--inputs-border-width))
-    rgba(var(--color-foreground));
-  outline: 0;
-  border-radius: var(--inputs-radius);
+  box-shadow: 0 0 0 0.5px rgba(59, 59, 59, 0.5); /* Subtle and consistent black border */
+  outline: none; /* No browser default outlines */
+  border-radius: var(--inputs-radius); /* Consistent corners */
+  background-color: rgba(0, 0, 0, 0.02); /* Light background change for focus */
+  transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out; /* Smooth transition */
+}
+
+/* Placeholder Styling */
+.field__input::placeholder,
+.select__select::placeholder {
+  color: rgba(49, 49, 49, 0.5); /* Subtle gray placeholder */
+  font-style: normal; /* Clean modern style */
+  transition: color 0.2s ease-in-out; /* Smooth transition */
+}
+
+.field__input:focus::placeholder,
+.select__select:focus::placeholder {
+  color: rgba(67, 67, 67, 0.2); /* Slightly darker placeholder text on focus */
+}
+
+/* Transition for All Interactions */
+.field,
+.select,
+.field__input,
+.select__select {
+  transition: all 0.2s ease-in-out; /* Smooth transition for all input interactions */
 }
 
 .localization-form__select:focus {
@@ -2728,7 +2741,7 @@ details[open] > .search-modal {
   animation: animateMenuOpen var(--duration-default) ease;
 
   height: 75px;
-  margin-top: 55px;
+  margin-top: 46px;
 
   @media screen and (max-width: 990px) {
     height: 67.5px;
@@ -2779,11 +2792,11 @@ details[open] .modal-overlay::after {
   bottom: calc((var(--inputs-margin-offset) / 2));
 
   @media screen and (max-width: 990px) {
-    padding-top: 5px;
+    padding-top: 9.5px;
   }
 
   @media screen and (min-width: 990px) {
-    margin-top: 20px;
+    margin-top: 27.5px;
   }
 }
 
