@@ -380,13 +380,13 @@
 @media screen and (min-width: 750px) {
   .banner--desktop-transparent .banner__box {
     background: transparent;
-    max-width: 89rem;
+    /* max-width: 89rem; */
     border: none;
     border-radius: 0;
     box-shadow: none;
 
-    /* my change */
-    top: -115px;
+    /* my change new change #1 home*/
+    top: -70px;
   }
 
   .banner--desktop-transparent .button--secondary {
@@ -506,6 +506,10 @@
 
 .banner__box > * + .banner__buttons {
   margin-top: 3rem;
+
+  @media screen and (max-width: 749px) {
+    margin-top: 8rem;
+  }
 }
 
 @media screen and (max-width: 749px) {

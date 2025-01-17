@@ -66,7 +66,7 @@
   .list-menu__item {
     display: flex;
     align-items: center;
-    line-height: calc(3.5 + 0.3 / var(--font-body-scale));
+    line-height: calc(3.8 + 0.3 / var(--font-body-scale));
   }
 
   .list-menu__item--link {
@@ -121,12 +121,12 @@
 
   .svg-container {
     width: 100%; /* Full width on smaller screens */
-    max-width: 37.5%; /* Limit the width to prevent it from becoming too large */
+    max-width: 42%; /* Limit the width to prevent it from becoming too large */
     margin: 0 auto; /* Center the header */
     overflow: hidden;
 
   @media screen and (max-width: 750px) {
-    max-width: 65%;
+    max-width: 82.5%;
   }
 }
 
@@ -271,7 +271,7 @@
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
                 <img
                 class="emordial-svg-heading-header"
-                src="{{ 'emordial-custom-font.svg' | asset_url }}"
+                src="{{ 'emordial-custom-font-last-thick.svg' | asset_url }}"
                 alt="Emordial font svg"
                 width="100%"
                 height="auto">
