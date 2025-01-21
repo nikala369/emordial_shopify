@@ -16,47 +16,25 @@
           "type": "heading",
           "settings": {
             "heading": "EMORDIAL",
-            "heading_size": "h0"
-          }
-        },
-        "text_FPEnYn": {
-          "type": "text",
-          "settings": {
-            "text": "SEDUCTIVLY YOURS",
-            "text_style": "body"
+            "heading_size": "h1"
           }
         },
         "button": {
-          "type": "buttons",
+          "type": "button",
           "settings": {
-            "button_label_1": "Shop now",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/all"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "text_FPEnYn",
-        "button"
-      ],
+      "block_order": ["heading", "button"],
       "settings": {
-        "image": "shopify://shop_images/home-banner1.svg",
-        "image_2": "shopify://shop_images/homepage-right_f65f2736-efac-408d-bd1f-4620d8d44e82.svg",
-        "image_3": "shopify://shop_images/emordial-logo.svg",
-        "image_overlay_opacity": 0,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "desktop_svg": "shopify://shop_images/home-banner1.svg",
+        "mobile_svg": "shopify://shop_images/homepage-right_f65f2736-efac-408d-bd1f-4620d8d44e82.svg",
+        "subtitle_text": "FLASH SALE",
+        "heading_text": "50% OFF EVERYTHING",
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/all"
       }
     },
     "collection_list_VipeCH": {
@@ -117,9 +95,5 @@
       }
     }
   },
-  "order": [
-    "image_banner",
-    "collection_list_VipeCH",
-    "featured_collection"
-  ]
+  "order": ["image_banner", "collection_list_VipeCH", "featured_collection"]
 }

@@ -1,358 +1,181 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 
 
-{% comment %} //THIS IS LOGO ORIGINAL !!!!!!!!!!!!!!!!!!!! {% endcomment %}
-{% comment %} <div class="banner__main-logo">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {{ section.settings.image_3 | img_url: '300x300' | img_tag: 'Emordial Logo', 'logo responsive-img' }}
-</div> {% endcomment %}
-
-{% comment %} problem with rendering 3d model, talk with gpt !!!!!!!!! {% endcomment %}
-
-
-{%- if section.settings.image_height == 'adapt' and section.settings.image != blank -%}
-  {%- style -%}
-    @media screen and (max-width: 749px) {
-      #Banner-{{ section.id }}::before,
-      #Banner-{{ section.id }}.banner__media::before,
-      #Banner-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
-        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
-        content: '';
-        display: block;
-      }
-    }
-
-    @media screen and (min-width: 750px) {
-      #Banner-{{ section.id }}: : before
-      , #Banner-{{ section.id }}
-      .banner__media::before {
-        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
-        content: '';
-        display: block;
-      }
-    }
-  {%- endstyle -%}
-{%- endif -%}
-
 {%- style -%}
-  #Banner-{{ section.id }}::after {
-    opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
-  }
-
-
-  .custom-margin-banner-section {
-  @media screen and (max-width: 768px) {
-    height: calc(100vh - 30vh);
-  }
-
-  @media screen and (min-width: 769px) and(max-width: 950px) {
-    height: calc(100vh - 10vh);
-  }
-}
-
-
-#model-container {
-  position: absolute;
-  top: -100%;
-  left: 50%;
-  /* Adjusted to center horizontally */
-  transform: translate(-50%, -50%);
-  z-index: 10;
-
-  @media screen and (max-width: 768px) {
-    top: -10%;
-  }
-}
-
-.logo {
-  width: 100px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  transition: transform 0.3s ease;
-}
-
-.logo:hover {
-  transform: scale(1.03);
-}
-
-.custom-heading {
-  font-family: 'Cardo'
-  , serif;
-  font-size: 80px;
-  font-weight: 700;
-  color: #000;
-  line-height: 1.1;
-  letter-spacing: 30px;
-  margin-left: 7.5px;
-  margin-top: 15px;
-  white-space: nowrap;
-
-  @media screen and (max-width: 768px) {
-    font-size: 42px;
-    letter-spacing: 12.5px;
-  }
-
-  @media screen and (max-width: 420px) {
-    font-size: 35px;
-    letter-spacing: 10px;
-  }
-
-}
-
-.svg-heading-div {
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 0;
-}
-
-.emordial-svg-heading {
-  max-width: 70%;
-  height: auto;
-  display: inline-block;
-  margin: 0 auto;
-  /* Center the heading on mobile */
-  /* Add padding for better spacing */
-}
-
-@media (min-width: 768px) {
-  .emordial-svg-heading {
-    width: 100%;
-    max-width: 500px;
-    /* Limit the size for larger screens */
-  }
-}
-
-.custom-subtitle {
-  font-family: "GT America Condensed";
-  font-size: 16px;
-  color: #999;
-  line-height: 0;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-}
-
-@media screen and (max-width: 768px) {
-  .custom-subtitle {
-    font-size: 11px;
-  }
-}
-
-/* ------------------------- */
-
-/* Base styles for the custom button */.custom-main-button {
-  font-family: "GT America Condensed";
-
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-  background-color: #000;
-  border: none;
-  /* padding: 14px 36px; */
-  border-radius: 2.5px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-decoration: none;
-  transition: transform 0.3s ease
-  , background-color 0.3s ease;
-  display: inline-block;
-  cursor: pointer;
-  outline: none;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  margin-top: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  user-select: none;
-}
-
-/* Responsive styles for smaller screens */
-@media screen and (max-width: 768px) {
-  .custom-main-button {
-    font-size: 12.5px;
-    padding: 10px 30px;
-    letter-spacing: 0.5px;
-  }
-}
-
-/* Pseudo-element for the lightning effect */
-.custom-main-button::after {
-  content: '';
-  position: absolute;
-  top: -110%;
-  left: -220%;
-  width: 220%;
-  height: 215%;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
-  opacity: 1;
-  /* Change opacity to 1 for default visibility */
-  z-index: 0;
-  animation: lightning 2s linear infinite;
-  transition: opacity 0.4s ease;
-}
-
-/* Lightning animation */
-@keyframes lightning {
-  0% {
-    left: -220%;
-  }
-  100% {
-    left: 220%;
-  }
-}
-
-/* Active state styles */
-.custom-main-button:active {
-  background-color: #333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transform: scale(0.98);
-}
-
-/* Different effect on click */
-.custom-main-button.clicked::after {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-
-/* -------------------------------- */
-
-
-/* Base styles for SVG containers, applying only to mobile */@media (max-width: 768px) {
-  .banner__content {
-    position: relative;
-    overflow: hidden;
-    /* Cuts off any part of the SVGs that overflows */
-  }
-
-  .emordial-svg-1,
-  .emordial-svg-2 {
-    display: block;
-    position: absolute;
-    top: 5%;
-    /* Adjust vertically as needed */
-    /* width: 77.5vw; */
-    width: 84vw;
-    height: 100vw;
-    /* Maintain aspect ratio */
-    z-index: 1;
-
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease
-    , visibility 0.3s ease;
-
-    @media screen and (max-width: 768px) {
-      top: 10%;
-    }
-  }
-
-  body.loaded .emordial-svg-1,
-  body.loaded .emordial-svg-2 {
-    opacity: 1;
-    visibility: visible;
-  }
+  /* Base Styles for the Custom Button START */
 
 
   /*
-   .emordial-svg-1 {
-   left: -38.5vw;
-   }
-
-   .emordial-svg-2 {
-   left: 61.5vw;
+   .custom-main-button {
+   font-family: "GT America Condensed";
+   font-size: 14px;
+   font-weight: 500;
+   color: #fff;
+   background-color: #000;
+   border: none;
+   border-radius: 2.5px;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   text-decoration: none;
+   transition: transform 0.3s ease, background-color 0.3s ease;
+   display: inline-block;
+   cursor: pointer;
+   outline: none;
+   position: relative;
+   overflow: hidden;
+   z-index: 1;
+   margin-top: 10px;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+   user-select: none;
    }
 */
 
-  .emordial-svg-1 {
-    left: -39vw;
-    /* Adjust to keep part of the image off-screen */
+  /* Responsive Styles for Smaller Screens */
+
+
+  /*
+   @media screen and (max-width: 768px) {
+   .custom-main-button {
+   font-size: 12.5px;
+   padding: 10px 30px;
+   letter-spacing: 0.5px;
+   }
+   }
+*/
+
+  /* Pseudo-Element for the Lightning Effect */
+
+
+  /*
+   .custom-main-button::after {
+   content: '';
+   position: absolute;
+   top: -110%;
+   left: -220%;
+   width: 220%;
+   height: 215%;
+   background: linear-gradient(
+   120deg,
+   rgba(255, 255, 255, 0) 0%,
+   rgba(255, 255, 255, 0.4) 50%,
+   rgba(255, 255, 255, 0) 100%
+   );
+   opacity: 1; /* Change opacity to 1 for default visibility
+*/
+
+
+  /*
+   z-index: 0;
+   animation: lightning 2s linear infinite;
+   transition: opacity 0.4s ease;
+   }
+*/
+
+  /* Lightning Animation */
+
+
+  /*
+   @keyframes lightning {
+   0% {
+   left: -220%;
+   }
+   100% {
+   left: 220%;
+   }
+   }
+*/
+
+  /* Active State Styles */
+
+
+  /*
+   .custom-main-button:active {
+   background-color: #333;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+   transform: scale(0.98);
+   }
+*/
+
+  /* Different Effect on Click */
+
+
+  /*
+   .custom-main-button.clicked::after {
+   opacity: 0;
+   transition: opacity 0.3s ease;
+   }
+*/
+
+  /* Base Styles for the Custom Button END */
+
+
+  /* Main Banner Section Styles */.custom-banner-section {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 10vh);
+    /* Ensures the banner spans the full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Prevents any overflow issues */
+    z-index: 0;
+
+    /* Mobile-specific adjustments */
+    @media screen and (max-width: 768px) {
+      height: calc(100vh - 10vh);
+      /* Slightly shorter height for smaller screens */
+    }
   }
 
-  .emordial-svg-2 {
-    left: 55.5vw;
-    /* Adjust for the second image to align as needed */
-  }
-}
-
-/* Hide SVGs on desktop */
-@media (min-width: 769px) {
-  .emordial-svg-1,
-  .emordial-svg-2 {
-    display: none;
-  }
-}
-
-/* Down arrow styling for mobile only */
-.down-arrow {
-  position: absolute;
-  z-index: 4;
-  bottom: -35px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-45deg);
-  width: 20px;
-  height: 20px;
-  border-left: 3px solid rgba(255, 255, 255, 0.9);
-  /* Thicker and more visible */
-  border-bottom: 3px solid rgba(255, 255, 255, 0.9);
-  /* Thicker and more visible */
-  opacity: 1;
-  display: none;
-  /* Hidden by default, visible when needed */
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  /* Prevent mobile highlight */
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-  /* Add a subtle glow */
-  transition: border-color 0.3s ease
-  , box-shadow 0.3s ease
-  , opacity 0.4s ease;
-}
-
-/* Focus and active states for better accessibility */
-.down-arrow:focus,
-.down-arrow:active {
-  outline: none;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 1);
-  /* Brighter glow when active */
-}
-
-/* Animation for pulsing effect from white to light grey */
-@keyframes pulse {
-  0,
-  100% {
-    border-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-  }
-  50% {
-    border-color: rgba(200, 200, 200, 0.7);
-    box-shadow: 0 0 10px rgba(200, 200, 200, 0.8);
-  }
-}
-
-/* Apply pulse animation */
-.down-arrow.pulsing {
-  animation: pulse 1.5s infinite ease-in-out;
-  /* Smooth pulsing effect */
-}
-
-/* Show arrow only on mobile */
-@media screen and (max-width: 768px) {
-  .down-arrow {
+  .svg-background-desktop:empty,
+  .svg-background-mobile:empty {
     display: block;
+    /* Ensure these elements are visible */
   }
+
+  /* Overlay Wrapper */
+  .svg-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Ensures it sits below the content */
+    /* background: rgba(0, 0, 0, 0.2); */
+    transition: background 0.3s ease;
+    z-index: -1;
+    /* Dark semi-transparent overlay */
+
+    @media screen and (max-width: 768px) {
+      background: rgba(0, 0, 0, 0.3);
+      z-index: -1;
+    }
+  }
+
+  /* SVG Backgrounds */
+  /* Desktop SVG background */.svg-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+
+    @media screen and (max-width: 768px) {}
 }
 
-
-/* custom style  */
+/* 3D Model Animation PLine */
 ._x983nf8 {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
   transform: translateX(-50.5%);
-  width: 20%;
+  width: 170px;
   /* Slightly narrower to emphasize sleekness */
   background: linear-gradient(to bottom, rgba(240, 240, 240, 0) 0%, /* Subtle transparency at the edges */ rgba(255, 255, 255, 0.8) 25%, /* Light gradient progression */ rgba(255, 255, 255, 1) 50%, /* Bright white in the center */ rgba(255, 255, 255, 0.8) 75%, /* Gradual fade */ rgba(240, 240, 240, 0) 100% /* Subtle transparency at the edges */);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05), /* Subtle outer glow */
@@ -380,166 +203,225 @@
     /* Fully transparent */
   }
   100% {
-    height: 100%;
+    height: 38vh;
     /* Expand to full height */
     opacity: 0.85;
     /* Smooth final transparency */
   }
 }
 
+/* 3D Model Container */
+#model-container {
+  position: absolute;
+  top: 23.5%;
+  /* Positioned above the center */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Center aligned */
+  z-index: 10;
+
+  /* Mobile adjustments */
+  @media screen and (max-width: 768px) {
+    top: 25%;
+    /* Slightly adjusted for smaller screens */
+  }
+}
+
+/* Shop Now and text h1 wrap  */
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+
+
+  @media screen and (max-width: 768px) {
+    top: 52.5%
+  }
+}
+
+/* Button Styles */
+.shop-now-button-main {
+  display: inline-block;
+  margin-top: 6rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: #000;
+  /* Changed text color to black */
+  border: 2px solid #000;
+  /* Changed border color to black */
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease
+  , color 0.3s ease;
+  font-family: 'Montserrat'
+  , sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+
+  position: relative;
+  z-index: 2;
+
+  @media screen and (max-width: 750px) {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+
+    border: 2px solid white;
+    color: white;
+  }
+
+}
+
+.shop-now-button-main:hover,
+.shop-now-button-main:focus {
+  background-color: #000;
+  /* Background becomes black on hover */
+  color: #fff;
+  /* Text color changes to white on hover */
+}
+
+.banner-subtitle {
+  color: #333;
+  /* Strong black for contrast */
+  font-size: 2.5rem;
+  /* Slightly smaller than the title */
+  font-family: 'Montserrat'
+  , sans-serif;
+  text-align: center;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
+  , 0 0 10px rgba(0, 0, 0, 0.15)
+  , 0 0 15px rgba(0, 0, 0, 0.1);
+  user-select: none;
+
+  @media screen and (max-width: 750px) {
+    width: 100vw;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7)
+    , 0 0 10px rgba(255, 255, 255, 0.7)
+    , 0 0 15px rgba(255, 255, 255, 0.7);
+  }
+}
+
+.banner-title {
+  color: #000;
+  font-size: 5rem;
+  font-family: 'Montserrat'
+  , sans-serif;
+  text-align: center;
+  margin: 0 auto;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
+  , 0 0 10px rgba(0, 0, 0, 0.15)
+  , 0 0 15px rgba(0, 0, 0, 0.1);
+  user-select: none;
+
+  @media screen and (max-width: 750px) {
+    width: 100vw;
+    font-size: 2rem;
+    letter-spacing: 3px;
+
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7)
+    , 0 0 10px rgba(255, 255, 255, 0.7)
+    , 0 0 15px rgba(255, 255, 255, 0.7);
+  }
+}
+
+/* Down Arrow */
+.down-arrow {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-45deg);
+  width: 20px;
+  height: 20px;
+  border-left: 2px solid rgba(255, 255, 255, 0.9);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+  z-index: 3;
+  opacity: 0;
+  animation: fadeInArrow 1s 1.5s ease forwards
+  , pulse 1.5s infinite ease-in-out;
+}
+
+/* Down Arrow animations */
+@keyframes fadeInArrow {
+  to {
+    opacity: 1;
+    /* Fully visible */
+  }
+}
+
+@keyframes pulse {
+  0,
+  100% {
+    transform: translateX(-50%) rotate(-45deg) scale(1);
+    /* Normal size */
+  }
+  50% {
+    transform: translateX(-50%) rotate(-45deg) scale(1.1);
+    /* Slightly larger */
+  }
+}
+
+/* Ensure arrow visibility on mobile */
+@media screen and (max-width: 768px) {
+  .down-arrow {
+    display: block;
+  }
+}
 
 {%- endstyle -%}
 
-{%- liquid
-  assign full_width = '100vw'
-  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
 
-  if section.settings.image_behavior == 'ambient'
-    assign half_width = '60vw'
-    assign full_width = '120vw'
-    assign stacked_sizes = '(min-width: 750px) 60vw, 120vw'
-    assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
-  elsif section.settings.image_behavior == 'fixed' or section.settings.image_behavior == 'zoom-in'
-    assign half_width = '100vw'
-    assign stacked_sizes = '100vw'
-  else
-    assign half_width = '50vw'
-    assign stacked_sizes = '(min-width: 750px) 50vw, 100vw'
-  endif
-  assign fetch_priority = 'auto'
-  if section.index == 1
-    assign fetch_priority = 'high'
-  endif
--%}
+<div id="Banner-{{ section.id }}" class="custom-banner-section section-{{ section.id }}-padding">
+  <!-- PLine for 3D model animation -->
+  {% comment %} <div class="_x983nf8">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span style="opacity: 0;">.</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                </div> {% endcomment %}
 
-<div id="Banner-{{ section.id }}" class="custom-margin-banner-section banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  <!-- SVG Background Overlay -->
 
-  <!-- PLine -->
-  <div class="_x983nf8">
-    <span style="opacity: 0;">.</span>
+  <div class="svg-background" id="background-image">
+
+    <div class="svg-background-overlay">
+      <!-- 3D Model Container -->
+      <div id="model-container" class="model-container"></div>
+      <!-- Button Wrapper -->
+      <div class="button-wrapper">
+        {% if section.settings.subtitle_text %}
+          <h2 class="banner-subtitle">{{ section.settings.subtitle_text }}</h2>
+        {% endif %}
+
+        {% if section.settings.heading_text %}
+          <h1 class="banner-title">{{ section.settings.heading_text }}</h1>
+        {% endif %}
+
+        <a href="{{ section.settings.button_link }}" class="shop-now-button-main">
+          {{ section.settings.button_label }}
+        </a>
+      </div>
+    </div>
+
   </div>
 
-  {%- if section.settings.image != blank -%}
-    <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {%- liquid
-        assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
-        if section.settings.image_2 != blank
-          assign image_class = 'banner__media-image-half'
-        endif
-        if section.settings.image_2 != blank and section.settings.stack_images_on_mobile
-          assign sizes = stacked_sizes
-        elsif section.settings.image_2 != blank
-          assign sizes = half_width
-        else
-          assign sizes = full_width
-        endif
-      -%}
-      {{
-        section.settings.image | image_url: width: 3840 | image_tag: width: section.settings.image.width, height: image_height, class: image_class, sizes: sizes, widths: widths, fetchpriority: fetch_priority
-      }}
-    </div>
-
-  {%- elsif section.settings.image_2 == blank -%}
-    <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-    </div>
-  {%- endif -%}
-  {%- if section.settings.image_2 != blank -%}
-    <div class="banner__media media{% if section.settings.image != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {%- liquid
-        assign image_height_2 = section.settings.image_2.width | divided_by: section.settings.image_2.aspect_ratio
-        if section.settings.image != blank
-          assign image_class_2 = 'banner__media-image-half'
-        endif
-        if section.settings.image != blank and section.settings.stack_images_on_mobile
-          assign sizes = stacked_sizes
-        elsif section.settings.image_2 != blank
-          assign sizes = half_width
-        else
-          assign sizes = full_width
-        endif
-      -%}
-      {{
-        section.settings.image_2 | image_url: width: 3840 | image_tag: width: section.settings.image_2.width, height: image_height_2, class: image_class_2, sizes: sizes, widths: widths, fetchpriority: fetch_priority
-      }}
-    </div>
-  {%- endif -%}
-
-  <div class="banner__content relative-content banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    <img
-      class="emordial-svg-1"
-      src="{{ '1e-01.svg' | asset_url }}"
-      alt="Emordial svg character for home page"
-      width="500"
-      height="500">
-    <img
-      class="emordial-svg-2"
-      src="{{ 'e4-01.svg' | asset_url }}"
-      alt="Emordial svg character boy for home page"
-      width="500"
-      height="500">
-
-    <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
-      {%- if section.settings.image_3 != blank -%}
-        <!-- Container for the 3D model -->
-        <div id="model-container"></div>
-      {%- endif -%}
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'heading' -%}
-          {% comment %} Shopify heading text from admin REMOVE #1 {% endcomment %}
-          {% comment %} banner__heading custom-heading ⬇️ {% endcomment %}
-          {% comment %} <h2 class="inline-richtext {{ block.settings.heading_size }}" {{ block.shopify_attributes }}> {% endcomment %}
-          {% comment %} {{ block.settings.heading }} {% endcomment %}
-
-          {% comment %} custom added svg emordial text REMOVE #2 {% endcomment %}
-          {% comment %} <div class="svg-heading-div">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <img
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="emordial-svg-heading"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                src="{{ 'emordial-custom-font.svg' | asset_url }}"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                alt="Emordial font svg"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                width="100%"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                height="auto">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> {% endcomment %}
-
-          {% comment %} </h2> {% endcomment %}
-          {%- when 'text' -%}
-            <div class="banner__text custom-subtitle rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
-              <p>{{ block.settings.text }}</p>
-            </div>
-          {%- when 'buttons' -%}
-            <div class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}" {{ block.shopify_attributes }}>
-              {%- if block.settings.button_label_1 != blank -%}
-                <a
-                  {% if block.settings.button_link_1 == blank %}
-                  role="link"
-                  aria-disabled="true"
-                  {% else %}
-                  href="{{ block.settings.button_link_1 }}"
-                  {% endif %}
-                  class="button custom-main-button button--primary">
-                  {{- block.settings.button_label_1 | escape -}}
-                </a>
-              {%- endif -%}
-              {%- if block.settings.button_label_2 != blank -%}
-                <a
-                  {% if block.settings.button_link_2 == blank %}
-                  role="link"
-                  aria-disabled="true"
-                  {% else %}
-                  href="{{ block.settings.button_link_2 }}"
-                  {% endif %}
-                  class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}">
-                  {{- block.settings.button_label_2 | escape -}}
-                </a>
-              {%- endif -%}
-            </div>
-        {%- endcase -%}
-      {%- endfor -%}
-    </div>
-  </div>
-
-
+  <!-- Down Arrow -->
   <div class="down-arrow" id="down-arrow"></div>
 </div>
 
@@ -558,7 +440,17 @@
 
       // Dynamic sizing for different devices
       const isMobile = window.innerWidth < 768;
-      const size = isMobile ? 160 : 220;
+
+      // other component part start
+      const desktopImage = "{{ section.settings.desktop_svg | image_url }}";
+      const mobileImage = "{{ section.settings.mobile_svg | image_url }}";
+
+      const backgroundImageElement = document.getElementById('background-image');
+      backgroundImageElement.style.backgroundImage = `url(${isMobile ? mobileImage : desktopImage})`;
+      // other component part end
+      
+
+      const size = isMobile ? 120 : 140;
       modelContainer.style.width = `${size}px`;
       modelContainer.style.height = `${size}px`;
 
@@ -570,7 +462,7 @@
 
       const scene = new THREE.Scene();
       const aspectRatio = modelContainer.clientWidth / modelContainer.clientHeight;
-      const camera = new THREE.PerspectiveCamera(60, aspectRatio, 0.1, 1000);
+      const camera = new THREE.PerspectiveCamera(isMobile ? 45 : 40, aspectRatio, 0.1, 1000);
       camera.position.set(0, 0.4, 4);
 
       const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -582,7 +474,7 @@
 
       window.addEventListener('resize', function () {
     const isMobile = window.innerWidth < 768;
-    const size = isMobile ? 160 : 220;
+    const size = isMobile ? 120 : 140;
     modelContainer.style.width = `${size}px`;
     modelContainer.style.height = `${size}px`;
     renderer.setSize(size, size);
@@ -693,7 +585,7 @@
       function animate() {
     requestAnimationFrame(animate);
     if (!isMobile && hoverEffect.isHovering) {
-      hoverEffect.angle += 0.025;
+      hoverEffect.angle += 0.02;
       if (gltfModel) {
         gltfModel.rotation.y = hoverEffect.angle;
       }
@@ -765,7 +657,7 @@
     }
 
     // Initial check for screen width and set height accordingly
-    checkScreenWidth();
+    // checkScreenWidth();
 
     // Remove resize event listener after setting the height on page load
     // So the banner height won't change after the page has rendered
@@ -776,289 +668,94 @@
 
 {% schema %}
   {
-    "name": "t:sections.image-banner.name",
-    "tag": "section",
-    "class": "section",
-    "disabled_on": {
-      "groups": ["header", "footer"]
-    },
+    "name": "Image Banner",
     "settings": [
       {
         "type": "image_picker",
-        "id": "image",
-        "label": "t:sections.image-banner.settings.image.label"
+        "id": "desktop_svg",
+        "label": "Desktop SVG"
       },
       {
         "type": "image_picker",
-        "id": "image_2",
-        "label": "t:sections.image-banner.settings.image_2.label"
+        "id": "mobile_svg",
+        "label": "Mobile SVG"
       },
       {
-        "type": "image_picker",
-        "id": "image_3",
-        "label": "Upload Logo"
+        "type": "text",
+        "id": "subtitle_text",
+        "label": "Subtitle Text",
+        "default": "FLASH SALE"
       },
       {
-        "type": "range",
-        "id": "image_overlay_opacity",
-        "min": 0,
-        "max": 100,
-        "step": 10,
-        "unit": "%",
-        "label": "t:sections.image-banner.settings.image_overlay_opacity.label",
-        "default": 0
+        "type": "text",
+        "id": "heading_text",
+        "label": "Heading Text",
+        "default": "50% OFF EVERYTHING"
       }, {
-        "type": "select",
-        "id": "image_height",
-        "options": [
-          {
-            "value": "adapt",
-            "label": "t:sections.image-banner.settings.image_height.options__1.label"
-          }, {
-            "value": "small",
-            "label": "t:sections.image-banner.settings.image_height.options__2.label"
-          }, {
-            "value": "medium",
-            "label": "t:sections.image-banner.settings.image_height.options__3.label"
-          }, {
-            "value": "large",
-            "label": "t:sections.image-banner.settings.image_height.options__4.label"
-          }
-        ],
-        "default": "medium",
-        "label": "t:sections.image-banner.settings.image_height.label",
-        "info": "t:sections.image-banner.settings.image_height.info"
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Shop Now"
       }, {
-        "type": "select",
-        "id": "desktop_content_position",
-        "options": [
-          {
-            "value": "top-left",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__1.label"
-          },
-          {
-            "value": "top-center",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__2.label"
-          },
-          {
-            "value": "top-right",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__3.label"
-          },
-          {
-            "value": "middle-left",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__4.label"
-          }, {
-            "value": "middle-center",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__5.label"
-          }, {
-            "value": "middle-right",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__6.label"
-          }, {
-            "value": "bottom-left",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__7.label"
-          }, {
-            "value": "bottom-center",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__8.label"
-          }, {
-            "value": "bottom-right",
-            "label": "t:sections.image-banner.settings.desktop_content_position.options__9.label"
-          }
-        ],
-        "default": "middle-center",
-        "label": "t:sections.image-banner.settings.desktop_content_position.label"
-      }, {
-        "type": "checkbox",
-        "id": "show_text_box",
-        "default": true,
-        "label": "t:sections.image-banner.settings.show_text_box.label"
-      }, {
-        "type": "select",
-        "id": "desktop_content_alignment",
-        "options": [
-          {
-            "value": "left",
-            "label": "t:sections.image-banner.settings.desktop_content_alignment.options__1.label"
-          }, {
-            "value": "center",
-            "label": "t:sections.image-banner.settings.desktop_content_alignment.options__2.label"
-          }, {
-            "value": "right",
-            "label": "t:sections.image-banner.settings.desktop_content_alignment.options__3.label"
-          }
-        ],
-        "default": "center",
-        "label": "t:sections.image-banner.settings.desktop_content_alignment.label"
-      }, {
-        "type": "color_scheme",
-        "id": "color_scheme",
-        "label": "t:sections.all.colors.label",
-        "default": "scheme-1"
-      }, {
-        "type": "header",
-        "content": "t:sections.all.animation.content"
-      }, {
-        "type": "select",
-        "id": "image_behavior",
-        "options": [
-          {
-            "value": "none",
-            "label": "t:sections.all.animation.image_behavior.options__1.label"
-          }, {
-            "value": "ambient",
-            "label": "t:sections.all.animation.image_behavior.options__2.label"
-          }, {
-            "value": "fixed",
-            "label": "t:sections.all.animation.image_behavior.options__3.label"
-          }, {
-            "value": "zoom-in",
-            "label": "t:sections.all.animation.image_behavior.options__4.label"
-          }
-        ],
-        "default": "none",
-        "label": "t:sections.all.animation.image_behavior.label"
-      }, {
-        "type": "header",
-        "content": "t:sections.image-banner.settings.mobile.content"
-      }, {
-        "type": "select",
-        "id": "mobile_content_alignment",
-        "options": [
-          {
-            "value": "left",
-            "label": "t:sections.image-banner.settings.mobile_content_alignment.options__1.label"
-          }, {
-            "value": "center",
-            "label": "t:sections.image-banner.settings.mobile_content_alignment.options__2.label"
-          }, {
-            "value": "right",
-            "label": "t:sections.image-banner.settings.mobile_content_alignment.options__3.label"
-          }
-        ],
-        "default": "center",
-        "label": "t:sections.image-banner.settings.mobile_content_alignment.label"
-      }, {
-        "type": "checkbox",
-        "id": "stack_images_on_mobile",
-        "default": true,
-        "label": "t:sections.image-banner.settings.stack_images_on_mobile.label"
-      }, {
-        "type": "checkbox",
-        "id": "show_text_below",
-        "default": true,
-        "label": "t:sections.image-banner.settings.show_text_below.label"
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
       }
     ],
     "blocks": [
       {
         "type": "heading",
-        "name": "t:sections.image-banner.blocks.heading.name",
-        "limit": 1,
+        "name": "Heading",
         "settings": [
           {
-            "type": "inline_richtext",
+            "type": "text",
             "id": "heading",
-            "default": "Image banner",
-            "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
+            "label": "Heading Text",
+            "default": "Your Heading Here"
           }, {
             "type": "select",
             "id": "heading_size",
+            "label": "Heading Size",
             "options": [
               {
-                "value": "h2",
-                "label": "t:sections.all.heading_size.options__1.label"
-              }, {
                 "value": "h1",
-                "label": "t:sections.all.heading_size.options__2.label"
+                "label": "H1"
               }, {
-                "value": "h0",
-                "label": "t:sections.all.heading_size.options__3.label"
+                "value": "h2",
+                "label": "H2"
+              }, {
+                "value": "h3",
+                "label": "H3"
               }
             ],
-            "default": "h1",
-            "label": "t:sections.all.heading_size.label"
+            "default": "h1"
           }
         ]
       }, {
-        "type": "text",
-        "name": "t:sections.image-banner.blocks.text.name",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "inline_richtext",
-            "id": "text",
-            "default": "Give customers details about the banner image(s) or content on the template.",
-            "label": "t:sections.image-banner.blocks.text.settings.text.label"
-          }, {
-            "type": "select",
-            "id": "text_style",
-            "options": [
-              {
-                "value": "body",
-                "label": "t:sections.image-banner.blocks.text.settings.text_style.options__1.label"
-              }, {
-                "value": "subtitle",
-                "label": "t:sections.image-banner.blocks.text.settings.text_style.options__2.label"
-              }, {
-                "value": "caption-with-letter-spacing",
-                "label": "t:sections.image-banner.blocks.text.settings.text_style.options__3.label"
-              }
-            ],
-            "default": "body",
-            "label": "t:sections.image-banner.blocks.text.settings.text_style.label"
-          }
-        ]
-      }, {
-        "type": "buttons",
-        "name": "t:sections.image-banner.blocks.buttons.name",
-        "limit": 1,
+        "type": "button",
+        "name": "Button",
         "settings": [
           {
             "type": "text",
-            "id": "button_label_1",
-            "default": "Button label",
-            "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
-            "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
-          },
-          {
-            "type": "url",
-            "id": "button_link_1",
-            "label": "t:sections.image-banner.blocks.buttons.settings.button_link_1.label"
-          },
-          {
-            "type": "checkbox",
-            "id": "button_style_secondary_1",
-            "default": false,
-            "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
-          },
-          {
-            "type": "text",
-            "id": "button_label_2",
-            "default": "Button label",
-            "label": "t:sections.image-banner.blocks.buttons.settings.button_label_2.label",
-            "info": "t:sections.image-banner.blocks.buttons.settings.button_label_2.info"
+            "id": "button_label",
+            "label": "Button Label",
+            "default": "Shop Now"
           }, {
             "type": "url",
-            "id": "button_link_2",
-            "label": "t:sections.image-banner.blocks.buttons.settings.button_link_2.label"
-          }, {
-            "type": "checkbox",
-            "id": "button_style_secondary_2",
-            "default": false,
-            "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
+            "id": "button_link",
+            "label": "Button Link"
           }
         ]
       }
     ],
     "presets": [
       {
-        "name": "t:sections.image-banner.presets.name",
+        "name": "Image Banner",
         "blocks": [
           {
             "type": "heading"
           }, {
-            "type": "text"
-          }, {
-            "type": "buttons"
+            "type": "button"
           }
         ]
       }
