@@ -27,10 +27,13 @@
           }
         }
       },
-      "block_order": ["heading", "button"],
+      "block_order": [
+        "heading",
+        "button"
+      ],
       "settings": {
         "desktop_svg": "shopify://shop_images/home-banner1.svg",
-        "mobile_svg": "shopify://shop_images/homepage-right_f65f2736-efac-408d-bd1f-4620d8d44e82.svg",
+        "mobile_svg": "shopify://shop_images/mobile-banner.svg",
         "subtitle_text": "FLASH SALE",
         "heading_text": "50% OFF EVERYTHING",
         "button_label": "Shop Now",
@@ -95,5 +98,9 @@
       }
     }
   },
-  "order": ["image_banner", "collection_list_VipeCH", "featured_collection"]
+  "order": [
+    "image_banner",
+    "collection_list_VipeCH",
+    "featured_collection"
+  ]
 }
