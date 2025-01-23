@@ -167,6 +167,8 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    opacity: 0;
     transition: opacity 0.8s ease
     , background-image 0.2s ease;
   }
@@ -410,8 +412,8 @@
 <div id="Banner-{{ section.id }}" class="custom-banner-section section-{{ section.id }}-padding">
   <!-- PLine for 3D model animation -->
   {% comment %} <div class="_x983nf8">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <span style="opacity: 0;">.</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> {% endcomment %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span style="opacity: 0;">.</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> {% endcomment %}
 
   <!-- SVG Background Overlay -->
 
@@ -459,29 +461,47 @@
       const isMobile = window.innerWidth < 768;
       const isMobileLocal = window.matchMedia("(max-width: 768px)").matches;
 
+      // Detect initial load for main banner animation
+  const isHardRefresh = !sessionStorage.getItem("pageLoaded");
+
+  // Save a flag to prevent reanimation on subsequent refreshes
+  if (isHardRefresh) {
+  sessionStorage.setItem("pageLoaded", "true");
+  }
+
       // other component part start
       const desktopImage = "{{ section.settings.desktop_svg | image_url }}";
       const mobileImage = "{{ section.settings.mobile_svg | image_url }}";
       const backgroundImageElement = document.getElementById("background-image");
 
-      // Function to load and apply the background image
       const loadBackgroundImage = () => {
-        const imageToLoad = isMobileLocal ? mobileImage : desktopImage;
+  const imageToLoad = isMobileLocal ? mobileImage : desktopImage;
 
-        const img = new Image();
-        img.src = imageToLoad;
+  const img = new Image();
+  img.src = imageToLoad;
 
-        img.onload = () => {
-          backgroundImageElement.style.backgroundImage = `url(${imageToLoad})`;
-          backgroundImageElement.classList.add("loaded");
-        };
-      };
+  img.onload = () => {
+    backgroundImageElement.style.backgroundImage = `url(${imageToLoad})`;
 
-      loadBackgroundImage();
+    if (isHardRefresh) {
+      // Apply fade-in only on hard refresh
+      setTimeout(() => {
+        backgroundImageElement.classList.add("loaded");
+      }, 15);
+    } else {
+      // Skip fade-in for other refreshes
+      backgroundImageElement.classList.add("loaded");
+    }
+  };
+  };
 
-      window.addEventListener("resize", () => {
-        loadBackgroundImage();
-      });
+  // Initial load
+  loadBackgroundImage();
+
+  // Update background on resize without fade-in
+  window.addEventListener("resize", () => {
+  loadBackgroundImage();
+  });
       // other component part END
       
 
