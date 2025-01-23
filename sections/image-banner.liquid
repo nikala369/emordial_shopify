@@ -298,6 +298,11 @@
     /* Background becomes black on hover */
     color: #fff;
     /* Text color changes to white on hover */
+
+    @media screen and (max-width: 750px) {
+      background-color: transparent;
+      color: transparent;
+    }
   }
 
   .banner-subtitle {
@@ -412,8 +417,8 @@
 <div id="Banner-{{ section.id }}" class="custom-banner-section section-{{ section.id }}-padding">
   <!-- PLine for 3D model animation -->
   {% comment %} <div class="_x983nf8">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span style="opacity: 0;">.</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> {% endcomment %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <span style="opacity: 0;">.</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> {% endcomment %}
 
   <!-- SVG Background Overlay -->
 
