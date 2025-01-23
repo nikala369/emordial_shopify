@@ -129,8 +129,7 @@
     }
   }
 
-  .svg-background-desktop:empty,
-  .svg-background-mobile:empty {
+  .svg-background:empty {
     display: block;
     /* Ensure these elements are visible */
   }
@@ -155,248 +154,255 @@
     }
   }
 
-  /* SVG Backgrounds */
-  /* Desktop SVG background */.svg-background {
+  .svg-background {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
     z-index: 0;
 
-    @media screen and (max-width: 768px) {}
-}
+    width: 100%;
+    height: 100%;
 
-/* 3D Model Animation PLine */
-._x983nf8 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50.5%);
-  width: 170px;
-  /* Slightly narrower to emphasize sleekness */
-  background: linear-gradient(to bottom, rgba(240, 240, 240, 0) 0%, /* Subtle transparency at the edges */ rgba(255, 255, 255, 0.8) 25%, /* Light gradient progression */ rgba(255, 255, 255, 1) 50%, /* Bright white in the center */ rgba(255, 255, 255, 0.8) 75%, /* Gradual fade */ rgba(240, 240, 240, 0) 100% /* Subtle transparency at the edges */);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05), /* Subtle outer glow */
-  inset 0 0 5px rgba(0, 0, 0, 0.1);
-  /* Minimal inner shadow for depth */
-  animation: portalFadeIn 1.5s linear forwards;
-  /* Linear, smooth appearance */
-  z-index: 1;
-  opacity: 0.85;
-  /* Slight transparency for an ethereal look */
-
-  border-top: 0;
-  border-bottom: 0;
-
-  @media screen and (max-width: 768px) {
-    width: 80%;
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 0.8s ease
+    , background-image 0.2s ease;
   }
-}
 
-@keyframes portalFadeIn {
-  0% {
-    height: 0;
-    /* Start from the top */
-    opacity: 0;
-    /* Fully transparent */
+  #background-image.loaded {
+    opacity: 1;
   }
-  100% {
-    height: 38vh;
-    /* Expand to full height */
+
+  /* 3D Model Animation PLine */
+  ._x983nf8 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50.5%);
+    width: 170px;
+    /* Slightly narrower to emphasize sleekness */
+    background: linear-gradient(to bottom, rgba(240, 240, 240, 0) 0%, /* Subtle transparency at the edges */ rgba(255, 255, 255, 0.8) 25%, /* Light gradient progression */ rgba(255, 255, 255, 1) 50%, /* Bright white in the center */ rgba(255, 255, 255, 0.8) 75%, /* Gradual fade */ rgba(240, 240, 240, 0) 100% /* Subtle transparency at the edges */);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05), /* Subtle outer glow */
+    inset 0 0 5px rgba(0, 0, 0, 0.1);
+    /* Minimal inner shadow for depth */
+    animation: portalFadeIn 1.5s linear forwards;
+    /* Linear, smooth appearance */
+    z-index: 1;
     opacity: 0.85;
-    /* Smooth final transparency */
+    /* Slight transparency for an ethereal look */
+
+    border-top: 0;
+    border-bottom: 0;
+
+    @media screen and (max-width: 768px) {
+      width: 80%;
+    }
   }
-}
 
-/* 3D Model Container */
-#model-container {
-  position: absolute;
-  top: 23.5%;
-  /* Positioned above the center */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /* Center aligned */
-  z-index: 10;
-
-  /* Mobile adjustments */
-  @media screen and (max-width: 768px) {
-    top: 22.5%;
-    /* Slightly adjusted for smaller screens */
+  @keyframes portalFadeIn {
+    0% {
+      height: 0;
+      /* Start from the top */
+      opacity: 0;
+      /* Fully transparent */
+    }
+    100% {
+      height: 38vh;
+      /* Expand to full height */
+      opacity: 0.85;
+      /* Smooth final transparency */
+    }
   }
-}
 
-/* Shop Now and text h1 wrap  */
-.button-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* 3D Model Container */
+  #model-container {
+    position: absolute;
+    top: 23.5%;
+    /* Positioned above the center */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Center aligned */
+    z-index: 10;
 
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 2;
-
-
-  @media screen and (max-width: 768px) {
-    top: 45.5%
+    /* Mobile adjustments */
+    @media screen and (max-width: 768px) {
+      top: 22.5%;
+      /* Slightly adjusted for smaller screens */
+    }
   }
-}
 
-/* Button Styles */
-.shop-now-button-main {
-  display: inline-block;
-  margin-top: 6rem;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  color: #000;
-  /* Changed text color to black */
-  border: 2px solid #000;
-  /* Changed border color to black */
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease
-  , color 0.3s ease;
-  font-family: 'Montserrat'
-  , sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 1.2rem;
+  /* Shop Now and text h1 wrap  */
+  .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  position: relative;
-  z-index: 2;
-
-  @media screen and (max-width: 750px) {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
 
 
-    /*
+    @media screen and (max-width: 768px) {
+      top: 45.5%
+    }
+  }
+
+  /* Button Styles */
+  .shop-now-button-main {
+    display: inline-block;
+    margin-top: 6rem;
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: #000;
+    /* Changed text color to black */
+    border: 2px solid #000;
+    /* Changed border color to black */
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease
+    , color 0.3s ease;
+    font-family: 'Montserrat'
+    , sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+
+    position: relative;
+    z-index: 2;
+
+    @media screen and (max-width: 750px) {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+
+
+      /*
    border: 2px solid white;
    color: white;
 */
+    }
+
   }
 
-}
+  .shop-now-button-main:hover,
+  .shop-now-button-main:focus {
+    background-color: #000;
+    /* Background becomes black on hover */
+    color: #fff;
+    /* Text color changes to white on hover */
+  }
 
-.shop-now-button-main:hover,
-.shop-now-button-main:focus {
-  background-color: #000;
-  /* Background becomes black on hover */
-  color: #fff;
-  /* Text color changes to white on hover */
-}
+  .banner-subtitle {
+    color: #333;
+    /* Strong black for contrast */
+    font-size: 2.5rem;
+    /* Slightly smaller than the title */
+    font-family: 'Montserrat'
+    , sans-serif;
+    text-align: center;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
+    , 0 0 10px rgba(0, 0, 0, 0.15)
+    , 0 0 15px rgba(0, 0, 0, 0.1);
+    user-select: none;
 
-.banner-subtitle {
-  color: #333;
-  /* Strong black for contrast */
-  font-size: 2.5rem;
-  /* Slightly smaller than the title */
-  font-family: 'Montserrat'
-  , sans-serif;
-  text-align: center;
-  margin: 0 0 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
-  , 0 0 10px rgba(0, 0, 0, 0.15)
-  , 0 0 15px rgba(0, 0, 0, 0.1);
-  user-select: none;
-
-  @media screen and (max-width: 750px) {
-    width: 100vw;
-    font-size: 1.7rem;
-    letter-spacing: 3px;
+    @media screen and (max-width: 750px) {
+      width: 100vw;
+      font-size: 1.7rem;
+      letter-spacing: 3px;
 
 
-    /*
+      /*
    color: #fff;
    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7)
    , 0 0 10px rgba(255, 255, 255, 0.7)
    , 0 0 15px rgba(255, 255, 255, 0.7);
 */
+    }
   }
-}
 
-.banner-title {
-  color: #000;
-  font-size: 5rem;
-  font-family: 'Montserrat'
-  , sans-serif;
-  text-align: center;
-  margin: 0 auto;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 500;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
-  , 0 0 10px rgba(0, 0, 0, 0.15)
-  , 0 0 15px rgba(0, 0, 0, 0.1);
-  user-select: none;
+  .banner-title {
+    color: #000;
+    font-size: 5rem;
+    font-family: 'Montserrat'
+    , sans-serif;
+    text-align: center;
+    margin: 0 auto;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
+    , 0 0 10px rgba(0, 0, 0, 0.15)
+    , 0 0 15px rgba(0, 0, 0, 0.1);
+    user-select: none;
 
-  @media screen and (max-width: 750px) {
-    width: 100vw;
-    font-size: 2.35rem;
-    font-weight: 600;
-    letter-spacing: 3px;
+    @media screen and (max-width: 750px) {
+      width: 100vw;
+      font-size: 2.35rem;
+      font-weight: 600;
+      letter-spacing: 3px;
 
 
-    /*
+      /*
    color: #fff;
    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7)
    , 0 0 10px rgba(255, 255, 255, 0.7)
    , 0 0 15px rgba(255, 255, 255, 0.7);
 */
+    }
   }
-}
 
-/* Down Arrow */
-.down-arrow {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-45deg);
-  width: 20px;
-  height: 20px;
-  border-left: 2px solid rgba(255, 255, 255, 0.9);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.9);
-  z-index: 3;
-  opacity: 0;
-  animation: fadeInArrow 1s 1.5s ease forwards
-  , pulse 1.5s infinite ease-in-out;
-}
-
-/* Down Arrow animations */
-@keyframes fadeInArrow {
-  to {
-    opacity: 1;
-    /* Fully visible */
-  }
-}
-
-@keyframes pulse {
-  0,
-  100% {
-    transform: translateX(-50%) rotate(-45deg) scale(1);
-    /* Normal size */
-  }
-  50% {
-    transform: translateX(-50%) rotate(-45deg) scale(1.1);
-    /* Slightly larger */
-  }
-}
-
-/* Ensure arrow visibility on mobile */
-@media screen and (max-width: 768px) {
+  /* Down Arrow */
   .down-arrow {
-    display: block;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+    width: 20px;
+    height: 20px;
+    border-left: 2px solid rgba(255, 255, 255, 0.9);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+    z-index: 3;
+    opacity: 0;
+    animation: fadeInArrow 1s 1.5s ease forwards
+    , pulse 1.5s infinite ease-in-out;
   }
-}
+
+  /* Down Arrow animations */
+  @keyframes fadeInArrow {
+    to {
+      opacity: 1;
+      /* Fully visible */
+    }
+  }
+
+  @keyframes pulse {
+    0,
+    100% {
+      transform: translateX(-50%) rotate(-45deg) scale(1);
+      /* Normal size */
+    }
+    50% {
+      transform: translateX(-50%) rotate(-45deg) scale(1.1);
+      /* Slightly larger */
+    }
+  }
+
+  /* Ensure arrow visibility on mobile */
+  @media screen and (max-width: 768px) {
+    .down-arrow {
+      display: block;
+    }
+  }
 
 {%- endstyle -%}
 
@@ -404,8 +410,8 @@
 <div id="Banner-{{ section.id }}" class="custom-banner-section section-{{ section.id }}-padding">
   <!-- PLine for 3D model animation -->
   {% comment %} <div class="_x983nf8">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span style="opacity: 0;">.</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> {% endcomment %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <span style="opacity: 0;">.</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> {% endcomment %}
 
   <!-- SVG Background Overlay -->
 
@@ -451,14 +457,32 @@
 
       // Dynamic sizing for different devices
       const isMobile = window.innerWidth < 768;
+      const isMobileLocal = window.matchMedia("(max-width: 768px)").matches;
 
       // other component part start
       const desktopImage = "{{ section.settings.desktop_svg | image_url }}";
       const mobileImage = "{{ section.settings.mobile_svg | image_url }}";
+      const backgroundImageElement = document.getElementById("background-image");
 
-      const backgroundImageElement = document.getElementById('background-image');
-      backgroundImageElement.style.backgroundImage = `url(${isMobile ? mobileImage : desktopImage})`;
-      // other component part end
+      // Function to load and apply the background image
+      const loadBackgroundImage = () => {
+        const imageToLoad = isMobileLocal ? mobileImage : desktopImage;
+
+        const img = new Image();
+        img.src = imageToLoad;
+
+        img.onload = () => {
+          backgroundImageElement.style.backgroundImage = `url(${imageToLoad})`;
+          backgroundImageElement.classList.add("loaded");
+        };
+      };
+
+      loadBackgroundImage();
+
+      window.addEventListener("resize", () => {
+        loadBackgroundImage();
+      });
+      // other component part END
       
 
       const size = isMobile ? 120 : 140;
