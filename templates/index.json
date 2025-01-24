@@ -32,8 +32,8 @@
         "button"
       ],
       "settings": {
-        "desktop_svg": "shopify://shop_images/main-banner-test.svg",
-        "mobile_svg": "shopify://shop_images/mobile-banner3_31603c2f-67df-4111-87fa-7654ea00155f.svg",
+        "desktop_svg": "shopify://shop_images/banner-test2.svg",
+        "mobile_svg": "shopify://shop_images/mobile-banner3.svg",
         "subtitle_text": "FLASH SALE",
         "heading_text": "50% OFF EVERYTHING",
         "button_label": "Shop Now",
@@ -46,15 +46,13 @@
         "featured_collection_Lap8Kg": {
           "type": "featured_collection",
           "settings": {
-            "collection": "earrings",
-            "background_image": "shopify://shop_images/collection1.svg"
+            "collection": "earrings"
           }
         },
         "featured_collection_d3YpkY": {
           "type": "featured_collection",
           "settings": {
-            "collection": "accessories",
-            "background_image": "shopify://shop_images/accessories-collection-img-url.svg"
+            "collection": "accessories"
           }
         }
       },
