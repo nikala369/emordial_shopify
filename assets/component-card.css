@@ -286,6 +286,8 @@
   .card .media.media--hover-effect > img:only-child,
   .card-wrapper .media.media--hover-effect > img:only-child {
     transition: transform var(--duration-long) ease;
+    padding: 60px;
+    background: white;
   }
 
   .card:hover .media.media--hover-effect > img:first-child:only-child,
