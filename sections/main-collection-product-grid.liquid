@@ -28,8 +28,15 @@
   .collection-custom-main {
     width: 100%;
     margin: 0 auto;
-    border-top: 1px solid #000;
+    /* border-top: 1px solid #000; */
     box-sizing: border-box;
+  }
+
+  .custom-margin-facet {
+    margin-bottom: 27.5px;
+    @media screen and (max-width: 750px) {
+      margin-bottom: 30px;
+    }
   }
 {%- endstyle -%}
 
@@ -99,7 +106,7 @@
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
         <aside
           aria-labelledby="verticalTitle"
-          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+          class="custom-margin-facet facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
           id="main-collection-filters"
           data-id="{{ section.id }}">
           {% render 'facets'

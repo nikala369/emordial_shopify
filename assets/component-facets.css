@@ -2,10 +2,15 @@
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
 
   padding-left: 32.5px;
   padding-right: 32.5px;
+
+  @media screen and (max-width: 750px) {
+    padding-left: 12.5px;
+    padding-right: 12.5px;
+  }
 }
 
 .active-facets-mobile {
@@ -666,6 +671,9 @@ a.active-facets__button.focused .active-facets__button-inner,
 
 .mobile-facets__disclosure {
   display: flex;
+  border: 1px solid #000;
+  /* border-bottom: none; */
+  padding: 0 10px;
 }
 
 .mobile-facets__wrapper {

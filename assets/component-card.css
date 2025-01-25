@@ -290,7 +290,8 @@
 
   .card:hover .media.media--hover-effect > img:first-child:only-child,
   .card-wrapper:hover .media.media--hover-effect > img:first-child:only-child {
-    transform: scale(1.03);
+    /* custom scale for hover desktop product item my change */
+    transform: scale(1);
   }
 
   .card-wrapper:hover
@@ -302,13 +303,13 @@
   .card-wrapper:hover .media.media--hover-effect > img + img {
     opacity: 1;
     transition: transform var(--duration-long) ease;
-    transform: scale(1.03);
+    /* transform: scale(1.05); */
   }
 
-  .underline-links-hover:hover a {
+  /* .underline-links-hover:hover a {
     text-decoration: underline;
     text-underline-offset: 0.3rem;
-  }
+  } */
 }
 
 .card--standard.card--media .card__inner .card__information,
@@ -330,8 +331,15 @@
 }
 
 .card--standard > .card__content .card__information {
-  padding-left: 10px;
+  padding: 10px;
   padding-right: 0;
+
+  font-family: "GT America Condensed";
+  font-weight: 500;
+
+  @media screen and (max-width: 768px) {
+    padding: 5px;
+  }
 }
 
 .card--card.card--media .card__inner .card__information,
@@ -395,7 +403,11 @@
 .card-information
   > *:not(.visually-hidden:first-child)
   + *:not(.rating):not(.card__information-volume-pricing-note) {
-  margin-top: 0.7rem;
+  margin-top: -0.1rem;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 0.2rem;
+  }
 }
 
 .card-information .caption {
