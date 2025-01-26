@@ -62,17 +62,19 @@
   .card-product-title {
     font-size: 14px;
     font-weight: 600;
+    letter-spacing: 0.2px;
     color: #333;
     margin-bottom: 3.5px;
   
     @media (max-width: 768px) {
-      font-size: 11px;
+      font-size: 12px;
     }
   }
   
   .card-product-price {
     font-size: 11px;
     font-weight: 500;
+    letter-spacing: 0px;
     color: #666; /* Subtle elegance */
     margin-bottom: 10px;
   
@@ -257,13 +259,13 @@
                 id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
                 class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
               >
-                {{- 'products.product.on_sale' | t -}}
+                {{- 'products.product.on_sale' | t | upcase -}}
               </span>
             {%- endif -%}
           </div>
         </div>
       </div>
-      
+
       <div class="card__content">
         <div class="card__information">
           <h3

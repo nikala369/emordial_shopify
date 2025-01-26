@@ -3232,26 +3232,32 @@ details-disclosure > details {
 
 /* Updated styles for the .badge class with a less intense effect */
 .badge {
-  border-radius: 4px; /* Slightly rounded edges for a modern look */
+  border-radius: 3px;
   display: inline-block;
-  font-size: 1.2rem;
-  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: "GT America Condensed";
+  letter-spacing: 0.5px;
   line-height: 1;
   padding: 0.5rem 1.3rem;
   text-align: center;
-  color: #ffffff; /* High contrast white text for readability */
+  color: #ffffff;
   word-break: break-word;
   background: linear-gradient(
       to right,
       rgba(255, 255, 255, 0.05) 0%,
-      /* Even more subtle white highlight for a soft sheen */ #cc0000 50%,
-      /* Dark red at the center for a gentle focal point */
-        rgba(255, 255, 255, 0.05) 100% /* Subtle endpoint */
+      #cc0000 50%,
+      rgba(255, 255, 255, 0.05) 100%
     )
-    #800000; /* Dark red as the base color */
+    #800000;
   background-size: 200% 100%;
   transition: all 0.3s ease-in-out;
-  animation: gentleSweep 5s linear infinite; /* Apply the more subtle sweep animation */
+  animation: gentleSweep 5s linear infinite;
+
+  @media screen and (max-width: 749px) {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
 }
 
 /* Enhanced hover effect for a smooth visual response */
