@@ -59,19 +59,17 @@
   }
   
   .card-product-title {
-  font-size: 1rem; 
+  font-size: 1.15rem;
   font-family: 'mont-bold';
   letter-spacing: 0.4px;
-  color: #444444; 
+  color: #373737;
   margin-bottom: 5px;
-  text-transform: uppercase;
-  text-overflow: ellipsis; 
-  white-space: nowrap; 
-  overflow: hidden;
+  width: 100%;
 
   @media (max-width: 768px) {
-    font-size: 0.9rem; 
+    font-size: 0.95rem;
     margin-bottom: 3px;
+    letter-spacing: 0.2px;
   }
 }
 
@@ -79,12 +77,13 @@
   font-size: 1.1rem;
   font-family: 'pop-semibold';
   letter-spacing: 0.1px;
-  color: #363636;
+  color: #373737 !important; 
+  /* color: #d80101 !important; */
   margin-bottom: 8px; 
   text-transform: none; /* Retain the original casing for clarity */
 
   @media (max-width: 768px) {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 }
   
@@ -271,7 +270,7 @@
         </div>
       </div>
 
-      <div class="card__content">
+      <div class="card__content" style="display: block;">
         <div class="card__information">
           <h3
             class="card__heading card-product-title{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
@@ -279,14 +278,14 @@
               id="title-{{ section_id }}-{{ card_product.id }}"
             {% endif %}
           >
-             <a
-              href="{{ card_product.url }}"
-              id="CardLink-{{ section_id }}-{{ card_product.id }}"
-              class="full-unstyled-link"
-              aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
-            > 
-              {{ card_product.title | escape }}
-             </a>
+                <a
+                  href="{{ card_product.url }}"
+                  id="CardLink-{{ section_id }}-{{ card_product.id }}"
+                  class="full-unstyled-link"
+                  aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
+                > 
+                  {{ card_product.title | escape }}
+                </a>
           </h3>
           <div class="card-information">
             {%- if show_vendor -%}
