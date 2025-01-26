@@ -72,7 +72,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "<strong>TRENDING PRODUCTS</strong>",
+        "title": "Trending Products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -85,7 +85,7 @@
         "view_all_style": "solid",
         "enable_desktop_slider": false,
         "color_scheme": "scheme-1",
-        "image_ratio": "square",
+        "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": false,
         "show_vendor": false,
