@@ -912,17 +912,11 @@ summary::-webkit-details-marker {
   width: 100%;
   height: 1.1px;
   /* background: linear-gradient(to right, #180000, #ad0000, #180000); */
-  background: linear-gradient(
-    to right,
-    #000000,
-    #660000,
-    #b80000,
-    #660000,
-    #000000
-  );
+  /* background: linear-gradient(to right, #660000, #c60000, #660000, #000000); */
   /* box-shadow: 0 0 5px rgba(27, 8, 8, 0.4), 0 0 10px rgba(184, 0, 0, 0.2); */
-  background-size: 200% 100%;
-  animation: metallicShine 10s linear infinite;
+  background: #000;
+  /* background-size: 200% 100%; */
+  /* animation: metallicShine 10s linear infinite; */
   position: absolute;
   /* bottom: 0px; */
   left: 0;
@@ -2414,7 +2408,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
   bottom: -2px;
   left: 50%;
   width: 0;
-  height: 1.4px;
+  height: 1.1px;
   background: linear-gradient(
     90deg,
     transparent,
@@ -2423,8 +2417,8 @@ product-info .loading__spinner:not(.hidden) ~ *,
     #8e8a8a,
     transparent
   );
-  filter: blur(2px);
-  opacity: 0.7;
+  filter: blur(2.5px);
+  opacity: 1;
   transform: translateX(-50%);
   animation: horizontalShine 1.5s ease-out forwards;
 
@@ -2444,20 +2438,21 @@ product-info .loading__spinner:not(.hidden) ~ *,
 @keyframes horizontalShine {
   0% {
     width: 0;
-    height: 5px;
+    height: 4px;
   }
   50% {
     width: 50%;
   }
   100% {
     width: 100%;
-    height: 1.4px;
+    height: 1.1px;
+    opacity: 0;
   }
 }
 
 /* sticky-border-bottom */
 .header-wrapper--border-bottom {
-  border-bottom: 1.4px solid rgba(0, 0, 0, 0.895);
+  border-bottom: 1.1px solid rgba(0, 0, 0, 0.895);
   transition: all 0.3s ease-in-out;
 }
 
@@ -3234,12 +3229,12 @@ details-disclosure > details {
 .badge {
   border-radius: 3px;
   display: inline-block;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   font-family: "GT America Condensed";
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   line-height: 1;
-  padding: 0.5rem 1.3rem;
+  padding: 0.7rem 2rem;
   text-align: center;
   color: #ffffff;
   word-break: break-word;
@@ -3255,8 +3250,8 @@ details-disclosure > details {
   animation: gentleSweep 5s linear infinite;
 
   @media screen and (max-width: 749px) {
-    padding: 0.4rem 1rem;
-    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
   }
 }
 
