@@ -4,4 +4,17 @@
 
 .related-products__heading {
   margin: 0 0 3rem;
+
+  font-family: "mont-semibold";
+  font-size: 1.8;
+  letter-spacing: 0.2px;
+
+  padding-left: 33px;
+  padding-right: 33px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 13px;
+    padding-right: 13px;
+    font-size: 1.6rem;
+  }
 }

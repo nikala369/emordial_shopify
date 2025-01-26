@@ -3232,17 +3232,20 @@ details-disclosure > details {
 
 /* Updated styles for the .badge class with a less intense effect */
 .badge {
-  border-radius: 3px;
   display: inline-block;
   font-size: 0.9rem;
   font-weight: 500;
   font-family: "GT America Condensed";
+
+  text-transform: uppercase;
   letter-spacing: 0.4px;
   line-height: 1;
   padding: 0.7rem 2rem;
   text-align: center;
-  color: #ffffff;
   word-break: break-word;
+
+  border-radius: 0px;
+  color: #ffffff;
   background: linear-gradient(
       to right,
       rgba(255, 255, 255, 0.05) 0%,
@@ -3251,8 +3254,10 @@ details-disclosure > details {
     )
     #800000;
   background-size: 200% 100%;
+
   transition: all 0.3s ease-in-out;
   animation: gentleSweep 5s linear infinite;
+  user-select: none;
 
   @media screen and (max-width: 749px) {
     padding: 0.5rem 1rem;
