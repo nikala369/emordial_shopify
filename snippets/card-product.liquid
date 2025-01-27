@@ -26,11 +26,11 @@
 {%- style -%}
   /* Core Styles */
   .card-product-wrapper {
-    cursor: pointer;
+    /* cursor: pointer; */
     /* margin: 10px; */
     text-align: center;
     /* to test visually well */
-    /* background-color: lightgrey; */
+    background-color: white;
     overflow: hidden;
     /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
     position: relative;
@@ -100,7 +100,7 @@
   }
   
   .card-product-wrapper:active {
-    transform: scale(0.99); 
+    /* transform: scale(0.99);  */
     /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05); Very light shadow for active state */
   }
   
@@ -139,6 +139,10 @@
 
   .custom-border-radius {
     border-radius: 0 !important;
+  }
+
+  .custom-choose-variant-button {
+    /* font-size: 1.5rem; */
   }
 {%- endstyle -%}
 
@@ -340,7 +344,7 @@
           </div>
         </div>
         {%- if show_quick_add -%}
-          <div class="quick-add no-js-hidden">
+          <div class="quick-add quick-add-desktop no-js-hidden">
             {%- liquid
               assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id
               assign qty_rules = false
@@ -354,12 +358,13 @@
                   id="{{ product_form_id }}-submit"
                   type="submit"
                   name="add"
-                  class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add animate-arrow{% endif %}"
+                  class="quick-add__submit custom-choose-variant-button {% if horizontal_quick_add %} card--horizontal__quick-add animate-arrow{% endif %}"
                   aria-haspopup="dialog"
                   aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                   data-product-url="{{ card_product.url }}"
                 >
-                  {{ 'products.product.choose_options' | t }}
+                  {% comment %} {{ 'products.product.choose_options' | t }} {% endcomment %}
+                  {{ 'O' }}
                   {%- if horizontal_quick_add -%}
                     <span class="icon-wrap">{% render 'icon-arrow' %}</span>
                   {%- endif -%}
@@ -387,7 +392,7 @@
               </quick-add-modal>
             {%- else -%}
             {% comment %} check this is select option for product i guess down  {% endcomment %}
-              <product-form data-section-id="{{ section.id }}">
+              <product-form style="display: flex; justify-content: flex-end;" data-section-id="{{ section.id }}">
                 {%- form 'product',
                   card_product,
                   id: product_form_id,
@@ -404,11 +409,12 @@
                       disabled
                     {% endif %}
                   >
+                  {% comment %} button button--full-width {% endcomment %}
                   <button
                     id="{{ product_form_id }}-submit"
                     type="submit"
                     name="add"
-                    class="quick-add__submit custom-border-radius button button--full-width{% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}"
+                    class="quick-add__submit custom-border-radius{% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}"
                     aria-haspopup="dialog"
                     aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                     aria-live="polite"
@@ -419,7 +425,8 @@
                   >
                     <span>
                       {%- if card_product.selected_or_first_available_variant.available -%}
-                        {{ 'products.product.add_to_cart' | t }}
+                        {% comment %} {{ 'products.product.add_to_cart' | t }} {% endcomment %}
+                        {{ '+' }}
                       {%- else -%}
                         {{ 'products.product.sold_out' | t }}
                       {%- endif -%}

@@ -2940,6 +2940,7 @@ details[open] > .header__submenu {
 
 /* Header menu */
 .header__inline-menu {
+  margin-top: -3px;
   margin-left: -1.2rem;
   grid-area: navigation;
   display: none;
@@ -2950,7 +2951,7 @@ details[open] > .header__submenu {
   margin-left: 0;
 }
 
-@media screen and (min-width: 1111px) {
+@media screen and (min-width: 1135px) {
   .header__inline-menu {
     display: block;
   }
@@ -3042,7 +3043,7 @@ details > summary {
 
 details[open] > summary ~ .header__submenu {
   display: block;
-  margin-top: 2px;
+  margin-top: 13.7px;
   margin-left: 17px;
   /* padding: 34.5px 0px; */
   padding-bottom: 0px;
@@ -3652,9 +3653,10 @@ details-disclosure > details {
   scale: var(--zoom-in-ratio);
 }
 
-/* Animations */
+/* Optimized Animations */
 
 @media (prefers-reduced-motion: no-preference) {
+  /* Ambient Animation */
   .animate--ambient > img,
   .animate--ambient > svg {
     animation: animateAmbient 30s linear infinite;
@@ -3669,13 +3671,11 @@ details-disclosure > details {
     }
   }
 
-  .scroll-trigger.animate--fade-in,
-  .scroll-trigger.animate--slide-in {
+  /* Scroll Trigger - Fade In */
+  .scroll-trigger.animate--fade-in {
     opacity: 0.01;
-  }
-
-  .scroll-trigger.animate--slide-in {
-    transform: translateY(2rem);
+    z-index: auto; /* Ensures stacking order is respected */
+    transition: opacity 0.6s ease-out;
   }
 
   .scroll-trigger:not(.scroll-trigger--offscreen).animate--fade-in {
@@ -3683,11 +3683,22 @@ details-disclosure > details {
     animation: var(--animation-fade-in);
   }
 
+  /* Scroll Trigger - Slide In */
+  .scroll-trigger.animate--slide-in {
+    transform: translateY(2rem);
+    opacity: 0.01;
+    z-index: auto; /* Ensures stacking order is respected */
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  }
+
   .scroll-trigger:not(.scroll-trigger--offscreen).animate--slide-in {
+    transform: translateY(0);
+    opacity: 1;
     animation: var(--animation-slide-in);
     animation-delay: calc(var(--animation-order) * 75ms);
   }
 
+  /* Design Mode Adjustments */
   .scroll-trigger.scroll-trigger--design-mode.animate--fade-in,
   .scroll-trigger.scroll-trigger--design-mode.animate--slide-in,
   .scroll-trigger.scroll-trigger--design-mode .slider,
@@ -3700,25 +3711,17 @@ details-disclosure > details {
   .scroll-trigger.scroll-trigger--design-mode.animate--slide-in {
     transform: translateY(0);
   }
+}
 
-  @keyframes slideIn {
-    from {
-      transform: translateY(2rem);
-      opacity: 0.01;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0.01;
-    }
-    to {
-      opacity: 1;
-    }
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate--ambient > img,
+  .animate--ambient > svg,
+  .scroll-trigger.animate--fade-in,
+  .scroll-trigger.animate--slide-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 

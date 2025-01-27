@@ -674,6 +674,12 @@ a.active-facets__button.focused .active-facets__button-inner,
   border: 1px solid #000;
   /* border-bottom: none; */
   padding: 0 10px;
+
+  &:hover {
+    background-color: rgb(246, 246, 246);
+    cursor: pointer;
+    text-decoration: none;
+  }
 }
 
 .mobile-facets__wrapper {
@@ -774,7 +780,7 @@ a.active-facets__button.focused .active-facets__button-inner,
 }
 
 .mobile-facets__open:hover .mobile-facets__open-label {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   text-underline-offset: 0.3rem;
 }
 
