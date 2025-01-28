@@ -1,4 +1,6 @@
 .facets-container {
+  position: relative;
+
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
@@ -11,6 +13,34 @@
     padding-left: 12.5px;
     padding-right: 12.5px;
   }
+}
+
+.custom-add-logo {
+  position: absolute; /* Enable absolute positioning relative to the parent */
+  top: 57.5%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Perfectly center the element */
+  text-decoration: none; /* Remove underline from the link */
+  width: 45px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  user-select: none; /* Disable text selection */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Optional background color for debugging */
+  overflow: hidden; /* Ensures the image does not spill out */
+
+  @media screen and (max-width: 750px) {
+    width: 32.5px;
+  }
+}
+
+.logo-image {
+  width: 100%; /* Full width of the container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the entire image is visible */
 }
 
 .active-facets-mobile {
@@ -777,6 +807,11 @@ a.active-facets__button.focused .active-facets__button-inner,
 
 .mobile-facets__open-label {
   transition: text-decoration var(--duration-short) ease;
+  font-size: 12.5px;
+
+  @media screen and (min-width: 750px) {
+    font-size: 14px;
+  }
 }
 
 .mobile-facets__open:hover .mobile-facets__open-label {
@@ -789,7 +824,7 @@ a.active-facets__button.focused .active-facets__button-inner,
 }
 
 .mobile-facets__open svg {
-  width: 2rem;
+  width: 1.6rem;
 }
 
 .mobile-facets__open line,
@@ -1045,7 +1080,10 @@ input.mobile-facets__checkbox {
 }
 
 .product-count__text {
-  font-size: 1.4rem;
+  font-size: 1.15rem;
+  font-family: "pop-regular";
+
+  letter-spacing: 0.5px;
   line-height: calc(1 + 0.5 / var(--font-body-scale));
   margin: 0;
 }
@@ -1199,7 +1237,7 @@ input.mobile-facets__checkbox {
   }
 
   .facets-container-drawer .product-count {
-    margin: 0 0 0.5rem 3.5rem;
+    margin: 0 0 0rem 3.5rem;
   }
 
   .facets-container-drawer .facets-pill {

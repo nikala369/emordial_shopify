@@ -260,6 +260,9 @@ a.product__text {
 
 .product__title > * {
   margin: 0;
+
+  font-size: 22px;
+  font-family: "mont-bold";
 }
 
 .product__title > a {

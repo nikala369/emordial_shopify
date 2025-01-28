@@ -248,13 +248,13 @@
 }
 
 .card__heading a::after {
-  bottom: 0;
+  /* bottom: 0;
   content: "";
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 1;
+  z-index: 1; */
 }
 
 .card__heading a:after {
@@ -294,7 +294,7 @@
   .card:hover .media.media--hover-effect > img:first-child:only-child,
   .card-wrapper:hover .media.media--hover-effect > img:first-child:only-child {
     /* custom scale for hover desktop product item my change */
-    transform: scale(1);
+    /* transform: scale(1); */
   }
 
   .card-wrapper:hover

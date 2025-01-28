@@ -319,13 +319,20 @@ h1,
 
 h2,
 .h2 {
-  font-size: calc(var(--font-heading-scale) * 2rem);
+  font-size: calc(var(--font-heading-scale) * 0rem);
+  font-family: "pop-semibold";
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+
+  @media only screen and (max-width: 750px) {
+    font-size: 1.5rem;
+  }
 }
 
 @media only screen and (min-width: 750px) {
   h2,
   .h2 {
-    font-size: calc(var(--font-heading-scale) * 2.4rem);
+    font-size: calc(var(--font-heading-scale) * 1.6rem);
   }
 }
 
@@ -1259,7 +1266,9 @@ deferred-media {
   display: inline-block;
   font-size: var(--button-font-size);
   padding: var(--button-padding);
-  border-radius: var(--button-border-radius);
+  /* border-radius: var(--button-border-radius); */
+  border-radius: 0;
+  border: 1px solid #000;
   transition: var(--button-transition);
   cursor: pointer;
   text-align: center;
@@ -1276,7 +1285,7 @@ deferred-media {
 .button {
   background-color: var(--button-primary-bg);
   color: var(--button-primary-text);
-  box-shadow: var(--button-box-shadow);
+  /* box-shadow: var(--button-box-shadow); */
 }
 
 .button:hover {
@@ -1291,11 +1300,13 @@ deferred-media {
 .button--secondary {
   background-color: var(--button-secondary-bg);
   color: var(--button-secondary-text);
-  box-shadow: var(--button-box-shadow);
+  /* box-shadow: var(--button-box-shadow); */
+  border: 1px solid #000;
 }
 
 .button--secondary:hover {
-  background-color: rgba(255, 255, 255, var(--button-hover-opacity));
+  /* background-color: rgba(255, 255, 255, var(--button-hover-opacity)); */
+  background-color: rgb(246, 246, 246);
 }
 
 .button--secondary:active {
@@ -3268,8 +3279,8 @@ details-disclosure > details {
 
 /* Enhanced hover effect for a smooth visual response */
 .badge:hover {
-  background-color: #990000;
-  transform: scale(1.1);
+  background-color: #790000;
+  /* transform: scale(1.1); */
   cursor: default;
 }
 

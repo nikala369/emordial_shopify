@@ -126,6 +126,17 @@
 .custom-less-top-padding {
   margin-top: 5px;
 }
+
+.custom-add-logo-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 47.5px;
+  margin-top: 50px;
+  margin-bottom: 0px !important;
+  /* // its only on desktop design */
+}
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -190,9 +201,9 @@
             {%- when 'title' -%}
               <div class="product__title" {{ block.shopify_attributes }}>
                 <h1 class="product-detailed-title">{{ product.title | escape }}</h1>
-                <a href="{{ product.url }}" class="product__title">
+                <a href="{{ product.url }}" class="product__title" style="width: 65%">
                   <h2 class="h1">
-                    {{ product.title | escape }}
+                      {{ product.title | escape }}
                   </h2>
                 </a>
               </div>
@@ -639,6 +650,16 @@
           {{ 'products.product.view_full_details' | t }}
           {% render 'icon-arrow' %}
         </a>
+
+        {% comment %} logo in modal {% endcomment %}
+        {% comment %} <div class="custom-add-logo-flex">
+          <img
+            class="logo-image"
+            width="50"
+            height="50"
+            src="{{ 'emordial-logo-original-clear.svg' | asset_url }}"
+            alt="Emordial Logo">
+        </div> {% endcomment %}
       </product-info>
     </div>
     {%- if section.settings.media_position == 'right' -%}
