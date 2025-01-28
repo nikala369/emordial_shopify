@@ -47,8 +47,9 @@
 
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
+    {% comment %} //heree {% endcomment %}
     <summary
-      class="header__icon header__icon--menu header__icon--summary link focus-inset"
+      class="header__icon header__icon--menu header__icon--summary link hide-active-from-javascript focus-inset"
       aria-label="{{ 'sections.header.menu' | t }}"
     >
       <div>
@@ -218,7 +219,7 @@
                    <div class="emordial-font-box">
                     <img
                     class="emordial-svg-heading-header"
-                    src="{{ 'emordial-custom-font-last-thick-white.svg' | asset_url }}"
+                    src="{{ 'emordial-custom-font-last-white.svg' | asset_url }}"
                     alt="Emordial font svg"
                     width="100%"
                     height="auto">
@@ -458,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll('details').forEach(details => {
       const summary = details.querySelector('summary');
       const submenuActive = details.querySelector('.menu-drawer__menu-item--active');
-      if (submenuActive) {
+      if (submenuActive && !summary.classList.contains('hide-active-from-javascript')) {
         summary.classList.add('menu-drawer__menu-item--active');
       }
     });

@@ -30,6 +30,113 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
+
+    .custom-spacing-product {
+      padding-left: 30px;
+      padding-right: 30px;
+
+    @media screen and (max-width: 768px) {
+      padding: 0 1.5rem;
+    }
+    }
+
+    .grid-custom {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      padding: 0;
+      list-style: none;
+      column-gap: var(--grid-mobile-horizontal-spacing);
+      row-gap: var(--grid-mobile-vertical-spacing);
+    }
+
+@media screen and (min-width: 750px) {
+  .grid-custom {
+    /* column-gap: var(--grid-desktop-horizontal-spacing); */
+    row-gap: var(--grid-desktop-vertical-spacing);
+  } 
+}
+
+.grid-custom__item-custom {
+  width: calc(25% - var(--grid-mobile-horizontal-spacing) * 3 / 4);
+  max-width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .grid-custom__item-custom {
+    width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+    max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+}
+
+.grid-custom--1-col .grid-custom__item-custom {
+    max-width: 100%;
+    width: 100%;
+}
+
+.grid-custom--4-col-desktop .grid-custom__item-custom {
+    width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+    max-width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+  }
+
+  .grid-custom--3-col-desktop .grid-custom__item-custom {
+    width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+    max-width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+  }
+
+  .grid-custom--2-col-desktop .grid-custom__item-custom {
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+    max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+
+  .slider--tablet.grid-custom--peek.grid-custom--2-col-tablet .grid-custom__item-custom,
+  .slider--tablet.grid-custom--peek.grid-custom--2-col-tablet-down .grid-custom__item-custom {
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) - 3rem);
+  }
+
+  .grid-custom--2-col-tablet-down .grid-custom__item-custom {
+    width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
+  }
+
+  .slider--tablet.grid-custom--peek.grid--1-col-tablet-down .grid-custom__item-custom,
+  .slider--mobile.grid-custom-peek.grid--1-col-tablet-down .grid-custom__item-custom {
+    width: calc(100% - var(--grid-mobile-horizontal-spacing) - 3rem);
+  }
+
+
+
+  .product-detailed-title {
+  font-size: 1.5rem; /* Base font size for mobile */
+  letter-spacing: 0.2px;
+  font-family: 'mont-bold';
+  color: #000; 
+  text-transform: uppercase;
+  margin-bottom: 0px !important;
+  margin-top: 5px !important;
+
+  @media (min-width: 768px) {
+    font-size: 2rem; /* Larger font for desktop */
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
+}
+
+.custom-less-top-padding {
+  margin-top: 5px;
+}
+
+.custom-add-logo-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 47.5px;
+  margin-top: 50px;
+  margin-bottom: 0px !important;
+  /* // its only on desktop design */
+}
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -66,12 +173,12 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-    <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
+  <div class="page-width custom-spacing-product">
+    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid-custom grid-custom--1-col {% if product.media.size > 0 %}grid-custom--2-col-tablet{% else %}product--no-media{% endif %}">
+    <div class="grid-custom__item-custom product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
       {% render 'product-media-gallery', variant_images: variant_images %}
     </div>
-    <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="product__info-wrapper grid-custom__item-custom{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <product-info
         id="ProductInfo-{{ section.id }}"
         data-section="{{ section.id }}"
@@ -93,15 +200,15 @@
               </p>
             {%- when 'title' -%}
               <div class="product__title" {{ block.shopify_attributes }}>
-                <h1>{{ product.title | escape }}</h1>
-                <a href="{{ product.url }}" class="product__title">
+                <h1 class="product-detailed-title">{{ product.title | escape }}</h1>
+                <a href="{{ product.url }}" class="product__title" style="width: 65%">
                   <h2 class="h1">
-                    {{ product.title | escape }}
+                      {{ product.title | escape }}
                   </h2>
                 </a>
               </div>
             {%- when 'price' -%}
-              <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+              <div class="no-js-hidden custom-less-top-padding" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                 {%- render 'price',
                   product: product,
                   use_variant: true,
@@ -475,9 +582,9 @@
                       {%- endif -%}
                       <slideshow-component class="slider-mobile-gutter">
                         {%- assign number_of_slides = recommendations.products_count | plus: 0.0 | divided_by: block.settings.products_per_page | ceil -%}
-                        <div id="Slider-{{ block.id }}" class="contains-card contains-card--product complementary-slider grid grid--1-col slider slider--everywhere" role="list"{% if number_of_slides > 1 %} aria-label="{{ 'general.slider.name' | t }}"{% endif %}>
+                        <div id="Slider-{{ block.id }}" class="contains-card contains-card--product complementary-slider grid-custom grid-custom--1-col slider slider--everywhere" role="list"{% if number_of_slides > 1 %} aria-label="{{ 'general.slider.name' | t }}"{% endif %}>
                           {%- for i in (1..number_of_slides) -%}
-                            <div id="Slide-{{ block.id }}-{{ forloop.index }}" class="complementary-slide complementary-slide--{{ settings.card_style }} grid__item slider__slide slideshow__slide" tabindex="-1" role="group"{% if number_of_slides > 1 %} aria-roledescription="{{ 'sections.slideshow.slide' | t }}" aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"{% endif %}>
+                            <div id="Slide-{{ block.id }}-{{ forloop.index }}" class="complementary-slide complementary-slide--{{ settings.card_style }} grid-custom__item-custom slider__slide slideshow__slide" tabindex="-1" role="group"{% if number_of_slides > 1 %} aria-roledescription="{{ 'sections.slideshow.slide' | t }}" aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"{% endif %}>
                               <ul class="list-unstyled" role="list">
                                 {%- for product in recommendations.products limit: block.settings.products_per_page offset: continue -%}
                                   <li>
@@ -543,11 +650,21 @@
           {{ 'products.product.view_full_details' | t }}
           {% render 'icon-arrow' %}
         </a>
+
+        {% comment %} logo in modal {% endcomment %}
+        {% comment %} <div class="custom-add-logo-flex">
+          <img
+            class="logo-image"
+            width="50"
+            height="50"
+            src="{{ 'emordial-logo-original-clear.svg' | asset_url }}"
+            alt="Emordial Logo">
+        </div> {% endcomment %}
       </product-info>
     </div>
     {%- if section.settings.media_position == 'right' -%}
       {% comment %} Duplicate gallery to display after product content on tablet/desktop breakpoint {% endcomment %}
-      <div class="grid__item product__media-wrapper small-hide">
+      <div class="grid-custom__item-custom product__media-wrapper small-hide">
         {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true %}
       </div>
     {%- endif -%}

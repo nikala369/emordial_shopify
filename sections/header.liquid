@@ -28,6 +28,11 @@
 <style>
   header-drawer {
     justify-self: start;
+    margin-top: 5px;
+
+    @media screen and (max-width: 768px) {
+    margin-top: 0px;
+    }
   }
 
   {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
@@ -37,7 +42,7 @@
   {%- endif -%}
 
   {%- if section.settings.menu_type_desktop != "drawer" -%}
-    @media screen and (min-width: 1111px) {
+    @media screen and (min-width: 1134px) {
       header-drawer {
         display: none;
       }
@@ -66,7 +71,11 @@
   .list-menu__item {
     display: flex;
     align-items: center;
+    /* line-height: calc(2 + 0.3 / var(--font-body-scale)); */
+
+  @media screen and (max-width: 1110px) {
     line-height: calc(3.8 + 0.3 / var(--font-body-scale));
+  }
   }
 
   .list-menu__item--link {
@@ -225,7 +234,7 @@
               <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
                 <img
                 class="emordial-svg-heading-header"
-                src="{{ 'emordial-custom-font-thick.svg' | asset_url }}"
+                src="{{ 'emordial-custom-font-last.svg' | asset_url }}"
                 alt="Emordial font svg"
                 width="100%"
                 height="auto">
@@ -271,7 +280,7 @@
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
                 <img
                 class="emordial-svg-heading-header"
-                src="{{ 'emordial-custom-font-last-thick.svg' | asset_url }}"
+                src="{{ 'emordial-custom-font-lastt.svg' | asset_url }}"
                 alt="Emordial font svg"
                 width="100%"
                 height="auto">

@@ -33,7 +33,11 @@
       ],
       "settings": {
         "desktop_svg": "shopify://shop_images/banner-test2.svg",
+<<<<<<< HEAD
         "mobile_svg": "shopify://shop_images/mobile-banner3_31603c2f-67df-4111-87fa-7654ea00155f.svg",
+=======
+        "mobile_svg": "shopify://shop_images/mobile-banner3.svg",
+>>>>>>> b21c5715cb5451e23aa9173af7a8b9b70af25da5
         "subtitle_text": "FLASH SALE",
         "heading_text": "50% OFF EVERYTHING",
         "button_label": "Shop Now",
@@ -47,14 +51,14 @@
           "type": "featured_collection",
           "settings": {
             "collection": "earrings",
-            "background_image": "shopify://shop_images/collection1.svg"
+            "background_image": "shopify://shop_images/emordial-nft.svg"
           }
         },
         "featured_collection_d3YpkY": {
           "type": "featured_collection",
           "settings": {
             "collection": "accessories",
-            "background_image": "shopify://shop_images/accessories-collection-img-url.svg"
+            "background_image": "shopify://shop_images/emordial_logo_1_final-01.svg"
           }
         }
       },
@@ -72,7 +76,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "<strong>TRENDING PRODUCTS</strong>",
+        "title": "Trending Products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,

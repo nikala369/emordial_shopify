@@ -10,6 +10,11 @@
 
   Usage:
   {% render 'price', product: product %}
+
+  Instead of money here was money_with_currency, just in case
+  assign money_price = price | money
+    assign money_price_min = price_min | money
+    assign money_price_max = price_max | money
 {% endcomment %}
 {%- liquid
   if use_variant
@@ -27,9 +32,9 @@
   assign money_price_min = price_min | money
   assign money_price_max = price_max | money
   if settings.currency_code_enabled
-    assign money_price = price | money_with_currency
-    assign money_price_min = price_min | money_with_currency
-    assign money_price_max = price_max | money_with_currency
+    assign money_price = price | money
+    assign money_price_min = price_min | money
+    assign money_price_max = price_max | money
   endif
 
   if target == product and product.price_varies
@@ -62,9 +67,9 @@
               {{- 'products.product.price.regular_price' | t -}}
             </span>
             <span>
-              <s class="price-item price-item--regular variant-item__old-price">
+              <s class="price-item price-item--regular price-item--compare-custom variant-item__old-price">
                 {% if settings.currency_code_enabled %}
-                  {{ compare_at_price | money_with_currency }}
+                  {{ compare_at_price | money }}
                 {% else %}
                   {{ compare_at_price | money }}
                 {% endif %}
@@ -89,7 +94,7 @@
         <span>
           <s class="price-item price-item--regular">
             {% if settings.currency_code_enabled %}
-              {{ compare_at_price | money_with_currency }}
+              {{ compare_at_price | money }}
             {% else %}
               {{ compare_at_price | money }}
             {% endif %}
@@ -97,7 +102,7 @@
         </span>
       {%- endunless -%}
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-      <span class="price-item price-item--sale price-item--last">
+      <span class="price-item price-item--sale price-item--last price-item--compare">
         {{ money_price }}
       </span>
     </div>

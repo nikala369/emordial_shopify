@@ -68,7 +68,16 @@
 }
 
 .collection__title.title-wrapper {
-  margin-bottom: 2.5rem;
+  margin-bottom: 7rem;
+  padding-left: 32.5px;
+  padding-right: 32.5px;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 5rem;
+
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .collection__title .title:not(:only-child) {
@@ -89,11 +98,23 @@
   }
 
   .collection--full-width slider-component:not(.slider-component-desktop) {
-    padding: 0 1.5rem;
+    padding: 0 0rem;
     max-width: none;
   }
 }
 
 .collection__view-all a:not(.link) {
-  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 12.5px;
+  margin-top: 3rem;
+
+  padding: 6px 30px;
+  text-decoration: none;
+
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+    margin-top: 4rem;
+
+    padding: 8px 35px;
+  }
 }

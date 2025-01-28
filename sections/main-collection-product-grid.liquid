@@ -24,6 +24,20 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .collection-custom-main {
+    width: 100%;
+    margin: 0 auto;
+    /* border-top: 1px solid #000; */
+    box-sizing: border-box;
+  }
+
+  .custom-margin-facet {
+    margin-bottom: 25px;
+    @media screen and (max-width: 750px) {
+      margin-bottom: 20px;
+    }
+  }
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
@@ -92,7 +106,7 @@
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
         <aside
           aria-labelledby="verticalTitle"
-          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+          class="custom-margin-facet facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
           id="main-collection-filters"
           data-id="{{ section.id }}">
           {% render 'facets'
@@ -106,6 +120,7 @@
       {%- endif -%}
 
       <div
+        style="overflow: hidden;"
         class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
         id="ProductGridContainer"
         {% if settings.animations_reveal_on_scroll %}
@@ -128,12 +143,12 @@
             </div>
           </div>
         {%- else -%}
-          <div class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}">
+          <div class="collection-custom-main collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}">
             <div class="loading-overlay gradient"></div>
+            {% comment %} custom changes needed here {% endcomment %}
             <ul
               id="product-grid"
               data-id="{{ section.id }}"
-              style="row-gap: 25px;"
               class="
                 grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down
                 grid--{{ section.settings.columns_desktop }}-col-desktop

@@ -36,8 +36,10 @@
     margin: 0 auto;
     padding: 0.5rem 1rem;
     font-size: 20px;
-    font-family: "GT America Condensed";
-    letter-spacing: 2px;
+    /* font-family: "GT America Condensed"; */
+    font-family: 'pop-bold';
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     font-weight: 500;
     color: #222;
     user-select: none;
@@ -99,22 +101,44 @@
     font-size: 18px;
   }
 
-  .roboto-font {
-    font-family: 'Roboto'
-    , sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-
-    @media screen and (min-width: 768px) {
-      font-size: 16px;
-    }
-  }
-
   @media screen and (min-width: 768px) {
     .rte {
       max-width: 800px;
     }
   }
+
+  .roboto-font {
+    font-family: 'mont-medium';
+    font-weight: 400;
+    font-size: 11.5px;
+    color: #000;
+
+    @media screen and (min-width: 768px) {
+      font-size: 13px;
+    }
+  }
+
+
+  .footer-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-top: 50px;
+
+    .footer-logo-svg {
+      width: 62.5px;
+      /* Adjust based on your desired size */
+      height: auto;
+      transition: transform 0.3s ease;
+
+      @media screen and (min-width: 750px) {
+        width: 70px;
+      }
+    }
+  }
+
+
 {%- endstyle -%}
 
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
@@ -134,7 +158,19 @@
   {% unless page.title == 'About Us' %} roboto-font {% endunless %}">
     {{ page.content }}
   </div>
+
+  {% unless page.title == 'About Us' or page.title == 'EMORDIAL BUSINESS' %}
+    <div class="footer-logo-wrapper">
+      <img
+        class="footer-logo-svg"
+        width="50"
+        height="50"
+        src="{{ 'emordial-logo-original-clear.svg' | asset_url }}"
+        alt="Emordial Logo">
+    </div>
+  {% endunless %}
 </div>
+
 
 {% schema %}
   {

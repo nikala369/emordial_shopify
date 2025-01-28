@@ -172,7 +172,7 @@ cart-items {
   margin: 0;
 }
 
-.cart__dynamic-checkout-buttons div[role='button'] {
+.cart__dynamic-checkout-buttons div[role="button"] {
   border-radius: var(--buttons-radius-outset) !important;
 }
 
@@ -187,7 +187,8 @@ cart-items {
 }
 
 .tax-note {
-  margin: 2.2rem 0 1.6rem auto;
+  /* margin: 2.2rem 0 1.6rem auto; */
+  margin: 0.6rem 0 2.6rem auto;
   text-align: center;
   display: block;
 }
