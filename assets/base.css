@@ -2565,8 +2565,10 @@ product-info .loading__spinner:not(.hidden) ~ *,
   /* padding: 0.75rem; */
   padding-top: 5px;
   padding-bottom: 5px;
-  text-decoration: none;
   word-break: break-word;
+
+  text-decoration: none;
+  user-select: none;
 }
 
 .header__heading-link:hover .h2 {
