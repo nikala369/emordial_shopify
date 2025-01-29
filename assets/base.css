@@ -1276,6 +1276,7 @@ deferred-media {
   width: auto;
   border: 0;
   text-transform: uppercase;
+  letter-spacing: 0.2px;
 
   @media screen and (max-width: 768px) {
     font-size: 12px;
