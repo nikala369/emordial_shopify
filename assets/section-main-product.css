@@ -85,8 +85,7 @@
 /* Dynamic checkout */
 
 .shopify-payment-button__button {
-  font-family: inherit;
-  min-height: 4.6rem;
+  /* min-height: 4.6rem; */
 }
 
 .shopify-payment-button__button [role="button"].focused,
@@ -219,8 +218,17 @@
 }
 
 .shopify-payment-button__button {
-  font-size: 1.5rem;
-  letter-spacing: 0.1rem;
+  font-family: "mont-bold";
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  min-height: 37px !important;
+  height: 37px;
+
+  @media screen and (min-width: 750px) {
+    font-size: 12px;
+    height: 39px;
+  }
 }
 
 /* Product info */
