@@ -459,6 +459,20 @@ body {
         recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
         countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
       };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.innerWidth <= 768) { // Only on mobile
+          const excludedPages = ["/pages/about-us", "/pages/privacy-policy", "/pages/contact"]; // Add URLs here
+          const currentPath = window.location.pathname;
+
+          if (!excludedPages.includes(currentPath)) { 
+            if ("scrollRestoration" in history) {
+              history.scrollRestoration = "manual";
+            }
+            window.scrollTo(0, 0);
+          }
+        }
+      });
     </script>
 
     {%- if settings.predictive_search_enabled -%}
