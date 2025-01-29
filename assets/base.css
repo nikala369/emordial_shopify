@@ -803,6 +803,13 @@ summary::-webkit-details-marker {
 
 .title-wrapper-with-link .title {
   margin: 0;
+
+  font-size: 22px;
+  font-family: "mont-bold";
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 .title .link {
@@ -816,7 +823,7 @@ summary::-webkit-details-marker {
 .title-wrapper-with-link {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 3rem;
   flex-wrap: wrap;
@@ -877,6 +884,12 @@ summary::-webkit-details-marker {
 .title-wrapper-with-link a {
   margin-top: 0;
   flex-shrink: 0;
+  font-size: 13px;
+  font-family: "mont-medium";
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .title-wrapper--no-top-margin {
@@ -1933,7 +1946,11 @@ input[type="checkbox"] {
   width: calc(14rem / var(--font-body-scale) + var(--inputs-border-width) * 2);
   display: flex;
   border-radius: var(--inputs-radius);
-  min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
+  min-height: calc((var(--inputs-border-width) * 2) + 4rem);
+
+  @media screen and (min-width: 768px) {
+    min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
+  }
 }
 
 .quantity:after {
@@ -1970,10 +1987,10 @@ input[type="checkbox"] {
 
 .quantity__input {
   color: currentColor;
-  font-family: var(--font-body-family);
+  font-family: "mont-medium";
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 500;
   opacity: 0.85;
   text-align: center;
@@ -1984,6 +2001,10 @@ input[type="checkbox"] {
   flex-grow: 1;
   -webkit-appearance: none;
   appearance: none;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.15rem;
+  }
 }
 
 .quantity__button {

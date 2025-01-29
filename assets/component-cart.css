@@ -191,6 +191,9 @@ cart-items {
   margin: 0.6rem 0 2.6rem auto;
   text-align: center;
   display: block;
+
+  font-family: "mont-medium";
+  font-size: 10.5px;
 }
 
 .cart__checkout-button {
@@ -212,6 +215,7 @@ cart-items {
   }
 
   .tax-note {
+    font-size: 11.5px;
     margin-bottom: 2.2rem;
     text-align: right;
   }

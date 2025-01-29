@@ -19,14 +19,41 @@
   }
 
   .custom-padding-cart {
-    padding-left: 32.5px;
-    padding-right: 32.5px;
+    padding-left: 15%;
+    padding-right: 15%;
+
+    @media screen and (max-width: 1000px) {
+      padding-left: 7.5%;
+      padding-right: 7.5%;
+    }
 
     @media screen and (max-width: 768px) {
       padding-left: 10px;
       padding-right: 10px;
     }
   }
+
+  .main-cart-padding-custom {}
+
+.logo-image-cart {
+  pointer-events: none;
+  user-select: none;
+}
+
+@media screen and (max-width: 768px) {
+  .logo-image-cart {
+    display: none !important;
+  }
+}
+
+.logo-image-cart-mobile-down {}
+
+@media screen and (min-width: 768px) {
+  .width-control {
+    width: 150px
+  }
+}
+
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
@@ -38,8 +65,16 @@
 <cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width custom-padding-cart">
     <div class="title-wrapper-with-link">
-      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
+      <h1 class="title title--primary width-control">{{ 'sections.cart.title' | t }}</h1>
+
+      <img
+        class="logo-image-cart"
+        width="62.5"
+        height="62.5"
+        src="{{ 'emordial-logo-original-clear.svg' | asset_url }}"
+        alt="Emordial Logo">
+
+      <a href="{{ routes.all_products_collection_url }}" class="underlined-link width-control">
         {{- 'general.continue_shopping' | t -}}
       </a>
     </div>
@@ -60,7 +95,7 @@
 
     <form
       action="{{ routes.cart_url }}"
-      class="cart__contents critical-hidden"
+      class="cart__contents critical-hidden main-cart-padding-custom"
       method="post"
       id="cart">
       <div

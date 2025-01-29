@@ -16,6 +16,13 @@
 
 .price--end {
   text-align: right;
+
+  font-family: "pop-semibold";
+  font-size: 1.05rem;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.25rem;
+  }
 }
 
 .price .price-item {
