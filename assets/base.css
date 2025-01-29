@@ -803,6 +803,13 @@ summary::-webkit-details-marker {
 
 .title-wrapper-with-link .title {
   margin: 0;
+
+  font-size: 22px;
+  font-family: "mont-bold";
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 .title .link {
@@ -816,7 +823,7 @@ summary::-webkit-details-marker {
 .title-wrapper-with-link {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 3rem;
   flex-wrap: wrap;
@@ -877,6 +884,12 @@ summary::-webkit-details-marker {
 .title-wrapper-with-link a {
   margin-top: 0;
   flex-shrink: 0;
+  font-size: 13px;
+  font-family: "mont-medium";
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .title-wrapper--no-top-margin {
@@ -1252,7 +1265,7 @@ deferred-media {
   --button-secondary-text: #000; /* Secondary button text color */
   --button-hover-opacity: 0.8; /* Opacity for hover state */
   --button-active-transform: scale(0.98); /* Scale effect for active state */
-  --button-font-size: 16px; /* Button font size */
+  --button-font-size: 12px; /* Button font size */
   --button-padding: 10px 30px; /* Button padding */
   --button-padding-tertiary: 10px 15px; /* Button padding */
   --button-border-radius: 5px; /* Button border radius */
@@ -1274,9 +1287,11 @@ deferred-media {
   text-align: center;
   width: auto;
   border: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
 
   @media screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 10px;
     padding: 10px;
   }
 }
@@ -1285,6 +1300,7 @@ deferred-media {
 .button {
   background-color: var(--button-primary-bg);
   color: var(--button-primary-text);
+  font-family: "mont-bold";
   /* box-shadow: var(--button-box-shadow); */
 }
 
@@ -1300,6 +1316,7 @@ deferred-media {
 .button--secondary {
   background-color: var(--button-secondary-bg);
   color: var(--button-secondary-text);
+  font-family: "mont-semibold";
   /* box-shadow: var(--button-box-shadow); */
   border: 1px solid #000;
 }
@@ -1930,7 +1947,11 @@ input[type="checkbox"] {
   width: calc(14rem / var(--font-body-scale) + var(--inputs-border-width) * 2);
   display: flex;
   border-radius: var(--inputs-radius);
-  min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
+  min-height: calc((var(--inputs-border-width) * 2) + 4rem);
+
+  @media screen and (min-width: 768px) {
+    min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
+  }
 }
 
 .quantity:after {
@@ -1967,10 +1988,10 @@ input[type="checkbox"] {
 
 .quantity__input {
   color: currentColor;
-  font-family: var(--font-body-family);
+  font-family: "mont-medium";
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 500;
   opacity: 0.85;
   text-align: center;
@@ -1981,6 +2002,10 @@ input[type="checkbox"] {
   flex-grow: 1;
   -webkit-appearance: none;
   appearance: none;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.15rem;
+  }
 }
 
 .quantity__button {

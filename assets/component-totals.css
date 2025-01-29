@@ -22,11 +22,26 @@
 }
 
 .totals__total {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
+  letter-spacing: 0.2px;
+  font-size: 15px !important;
+  font-family: "mont-bold";
+  color: #121212;
+
+  @media screen and (max-width: 768px) {
+    font-size: 13px !important;
+  }
 }
 
 .totals__total-value {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  font-family: "pop-semibold";
+  letter-spacing: 0.1px;
+  color: #121212;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 }
 
 .cart__ctas + .totals {

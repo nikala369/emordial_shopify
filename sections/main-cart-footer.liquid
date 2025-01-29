@@ -15,10 +15,31 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .logo-cart-footer {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+
+  pointer-events: none;
+  user-select: none;
+  }
+
+@media screen and (min-width: 768px) {
+  .logo-cart-footer {
+    display: none !important;
+  }
+}
+
+.relative-for-logo {
+  position: relative;
+}
 {%- endstyle -%}
 
 <div
-  class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
+  class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} relative-for-logo is-empty{% endif %}"
   id="main-cart-footer"
   data-id="{{ section.id }}"
 >
@@ -60,7 +81,8 @@
 
                 <div class="totals">
                   <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-                  <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+                  {% comment %} money_with_currency {% endcomment %}
+                  <p class="totals__total-value">{{ cart.total_price | money }}</p>
                 </div>
 
                 <small class="tax-note caption-large rte">
@@ -109,6 +131,13 @@
       </div>
     </div>
   </div>
+
+  {% comment %} <img
+  class="logo-cart-footer"
+  width="62.5"
+  height="62.5"
+  src="{{ 'emordial-logo-original-clear.svg' | asset_url }}"
+  alt="Emordial Logo"> {% endcomment %}
 </div>
 
 <script>

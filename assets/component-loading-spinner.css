@@ -1,5 +1,7 @@
 .loading__spinner {
   position: absolute;
+  /* move spinner left custom */
+  left: 100%;
   z-index: 1;
   width: 1.8rem;
 }
