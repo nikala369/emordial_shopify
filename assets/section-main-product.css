@@ -222,8 +222,8 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  min-height: 37px !important;
-  height: 37px;
+  min-height: 37.5px !important;
+  height: 37.5px;
 
   @media screen and (min-width: 750px) {
     font-size: 12px;
