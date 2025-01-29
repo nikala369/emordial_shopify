@@ -420,6 +420,8 @@ body {
     </ul>
 
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+
       window.shopUrl = '{{ request.origin }}';
       window.routes = {
         cart_add_url: '{{ routes.cart_add_url }}',
@@ -460,7 +462,6 @@ body {
         countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
       };
 
-      document.addEventListener("DOMContentLoaded", function () {
         if (window.innerWidth <= 768) { // Only on mobile
           const excludedPages = ["/pages/about-us", "/pages/privacy-policy", "/pages/contact" "/pages/jewellery-care", "/pages/terms-of-services", "/pages/shipping-policy", "/pages/refund-policy", "/pages/about-us"]; // Add URLs here
           const currentPath = window.location.pathname;
