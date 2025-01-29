@@ -1,5 +1,6 @@
 .loading__spinner {
   position: absolute;
+  left: 100%;
   z-index: 1;
   width: 1.8rem;
 }

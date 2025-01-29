@@ -1265,7 +1265,7 @@ deferred-media {
   --button-secondary-text: #000; /* Secondary button text color */
   --button-hover-opacity: 0.8; /* Opacity for hover state */
   --button-active-transform: scale(0.98); /* Scale effect for active state */
-  --button-font-size: 16px; /* Button font size */
+  --button-font-size: 12px; /* Button font size */
   --button-padding: 10px 30px; /* Button padding */
   --button-padding-tertiary: 10px 15px; /* Button padding */
   --button-border-radius: 5px; /* Button border radius */
@@ -1292,7 +1292,7 @@ deferred-media {
   letter-spacing: 0.2px;
 
   @media screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 10px;
     padding: 10px;
   }
 }
