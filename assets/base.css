@@ -1265,6 +1265,7 @@ deferred-media {
 .button--secondary {
   display: inline-block;
   font-size: var(--button-font-size);
+  font-family: "mont-bold";
   padding: var(--button-padding);
   /* border-radius: var(--button-border-radius); */
   border-radius: 0;
@@ -1274,6 +1275,7 @@ deferred-media {
   text-align: center;
   width: auto;
   border: 0;
+  text-transform: uppercase;
 
   @media screen and (max-width: 768px) {
     font-size: 12px;

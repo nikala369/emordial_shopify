@@ -9,6 +9,26 @@
   {% render 'cart-notification' %}
 {% endcomment %}
 
+{% style  %} 
+.custom-a-for-cart {
+  padding: 4.75px 0px;
+  font-size: 15px;
+
+  text-trasnform: uppercase;
+  text-decoration: none;
+
+  @media screen and (max-width: 768px) {
+  padding: 5.4px 0px;
+  font-size: 12px;
+  }
+}
+
+.custom-cont-shopping {
+  text-decoration: none;
+  font-family: 'mont-medium'
+}
+{% endstyle %}
+
 <cart-notification>
   <div class="cart-notification-wrapper{% if desktop_menu_type != 'drawer' %} page-width{% endif %}">
     <div
@@ -39,7 +59,7 @@
         <a
           href="{{ routes.cart_url }}"
           id="cart-notification-button"
-          class="button button--secondary button--full-width"
+          class="button button--secondary button--full-width custom-a-for-cart"
         >
           {{- 'general.cart.view_empty_cart' | t -}}
         </a>
@@ -48,7 +68,7 @@
             {{ 'sections.cart.checkout' | t }}
           </button>
         </form>
-        <button type="button" class="link button-label">{{ 'general.continue_shopping' | t }}</button>
+        <button type="button" class="link button-label custom-cont-shopping">{{ 'general.continue_shopping' | t }}</button>
       </div>
     </div>
   </div>
