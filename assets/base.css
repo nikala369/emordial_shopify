@@ -1278,7 +1278,6 @@ deferred-media {
 .button--secondary {
   display: inline-block;
   font-size: var(--button-font-size);
-  font-family: "mont-bold";
   padding: var(--button-padding);
   /* border-radius: var(--button-border-radius); */
   border-radius: 0;
@@ -1301,6 +1300,7 @@ deferred-media {
 .button {
   background-color: var(--button-primary-bg);
   color: var(--button-primary-text);
+  font-family: "mont-bold";
   /* box-shadow: var(--button-box-shadow); */
 }
 
@@ -1316,6 +1316,7 @@ deferred-media {
 .button--secondary {
   background-color: var(--button-secondary-bg);
   color: var(--button-secondary-text);
+  font-family: "mont-semibold";
   /* box-shadow: var(--button-box-shadow); */
   border: 1px solid #000;
 }
