@@ -78,7 +78,7 @@ slider-component.slider-component-full-width {
   }
 
   .slider.slider--mobile .slider__slide:first-child {
-    padding-left: 20px;
+    padding-left: 15px;
   }
 
   .slider.slider--mobile.contains-card--standard
