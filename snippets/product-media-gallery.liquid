@@ -114,45 +114,76 @@
   display: none;
 }
 
-/* Fullscreen Modal */
-.open-fullscreen {
-  border: none;
-  padding: 0;
-  margin: 0;
-}
 
+
+/* Fullscreen Modal */
 .fullscreen-modal {
-  display: none;
+  display: none; /* Initially hidden */
   position: fixed;
   z-index: 9999;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  overflow: hidden; /* Ensure content doesn't scroll outside */
 }
 
+.fullscreen-modal.visible {
+  display: block; /* Ensure it's in the layout */
+  opacity: 1; /* Make visible */
+  visibility: visible; /* Ensure visibility */
+}
+
+.fullscreen-modal.hidden {
+  display: none; /* Remove from layout */
+  opacity: 0; /* Fade out */
+  visibility: hidden;
+}
+
+/* Fullscreen Content */
 .fullscreen-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 90%;
-}
-
-.fullscreen-content img {
+  position: relative;
   width: 100%;
-  max-height: 90vh;
-  object-fit: contain;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Image in Modal */
+.fullscreen-content img {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  object-fit: cover; /* Ensures the image covers the container */
+  margin: 0 auto; /* Center the image */
+}
+
+/* Close Button */
 .close-fullscreen {
   position: absolute;
-  top: 10px;
-  right: 15px;
-  color: white;
-  font-size: 24px;
+  top: 20px;
+  right: 25px;
+  color: #cc0000;
+  font-size: 26px;
   cursor: pointer;
+  z-index: 10001; /* Ensure above all modal content */
+}
+
+/* Navigation Buttons */
+
+
+.modal-button--prev {
+  left: 20px;
+  transform: rotate(90deg);
+}
+
+.modal-button--next {
+  right: 20px;
+  transform: rotate(270deg);
 }
 
 {% endstyle %}
@@ -172,48 +203,45 @@
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
 
-  <!-- Mobile Carousel -->
+  <!-- 📱 Mobile Carousel -->
   <div class="media-gallery--mobile hidden">
     <slider-component class="slider slider--mobile custom-slider">
       <ul id="Slider-Gallery-{{ section.id }}" class="product__media-list custom-ul list-unstyled slider">
-        <!-- Media Items -->
         {%- for media in product.media -%}
           <li class="product__media-item slider__slide">
-            <div class="open-fullscreen" data-src="{{ media | image_url: width: 1200 }}">
-              <img
-                width="800"
-                height="auto"
-                src="{{ media | image_url: width: 800 }}"
-                alt="{{ media.alt | escape }}"
-                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" 
-                style="opacity: 0; transition: opacity 0.3s ease-in-out;" 
-                onload="this.style.opacity=1;">
-            </div>
+            <img
+              class="fullscreen-trigger"
+              data-src="{{ media | image_url: width: 1200 }}"
+              width="800"
+              height="auto"
+              src="{{ media | image_url: width: 800 }}"
+              alt="{{ media.alt | escape }}"
+              loading="lazy"
+              style="opacity: 0; transition: opacity 0.3s ease-in-out;"
+              onload="this.style.opacity=1;">
           </li>
         {%- endfor -%}
       </ul>
     </slider-component>
 
-     <!-- Navigation Buttons -->
-     <div class="slider-button slider-button--prev">
-      {% render 'icon-caret' %}
-    </div>
-    <div class="slider-button slider-button--next" name="next">
-      {% render 'icon-caret' %}
-    </div>
+    <!-- 📍 Navigation Buttons -->
+    <div class="slider-button slider-button--prev">{% render 'icon-caret' %}</div>
+    <div class="slider-button slider-button--next">{% render 'icon-caret' %}</div>
   </div>
 
-  <!-- Desktop Vertical Stack -->
+  <!-- 💻 Desktop Vertical Stack -->
   <div class="media-gallery--desktop">
     {%- for media in product.media -%}
       <div class="product__media-item">
         <img
+          class="fullscreen-trigger"
+          data-src="{{ media | image_url: width: 1200 }}"
           width="1000"
           height="auto"
           src="{{ media | image_url: width: 1000 }}"
           alt="{{ media.alt | escape }}"
           loading="lazy"
-          style="opacity: 0; transition: opacity 0.3s ease-in-out;" 
+          style="opacity: 0; transition: opacity 0.3s ease-in-out;"
           onload="this.style.opacity=1;">
       </div>
     {%- endfor -%}
@@ -224,12 +252,13 @@
 <div id="fullscreen-modal" class="fullscreen-modal hidden">
   <div class="fullscreen-content">
     <span class="close-fullscreen">&times;</span>
-    <img id="fullscreen-image" src="" alt="Expanded View">
+    <img id="fullscreen-image" width="390" height="auto" src="" alt="Expanded View">
+    <div class="slider-button modal-button--prev">{% render 'icon-caret' %}</div>
+    <div class="slider-button modal-button--next">{% render 'icon-caret' %}</div>
   </div>
 </div>
 
-
-<!-- JavaScript for Correct Mobile/Desktop Switching -->
+<!-- JavaScript for Switching & Modal Functionality -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const mediaGallery = document.getElementById('MediaGallery-{{ section.id }}');
@@ -320,10 +349,74 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateButtonVisibility();
   }
+
+  // **🖼️ Modal Functionality**
+  const modal = document.getElementById("fullscreen-modal");
+const fullscreenImage = document.getElementById("fullscreen-image");
+const closeFullscreen = document.querySelector(".close-fullscreen");
+const modalPrev = document.querySelector(".modal-button--prev");
+const modalNext = document.querySelector(".modal-button--next");
+
+let currentImageIndex = 0;
+let allImages = [];
+
+// Initialize Modal Trigger
+document.querySelectorAll(".fullscreen-trigger").forEach((trigger, index) => {
+  trigger.addEventListener("click", function () {
+    console.log("Opening Modal:", this.getAttribute("data-src"));
+
+    // Populate image sources
+    allImages = Array.from(document.querySelectorAll(".fullscreen-trigger")).map((el) =>
+      el.getAttribute("data-src")
+    );
+    currentImageIndex = index;
+
+    updateModalImage();
+
+    // Ensure modal is visible
+    modal.classList.remove("hidden");
+    modal.classList.add("visible");
+  });
 });
 
+// Update Modal Image and Navigation Buttons
+function updateModalImage() {
+  if (allImages.length > 0) {
+    fullscreenImage.src = allImages[currentImageIndex]; // Update modal image
+    modalPrev.style.visibility = currentImageIndex === 0 ? "hidden" : "visible"; // Hide "Prev" if at start
+    modalNext.style.visibility = currentImageIndex === allImages.length - 1 ? "hidden" : "visible"; // Hide "Next" if at end
+  }
+}
 
+// Modal Navigation
+modalPrev.addEventListener("click", function () {
+  if (currentImageIndex > 0) {
+    currentImageIndex--;
+    updateModalImage();
+  }
+});
+
+modalNext.addEventListener("click", function () {
+  if (currentImageIndex < allImages.length - 1) {
+    currentImageIndex++;
+    updateModalImage();
+  }
+});
+
+// Close Modal
+function closeModal() {
+  modal.classList.remove("visible");
+  modal.classList.add("hidden");
+}
+
+closeFullscreen.addEventListener("click", closeModal);
+
+modal.addEventListener("click", function (e) {
+  if (e.target === modal) {
+    closeModal();
+  }
+});
+});
 </script>
-
 
 
