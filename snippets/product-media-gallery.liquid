@@ -42,19 +42,19 @@
   }
 
  /* Mobile: Fully Restored Carousel */
-  @media screen and (max-width: 768px) {
-    .media-gallery--mobile {
-      position: relative; 
-    }
+ @media screen and (max-width: 768px) {
+  .media-gallery--mobile {
+    position: relative;
+  }
 
   .slider--mobile {
     display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
     white-space: nowrap;
     gap: 10px;
     scroll-behavior: smooth;
-    touch-action: pan-x;
+    touch-action: auto;
   }
 
   .slider--mobile img {
@@ -78,11 +78,11 @@
     color: #cc0000;
     padding: 8px;
     cursor: pointer;
-    z-index: 2; /* Ensure buttons are above images */
+    z-index: 2;
   }
 
   .slider-button--prev {
-    left: -15px; 
+    left: -15px;
     visibility: hidden;
   }
 
@@ -94,6 +94,11 @@
     display: flex;
     padding-left: 15px;
   }
+}
+
+/* Hide Elements */
+.hidden {
+  display: none;
 }
 
 /* Hide Elements */
@@ -261,33 +266,33 @@ document.addEventListener('DOMContentLoaded', function () {
       updateButtonVisibility();
     });
 
-    // Touch gestures for smooth swiping
+    // **Fixing Vertical Scroll Issue Inside Slider**
     let startX = 0;
     let startY = 0;
-    let isHorizontalScroll = false;
+    let isScrollingHorizontally = false;
 
     slider.addEventListener('touchstart', function (e) {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
-      isHorizontalScroll = false;
+      isScrollingHorizontally = false;
     });
 
     slider.addEventListener('touchmove', function (e) {
       const moveX = e.touches[0].clientX - startX;
       const moveY = e.touches[0].clientY - startY;
 
-      // If horizontal movement is greater than vertical, prevent page scrolling
+      // If swiping left/right, scroll the slider and block vertical scroll
       if (Math.abs(moveX) > Math.abs(moveY)) {
-        e.preventDefault();
-        isHorizontalScroll = true;
-      } else {
-        return; // Allow vertical scrolling naturally
+        e.preventDefault(); // Prevent vertical scroll ONLY for horizontal swipe
+        isScrollingHorizontally = true;
+        slider.scrollBy({ left: -moveX, behavior: 'smooth' });
       }
     });
 
     slider.addEventListener('touchend', function (e) {
-      if (!isHorizontalScroll) return;
+      if (!isScrollingHorizontally) return;
       const endX = e.changedTouches[0].clientX;
+
       if (startX - endX > 50 && currentIndex < slides.length - 1) {
         // Swipe left
         currentIndex++;
@@ -295,6 +300,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Swipe right
         currentIndex--;
       }
+
       slider.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
       updateButtonVisibility();
     });
@@ -302,8 +308,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateButtonVisibility();
   }
 });
-
-
 
 
 </script>
