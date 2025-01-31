@@ -49,13 +49,12 @@
 
   .slider--mobile {
     display: flex;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     white-space: nowrap;
     gap: 10px;
     scroll-behavior: smooth;
     touch-action: pan-x;
-    position: relative;
   }
 
   .slider--mobile img {
@@ -88,16 +87,15 @@
 
   .slider-button--prev {
     left: -15px; 
+    visibility: hidden;
   }
 
   .slider-button--next {
     right: -15px;
   }
 
-  /* Ensure <ul> maintains its structure */
   .custom-ul {
     display: flex;
-    position: relative; /* Parent for absolute buttons */
     padding-left: 20px;
   }
 }
@@ -226,11 +224,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const prevButton = document.querySelector('.slider-button--prev');
   const nextButton = document.querySelector('.slider-button--next');
   const slider = document.querySelector('.slider--mobile');
+  const slides = slider.querySelectorAll('.slider__slide');
 
-  // Update media gallery visibility based on screen size
   function updateMediaGalleryClass() {
     const isMobile = window.innerWidth < 990;
-
     if (isMobile) {
       desktopGallery.classList.add('hidden');
       mobileGallery.classList.remove('hidden');
@@ -240,40 +237,77 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  updateMediaGalleryClass(); // Initial check
+  updateMediaGalleryClass();
   window.addEventListener('resize', updateMediaGalleryClass);
 
-  // Add navigation for buttons
-  if (prevButton && nextButton && slider) {
-    const slideWidth = slider.querySelector('li').offsetWidth + 10; // Account for the gap
+  if (prevButton && nextButton && slider && slides.length > 0) {
+    let currentIndex = 0;
+    const slideWidth = slides[0].offsetWidth + 10; // Including gap
+
+    function updateButtonVisibility() {
+      prevButton.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+      nextButton.style.visibility = currentIndex === slides.length - 1 ? 'hidden' : 'visible';
+    }
 
     prevButton.addEventListener('click', function () {
-      slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+      if (currentIndex > 0) {
+        currentIndex--;
+        slider.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
+      }
+      updateButtonVisibility();
     });
 
     nextButton.addEventListener('click', function () {
-      slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        slider.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
+      }
+      updateButtonVisibility();
     });
 
-    // Swipe gestures for touch
+    // Touch gestures for smooth swiping
     let startX = 0;
+    let startY = 0;
+    let isHorizontalScroll = false;
 
     slider.addEventListener('touchstart', function (e) {
       startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isHorizontalScroll = false;
+    });
+
+    slider.addEventListener('touchmove', function (e) {
+      const moveX = e.touches[0].clientX - startX;
+      const moveY = e.touches[0].clientY - startY;
+
+      // If horizontal movement is greater than vertical, prevent page scrolling
+      if (Math.abs(moveX) > Math.abs(moveY)) {
+        e.preventDefault();
+        isHorizontalScroll = true;
+      } else {
+        return; // Allow vertical scrolling naturally
+      }
     });
 
     slider.addEventListener('touchend', function (e) {
+      if (!isHorizontalScroll) return;
       const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 80) {
+      if (startX - endX > 50 && currentIndex < slides.length - 1) {
         // Swipe left
-        slider.scrollBy({ left: slideWidth, behavior: 'auto' });
-      } else if (endX - startX > 80) {
+        currentIndex++;
+      } else if (endX - startX > 50 && currentIndex > 0) {
         // Swipe right
-        slider.scrollBy({ left: -slideWidth, behavior: 'auto' });
+        currentIndex--;
       }
+      slider.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
+      updateButtonVisibility();
     });
+
+    updateButtonVisibility();
   }
 });
+
+
 
 
 </script>
