@@ -1,17 +1,11 @@
 {% comment %}
-  Renders a product media gallery. Should be used with 'media-gallery.js'
-  Also see 'product-media-modal'
-
-  Accepts:
-  - product: {Object} Product liquid object
-  - variant_images: {Array} Product images associated with a variant
-  - is_duplicate: {Boolean} Prevents rendering uneeded elements and duplicate ids for subsequent instances
-
-  Usage:
-  {% render 'product-media-gallery', is_duplicate: true %}
+  Renders a product media gallery.
+  Desktop: Vertical image stack with zoom.
+  Mobile: Slider carousel with swipe functionality.
 {% endcomment %}
 
-{% style  %}
+{% style %}
+/* General Styling */
 .global-media-settings-custom {
   border: var(--media-border-width) solid rgba(18, 18, 18, 0.05);
 }
@@ -21,300 +15,436 @@
   border-bottom: 0px;
 }
 
+/* Desktop: Vertical Stacked Media */
+@media screen and (min-width: 990px) {
+  .media-gallery--vertical-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    /* min-height: 600px; */
+  }
+
+  .product__media-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    cursor: default;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Smooth fade-in */
+  }
+
+  .product__media-item img.lazyloaded {
+    opacity: 1; /* Images appear only when loaded */
+  }
+
+  .product__media-item {
+    display: block;
+  }
+
+  .sticky-text-section {
+    position: sticky;
+    top: 20px;
+  }
+}
+
+/* Mobile: Fully Restored Carousel */
+@media screen and (max-width: 768px) {
+  .media-gallery--mobile {
+    position: relative;
+  }
+
+  .slider--mobile {
+    display: flex;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    white-space: nowrap;
+    gap: 10px;
+    scroll-behavior: smooth;
+    touch-action: auto;
+  }
+
+  .slider--mobile img {
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    scroll-snap-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .slider--mobile img.lazyloaded {
+    opacity: 1;
+  }
+
+  .slider--mobile::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Navigation Buttons */
+  .slider-button {
+    position: absolute;
+    top: 49.5%;
+    transform: translateY(-50%);
+    border: none;
+    color: #cc0000;
+    padding: 8px;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .slider-button--prev {
+    left: -15px;
+    visibility: hidden;
+  }
+
+  .slider-button--next {
+    right: -15px;
+  }
+
+  .custom-ul {
+    display: flex;
+    padding-left: 15px;
+  }
+}
+
+/* Hide Elements */
+.hidden {
+  display: none;
+}
+
+
+
+/* Fullscreen Modal */
+.fullscreen-modal {
+  display: none; /* Initially hidden */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  overflow: hidden;
+
+  @media screen and (min-width: 750px) {
+    display: none;
+  }
+}
+
+.fullscreen-modal.visible {
+  display: block; /* Ensure it's in the layout */
+  opacity: 1; /* Make visible */
+  visibility: visible; /* Ensure visibility */
+  overflow: hidden;
+
+    @media screen and (min-width: 750px) {
+    display: none;
+  }
+}
+
+.fullscreen-modal.hidden {
+  display: none; /* Remove from layout */
+  opacity: 0; /* Fade out */
+  visibility: hidden;
+}
+
+/* Fullscreen Content */
+.fullscreen-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen-content img {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  object-fit: cover; /* Ensures the image covers the container */
+  margin: 0 auto; /* Center the image */
+}
+
+.close-fullscreen {
+  position: absolute;
+  top: 7.5px;
+  right: 7.5px;
+  color: #cc0000;
+  font-size: 28px;
+  width: 45px; 
+  height: 45px; 
+  line-height: 50px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+/* Navigation Buttons */
+
+
+.modal-button--prev {
+  left: 10px;
+  transform: rotate(90deg);
+}
+
+.modal-button--next {
+  right: 10px;
+  transform: rotate(270deg);
+}
+
+/* Disable body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+  height: 100%;
+}
+
 {% endstyle %}
 
 {%- liquid
-  if section.settings.hide_variants and variant_images.size == product.media.size
-    assign single_media_visible = true
-  endif
-
   assign media_count = product.media.size
   if section.settings.hide_variants and media_count > 1 and variant_images.size > 0
     assign media_count = media_count | minus: variant_images.size | plus: 1
   endif
-
-  if media_count == 1 or single_media_visible
-    assign single_media_visible_mobile = true
-  endif
-
-  if media_count == 0 or single_media_visible_mobile or section.settings.mobile_thumbnails == 'show' or section.settings.mobile_thumbnails == 'columns' and media_count < 3
-    assign hide_mobile_slider = true
-  endif
-
-  if section.settings.media_size == 'large'
-    assign media_width = 0.65
-  elsif section.settings.media_size == 'medium'
-    assign media_width = 0.55
-  elsif section.settings.media_size == 'small'
-    assign media_width = 0.45
-  endif
-
-  assign id_append = ''
-  if is_duplicate
-    assign id_append = '-duplicate'
-  endif
 -%}
 
 <media-gallery
-  id="MediaGallery-{{ section.id }}{{ id_append }}"
+  id="MediaGallery-{{ section.id }}"
   role="region"
-  {% if section.settings.enable_sticky_info %}
-    class="product__column-sticky"
-  {% endif %}
+  class="media-gallery"
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
-  data-desktop-layout="{{ section.settings.gallery_layout }}"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
-  <slider-component id="GalleryViewer-{{ section.id }}{{ id_append }}" class="slider-mobile-gutter">
-    {%- unless is_duplicate -%}
-      <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
-        {{ 'accessibility.skip_to_product_info' | t }}
-      </a>
-    {%- endunless -%}
-    <ul
-      id="Slider-Gallery-{{ section.id }}{{ id_append }}"
-      class="product__media-list contains-media grid-custom grid-custom--peek list-unstyled slider slider--mobile"
-      role="list"
-    >
-      {%- if product.selected_or_first_available_variant.featured_media != null -%}
-        {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
-        <li
-          id="Slide-{{ section.id }}-{{ featured_media.id }}{{ id_append }}"
-          class="product__media-item grid__item prevent-left-bottom-border slider__slide is-active{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains featured_media.src %} product__media-item--variant{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-          data-media-id="{{ section.id }}-{{ featured_media.id }}"
-        >
-          {%- assign media_position = 1 -%}
-          {% render 'product-thumbnail',
-            media: featured_media,
-            media_count: media_count,
-            position: media_position,
-            desktop_layout: section.settings.gallery_layout,
-            mobile_layout: section.settings.mobile_thumbnails,
-            loop: section.settings.enable_video_looping,
-            modal_id: section.id,
-            xr_button: true,
-            media_width: media_width,
-            media_fit: section.settings.media_fit,
-            constrain_to_viewport: section.settings.constrain_to_viewport,
-            lazy_load: false
-          %}
-        </li>
-      {%- endif -%}
-      {%- for media in product.media -%}
-        {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
-          <li
-            id="Slide-{{ section.id }}-{{ media.id }}{{ id_append }}"
-            class="product__media-item grid__item prevent-left-bottom-border slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if product.selected_or_first_available_variant.featured_media == null and forloop.index == 1 %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} product__media-item--variant{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-            data-media-id="{{ section.id }}-{{ media.id }}"
-          >
-            {%- liquid
-              assign media_position = media_position | default: 0 | plus: 1
-              assign lazy_load = false
-              if media_position > 1
-                assign lazy_load = true
-              endif
-            -%}
-            {% render 'product-thumbnail',
-              media: media,
-              media_count: media_count,
-              position: media_position,
-              desktop_layout: section.settings.gallery_layout,
-              mobile_layout: section.settings.mobile_thumbnails,
-              loop: section.settings.enable_video_looping,
-              modal_id: section.id,
-              xr_button: true,
-              media_width: media_width,
-              media_fit: section.settings.media_fit,
-              constrain_to_viewport: section.settings.constrain_to_viewport,
-              lazy_load: lazy_load
-            %}
-          </li>
-        {%- endunless -%}
-      {%- endfor -%}
-    </ul>
-    {%- unless is_duplicate -%}
-      <div class="slider-buttons no-js-hidden quick-add-hidden{% if hide_mobile_slider %} small-hide{% endif %}">
-        <button
-          type="button"
-          class="slider-button slider-button--prev"
-          name="previous"
-          aria-label="{{ 'general.slider.previous_slide' | t }}"
-        >
-          {% render 'icon-caret' %}
-        </button>
-        <div class="slider-counter caption">
-          <span class="slider-counter--current">1</span>
-          <span aria-hidden="true"> / </span>
-          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-          <span class="slider-counter--total">{{ media_count }}</span>
-        </div>
-        <button
-          type="button"
-          class="slider-button slider-button--next"
-          name="next"
-          aria-label="{{ 'general.slider.next_slide' | t }}"
-        >
-          {% render 'icon-caret' %}
-        </button>
-      </div>
-    {%- endunless -%}
-  </slider-component>
-  {%- if first_3d_model -%}
-    <button
-      class="button button--full-width product__xr-button"
-      type="button"
-      aria-label="{{ 'products.product.xr_button_label' | t }}"
-      data-shopify-xr
-      data-shopify-model3d-id="{{ first_3d_model.id }}"
-      data-shopify-title="{{ product.title | escape }}"
-      data-shopify-xr-hidden
-    >
-      {% render 'icon-3d-model' %}
-      {{ 'products.product.xr_button' | t }}
-    </button>
-  {%- endif -%}
-  {%- if media_count > 1
-    and section.settings.gallery_layout contains 'thumbnail'
-    or section.settings.mobile_thumbnails == 'show'
-  -%}
-    <slider-component
-      id="GalleryThumbnails-{{ section.id }}{{ id_append }}"
-      class="thumbnail-slider slider-mobile-gutter quick-add-hidden{% unless section.settings.gallery_layout contains 'thumbnail' %} medium-hide large-up-hide{% endunless %}{% if section.settings.mobile_thumbnails != 'show' %} small-hide{% endif %}{% if media_count <= 3 %} thumbnail-slider--no-slide{% endif %}"
-    >
-      <button
-        type="button"
-        class="slider-button slider-button--prev{% if media_count <= 3 %} small-hide{% endif %}{% if media_count <= 4 %} medium-hide large-up-hide{% endif %}"
-        name="previous"
-        aria-label="{{ 'general.slider.previous_slide' | t }}"
-        aria-controls="GalleryThumbnails-{{ section.id }}"
-        data-step="3"
-      >
-        {% render 'icon-caret' %}
-      </button>
-      <ul
-        id="Slider-Thumbnails-{{ section.id }}{{ id_append }}"
-        class="thumbnail-list list-unstyled slider slider--mobile{% if section.settings.gallery_layout == 'thumbnail_slider' %} slider--tablet-up{% endif %}"
-      >
-        {%- capture sizes -%}
-          (min-width: {{ settings.page_width }}px) calc(({{ settings.page_width | minus: 100 | times: media_width | round }} - 4rem) / 4),
-          (min-width: 990px) calc(({{ media_width | times: 100 }}vw - 4rem) / 4),
-          (min-width: 750px) calc((100vw - 15rem) / 8),
-          calc((100vw - 8rem) / 3)
-        {%- endcapture -%}
 
-        {%- if featured_media != null -%}
-          {%- liquid
-            capture media_index
-              if featured_media.media_type == 'model'
-                increment model_index
-              elsif featured_media.media_type == 'video' or featured_media.media_type == 'external_video'
-                increment video_index
-              elsif featured_media.media_type == 'image'
-                increment image_index
-              endif
-            endcapture
-            assign media_index = media_index | plus: 1
-          -%}
-          <li
-            id="Slide-Thumbnails-{{ section.id }}-0{{ id_append }}"
-            class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains featured_media.src %} thumbnail-list_item--variant{% endif %}"
-            data-target="{{ section.id }}-{{ featured_media.id }}"
-            data-media-position="{{ media_index }}"
-          >
-            {%- capture thumbnail_id -%}
-              Thumbnail-{{ section.id }}-0{{ id_append }}
-            {%- endcapture -%}
-            <button
-              class="thumbnail global-media-settings-custom global-media-settings global-media-settings--no-shadow"
-              aria-label="{%- if featured_media.media_type == 'image' -%}{{ 'products.product.media.load_image' | t: index: media_index }}{%- elsif featured_media.media_type == 'model' -%}{{ 'products.product.media.load_model' | t: index: media_index }}{%- elsif featured_media.media_type == 'video' or featured_media.media_type == 'external_video' -%}{{ 'products.product.media.load_video' | t: index: media_index }}{%- endif -%}"
-              aria-current="true"
-              aria-controls="GalleryViewer-{{ section.id }}{{ id_append }}"
-              aria-describedby="{{ thumbnail_id }}"
-            >
-              {{
-                featured_media.preview_image
-                | image_url: width: 416
-                | image_tag:
-                  loading: 'lazy',
-                  sizes: sizes,
-                  widths: '54, 74, 104, 162, 208, 324, 416',
-                  id: thumbnail_id,
-                  alt: featured_media.alt
-                | escape
-              }}
-            </button>
-          </li>
-        {%- endif -%}
+  <!-- 📱 Mobile Carousel -->
+  <div class="media-gallery--mobile hidden">
+    <slider-component class="slider slider--mobile custom-slider">
+      <ul id="Slider-Gallery-{{ section.id }}" class="product__media-list custom-ul list-unstyled slider">
         {%- for media in product.media -%}
-          {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
-            {%- liquid
-              capture media_index
-                if media.media_type == 'model'
-                  increment model_index
-                elsif media.media_type == 'video' or media.media_type == 'external_video'
-                  increment video_index
-                elsif media.media_type == 'image'
-                  increment image_index
-                endif
-              endcapture
-              assign media_index = media_index | plus: 1
-            -%}
-            <li
-              id="Slide-Thumbnails-{{ section.id }}-{{ forloop.index }}{{ id_append }}"
-              class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}"
-              data-target="{{ section.id }}-{{ media.id }}"
-              data-media-position="{{ media_index }}"
-            >
-              {%- if media.media_type == 'model' -%}
-                <span class="thumbnail__badge" aria-hidden="true">
-                  {%- render 'icon-3d-model' -%}
-                </span>
-              {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
-                <span class="thumbnail__badge" aria-hidden="true">
-                  {%- render 'icon-play' -%}
-                </span>
-              {%- endif -%}
-              {%- capture thumbnail_id -%}
-                Thumbnail-{{ section.id }}-{{ forloop.index }}{{ id_append }}
-              {%- endcapture -%}
-              <button
-                class="thumbnail global-media-settings-custom global-media-settings global-media-settings--no-shadow"
-                aria-label="{%- if media.media_type == 'image' -%}{{ 'products.product.media.load_image' | t: index: media_index }}{%- elsif media.media_type == 'model' -%}{{ 'products.product.media.load_model' | t: index: media_index }}{%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}{{ 'products.product.media.load_video' | t: index: media_index }}{%- endif -%}"
-                {% if media == product.selected_or_first_available_variant.featured_media
-                  or product.selected_or_first_available_variant.featured_media == null
-                  and forloop.index == 1
-                %}
-                  aria-current="true"
-                {% endif %}
-                aria-controls="GalleryViewer-{{ section.id }}{{ id_append }}"
-                aria-describedby="{{ thumbnail_id }}"
-              >
-                {{
-                  media.preview_image
-                  | image_url: width: 416
-                  | image_tag:
-                    loading: 'lazy',
-                    sizes: sizes,
-                    widths: '54, 74, 104, 162, 208, 324, 416',
-                    id: thumbnail_id,
-                    alt: media.alt
-                  | escape
-                }}
-              </button>
-            </li>
-          {%- endunless -%}
+          <li class="product__media-item slider__slide">
+            <img
+              class="fullscreen-trigger"
+              data-src="{{ media | image_url: width: 1200 }}"
+              width="800"
+              height="auto"
+              src="{{ media | image_url: width: 800 }}"
+              alt="{{ media.alt | escape }}"
+              loading="lazy"
+              style="opacity: 0; transition: opacity 0.3s ease-in-out;"
+              onload="this.style.opacity=1;">
+          </li>
         {%- endfor -%}
       </ul>
-      <button
-        type="button"
-        class="slider-button slider-button--next{% if media_count <= 3 %} small-hide{% endif %}{% if media_count <= 4 %} medium-hide large-up-hide{% endif %}"
-        name="next"
-        aria-label="{{ 'general.slider.next_slide' | t }}"
-        aria-controls="GalleryThumbnails-{{ section.id }}"
-        data-step="3"
-      >
-        {% render 'icon-caret' %}
-      </button>
     </slider-component>
-  {%- endif -%}
+
+    <!-- 📍 Navigation Buttons -->
+    <div class="slider-button slider-button--prev">{% render 'icon-caret' %}</div>
+    <div class="slider-button slider-button--next">{% render 'icon-caret' %}</div>
+  </div>
+
+  <!-- 💻 Desktop Vertical Stack -->
+  <div class="media-gallery--desktop">
+    {%- for media in product.media -%}
+      <div class="product__media-item">
+        <img
+          class="fullscreen-trigger"
+          data-src="{{ media | image_url: width: 1200 }}"
+          width="1000"
+          height="auto"
+          src="{{ media | image_url: width: 1000 }}"
+          alt="{{ media.alt | escape }}"
+          loading="lazy"
+          style="opacity: 0; transition: opacity 0.3s ease-in-out;"
+          onload="this.style.opacity=1;">
+      </div>
+    {%- endfor -%}
+  </div>
 </media-gallery>
+
+<!-- Fullscreen Modal -->
+<div id="fullscreen-modal" class="fullscreen-modal hidden">
+  <div class="fullscreen-content">
+    <span class="close-fullscreen">&times;</span>
+    <img id="fullscreen-image" width="390" height="auto" src="" alt="Expanded View">
+    <div class="slider-button modal-button--prev">{% render 'icon-caret' %}</div>
+    <div class="slider-button modal-button--next">{% render 'icon-caret' %}</div>
+  </div>
+</div>
+
+<!-- JavaScript for Switching & Modal Functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const mediaGallery = document.getElementById('MediaGallery-{{ section.id }}');
+  const desktopGallery = mediaGallery.querySelector('.media-gallery--desktop');
+  const mobileGallery = mediaGallery.querySelector('.media-gallery--mobile');
+  const prevButton = document.querySelector('.slider-button--prev');
+  const nextButton = document.querySelector('.slider-button--next');
+  const slider = document.querySelector('.slider--mobile');
+  const slides = slider.querySelectorAll('.slider__slide');
+
+  function updateMediaGalleryClass() {
+    const isMobile = window.innerWidth < 990;
+    if (isMobile) {
+      desktopGallery.classList.add('hidden');
+      mobileGallery.classList.remove('hidden');
+    } else {
+      desktopGallery.classList.remove('hidden');
+      mobileGallery.classList.add('hidden');
+    }
+  }
+
+  updateMediaGalleryClass();
+  window.addEventListener('resize', updateMediaGalleryClass);
+
+  if (prevButton && nextButton && slider && slides.length > 0) {
+    let currentIndex = 0;
+    const slideWidth = slides[0].offsetWidth + 10; // Including gap
+
+    function updateButtonVisibility() {
+      prevButton.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+      nextButton.style.visibility = currentIndex === slides.length - 1 ? 'hidden' : 'visible';
+    }
+
+    prevButton.addEventListener('click', function () {
+      if (currentIndex > 0) {
+        currentIndex--;
+        slider.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
+      }
+      updateButtonVisibility();
+    });
+
+    nextButton.addEventListener('click', function () {
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        slider.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
+      }
+      updateButtonVisibility();
+    });
+
+    // **Fixing Vertical Scroll Issue Inside Slider**
+    let startX = 0;
+    let startY = 0;
+    let isScrollingHorizontally = false;
+
+    slider.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isScrollingHorizontally = false;
+    });
+
+    slider.addEventListener('touchmove', function (e) {
+      const moveX = e.touches[0].clientX - startX;
+      const moveY = e.touches[0].clientY - startY;
+
+      // If swiping left/right, scroll the slider and block vertical scroll
+      if (Math.abs(moveX) > Math.abs(moveY)) {
+        e.preventDefault(); // Prevent vertical scroll ONLY for horizontal swipe
+        isScrollingHorizontally = true;
+        slider.scrollBy({ left: -moveX, behavior: 'smooth' });
+      }
+    });
+
+    slider.addEventListener('touchend', function (e) {
+      if (!isScrollingHorizontally) return;
+      const endX = e.changedTouches[0].clientX;
+
+      if (startX - endX > 50 && currentIndex < slides.length - 1) {
+        // Swipe left
+        currentIndex++;
+      } else if (endX - startX > 50 && currentIndex > 0) {
+        // Swipe right
+        currentIndex--;
+      }
+
+      slider.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
+      updateButtonVisibility();
+    });
+
+    updateButtonVisibility();
+  }
+
+  // **🖼️ Modal Functionality**
+  const modal = document.getElementById("fullscreen-modal");
+const fullscreenImage = document.getElementById("fullscreen-image");
+const closeFullscreen = document.querySelector(".close-fullscreen");
+const modalPrev = document.querySelector(".modal-button--prev");
+const modalNext = document.querySelector(".modal-button--next");
+
+let currentImageIndex = 0;
+let allImages = [];
+
+// Initialize Modal Trigger
+document.querySelectorAll(".fullscreen-trigger").forEach((trigger, index) => {
+  trigger.addEventListener("click", function () {
+
+    const isMobile = window.innerWidth < 768; // Check if screen width is mobile
+    if (!isMobile) return; // Prevent modal from opening desk
+
+    const uniqueSources = new Set(
+      Array.from(document.querySelectorAll(".fullscreen-trigger")).map((el) =>
+        el.getAttribute("data-src")
+      )
+    );
+
+    allImages = Array.from(uniqueSources); // Ensure unique images
+    currentImageIndex = index;
+
+    updateModalImage();
+    // Ensure modal is visible
+    modal.classList.remove("hidden");
+    modal.classList.add("visible");
+    document.body.classList.add("modal-open");
+  });
+});
+
+// Update Modal Image and Navigation Buttons
+function updateModalImage() {
+  if (allImages.length > 0) {
+    fullscreenImage.src = allImages[currentImageIndex]; // Update modal image
+    modalPrev.style.visibility = currentImageIndex === 0 ? "hidden" : "visible"; // Hide "Prev" if at start
+    modalNext.style.visibility = currentImageIndex === allImages.length - 1 ? "hidden" : "visible"; // Hide "Next" if at end
+  }
+}
+
+// Modal Navigation
+modalPrev.addEventListener("click", function () {
+  if (currentImageIndex > 0) {
+    currentImageIndex--;
+    updateModalImage();
+  }
+});
+
+modalNext.addEventListener("click", function () {
+  if (currentImageIndex < allImages.length - 1) {
+    currentImageIndex++;
+    updateModalImage();
+  }
+});
+
+// Close Modal
+function closeModal() {
+  modal.classList.remove("visible");
+  modal.classList.add("hidden");
+
+  // Add to modal close logic
+  modal.classList.remove("visible");
+  document.body.classList.remove("modal-open");
+}
+
+closeFullscreen.addEventListener("click", closeModal);
+
+modal.addEventListener("click", function (e) {
+  if (e.target === modal) {
+    closeModal();
+  }
+});
+});
+</script>
+
+
