@@ -130,6 +130,18 @@
   .custom-choose-variant-button {
     /* font-size: 1.5rem; */
   }
+
+  .cover-squeare-for-modal {
+    position: relative;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background-color: white;
+  color: white;
+  pointer-events: none;
+  z-index: 5; 
+  }
 {%- endstyle -%}
 
 {% comment %}
@@ -367,6 +379,7 @@
                     {% render 'icon-close' %}
                   </button>
                   <div id="QuickAddInfo-{{ card_product.id }}" class="quick-add-modal__content-info"></div>
+                  <div class="cover-squeare-for-modal">EMORDIAL</div>
                 </div>
               </quick-add-modal>
             {%- else -%}
