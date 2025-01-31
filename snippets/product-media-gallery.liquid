@@ -5,44 +5,50 @@
 {% endcomment %}
 
 {% style %}
-  /* General Styling */
-  .global-media-settings-custom {
-    border: var(--media-border-width) solid rgba(18, 18, 18, 0.05);
+/* General Styling */
+.global-media-settings-custom {
+  border: var(--media-border-width) solid rgba(18, 18, 18, 0.05);
+}
+
+.prevent-left-bottom-border {
+  border-right: 0px;
+  border-bottom: 0px;
+}
+
+/* Desktop: Vertical Stacked Media */
+@media screen and (min-width: 990px) {
+  .media-gallery--vertical-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
   }
 
-  .prevent-left-bottom-border {
-    border-right: 0px;
-    border-bottom: 0px;
-  }
-
-  /* Desktop: Vertical Stacked Media with Zoom */
-  @media screen and (min-width: 990px) {
-    .media-gallery--vertical-desktop {
-      display: flex;
-      flex-direction: column;
-      gap: 0px; /* Space between images */
-    }
-
-    .product__media-item img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      cursor: default;
+  .product__media-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    cursor: default;
     user-select: none;
-    }
-
-    .product__media-item {
-      display: block;
-    }
-
-    .sticky-text-section {
-      position: sticky;
-      top: 20px;
-    }
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Smooth fade-in */
   }
 
- /* Mobile: Fully Restored Carousel */
- @media screen and (max-width: 768px) {
+  .product__media-item img.lazyloaded {
+    opacity: 1; /* Images appear only when loaded */
+  }
+
+  .product__media-item {
+    display: block;
+  }
+
+  .sticky-text-section {
+    position: sticky;
+    top: 20px;
+  }
+}
+
+/* Mobile: Fully Restored Carousel */
+@media screen and (max-width: 768px) {
   .media-gallery--mobile {
     position: relative;
   }
@@ -63,6 +69,12 @@
     height: auto;
     object-fit: cover;
     scroll-snap-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .slider--mobile img.lazyloaded {
+    opacity: 1;
   }
 
   .slider--mobile::-webkit-scrollbar {
@@ -101,17 +113,13 @@
   display: none;
 }
 
-/* Hide Elements */
-.hidden {
-  display: none;
-}
-
 /* Fullscreen Modal */
 .open-fullscreen {
   border: none;
   padding: 0;
   margin: 0;
 }
+
 .fullscreen-modal {
   display: none;
   position: fixed;
@@ -145,6 +153,7 @@
   font-size: 24px;
   cursor: pointer;
 }
+
 {% endstyle %}
 
 {%- liquid
@@ -175,7 +184,9 @@
                 height="auto"
                 src="{{ media | image_url: width: 800 }}"
                 alt="{{ media.alt | escape }}"
-                loading="lazy">
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" 
+                style="opacity: 0; transition: opacity 0.3s ease-in-out;" 
+                onload="this.style.opacity=1;">
             </div>
           </li>
         {%- endfor -%}
@@ -200,12 +211,13 @@
           height="auto"
           src="{{ media | image_url: width: 1000 }}"
           alt="{{ media.alt | escape }}"
-          loading="lazy">
+          loading="lazy"
+          style="opacity: 0; transition: opacity 0.3s ease-in-out;" 
+          onload="this.style.opacity=1;">
       </div>
     {%- endfor -%}
   </div>
 </media-gallery>
-
 
 <!-- Fullscreen Modal -->
 <div id="fullscreen-modal" class="fullscreen-modal hidden">
