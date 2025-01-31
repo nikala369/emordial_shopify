@@ -129,13 +129,14 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  overflow: hidden; /* Ensure content doesn't scroll outside */
+  overflow: hidden;
 }
 
 .fullscreen-modal.visible {
   display: block; /* Ensure it's in the layout */
   opacity: 1; /* Make visible */
   visibility: visible; /* Ensure visibility */
+  overflow: hidden;
 }
 
 .fullscreen-modal.hidden {
@@ -154,7 +155,6 @@
   align-items: center;
 }
 
-/* Image in Modal */
 .fullscreen-content img {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
@@ -162,15 +162,20 @@
   margin: 0 auto; /* Center the image */
 }
 
-/* Close Button */
 .close-fullscreen {
   position: absolute;
   top: 20px;
-  right: 25px;
+  right: 20px;
   color: #cc0000;
-  font-size: 26px;
+  font-size: 28px;
+  width: 50px; 
+  height: 50px; 
+  line-height: 50px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  z-index: 10001; /* Ensure above all modal content */
+  z-index: 10001;
 }
 
 /* Navigation Buttons */
@@ -184,6 +189,12 @@
 .modal-button--next {
   right: 20px;
   transform: rotate(270deg);
+}
+
+/* Disable body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+  height: 100%;
 }
 
 {% endstyle %}
@@ -363,19 +374,20 @@ let allImages = [];
 // Initialize Modal Trigger
 document.querySelectorAll(".fullscreen-trigger").forEach((trigger, index) => {
   trigger.addEventListener("click", function () {
-    console.log("Opening Modal:", this.getAttribute("data-src"));
-
-    // Populate image sources
-    allImages = Array.from(document.querySelectorAll(".fullscreen-trigger")).map((el) =>
-      el.getAttribute("data-src")
+    const uniqueSources = new Set(
+      Array.from(document.querySelectorAll(".fullscreen-trigger")).map((el) =>
+        el.getAttribute("data-src")
+      )
     );
+
+    allImages = Array.from(uniqueSources); // Ensure unique images
     currentImageIndex = index;
 
     updateModalImage();
-
     // Ensure modal is visible
     modal.classList.remove("hidden");
     modal.classList.add("visible");
+    document.body.classList.add("modal-open");
   });
 });
 
@@ -407,6 +419,10 @@ modalNext.addEventListener("click", function () {
 function closeModal() {
   modal.classList.remove("visible");
   modal.classList.add("hidden");
+
+  // Add to modal close logic
+  modal.classList.remove("visible");
+  document.body.classList.remove("modal-open");
 }
 
 closeFullscreen.addEventListener("click", closeModal);
