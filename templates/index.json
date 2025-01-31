@@ -43,6 +43,13 @@
     "collection_list_VipeCH": {
       "type": "collection-list",
       "blocks": {
+        "featured_collection_YnxYb8": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "best-sellers",
+            "background_image": "shopify://shop_images/Emordial_PNG_15.png"
+          }
+        },
         "featured_collection_Lap8Kg": {
           "type": "featured_collection",
           "settings": {
@@ -59,6 +66,7 @@
         }
       },
       "block_order": [
+        "featured_collection_YnxYb8",
         "featured_collection_Lap8Kg",
         "featured_collection_d3YpkY"
       ],
