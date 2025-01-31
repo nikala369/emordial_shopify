@@ -130,6 +130,10 @@
   visibility: hidden;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   overflow: hidden;
+
+  @media screen and (min-width: 750px) {
+    display: none;
+  }
 }
 
 .fullscreen-modal.visible {
@@ -137,6 +141,10 @@
   opacity: 1; /* Make visible */
   visibility: visible; /* Ensure visibility */
   overflow: hidden;
+
+    @media screen and (min-width: 750px) {
+    display: none;
+  }
 }
 
 .fullscreen-modal.hidden {
@@ -374,6 +382,10 @@ let allImages = [];
 // Initialize Modal Trigger
 document.querySelectorAll(".fullscreen-trigger").forEach((trigger, index) => {
   trigger.addEventListener("click", function () {
+
+    const isMobile = window.innerWidth < 768; // Check if screen width is mobile
+    if (!isMobile) return; // Prevent modal from opening desk
+
     const uniqueSources = new Set(
       Array.from(document.querySelectorAll(".fullscreen-trigger")).map((el) =>
         el.getAttribute("data-src")
