@@ -226,9 +226,6 @@ body.modal-open {
 
   <!-- 📱 Mobile Carousel -->
   <div class="media-gallery--mobile hidden">
-    <!-- Fake placeholder to reserve slider height on mobile refresh -->
-    <div id="slider-placeholder" style="height:30vh; width:100%;"></div>
-
     <slider-component class="slider slider--mobile custom-slider">
       <ul id="Slider-Gallery-{{ section.id }}" class="product__media-list custom-ul list-unstyled slider">
         {%- for media in product.media -%}
@@ -294,6 +291,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const slider         = document.querySelector('.slider--mobile');
   const slides         = slider ? slider.querySelectorAll('.slider__slide') : [];
 
+  // CHANGE: Immediately hide the navigation buttons until images are loaded.
+  if (prevButton && nextButton) {
+    prevButton.style.display = 'none';
+    nextButton.style.display = 'none';
+  }
+
   // Utility: Ensure that images that may have already loaded are shown
   document.querySelectorAll('.fullscreen-trigger').forEach((img) => {
     if (img.complete) {
@@ -327,6 +330,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let slideWidth = getSlideWidth();
 
     function updateButtonVisibility() {
+      // Note: updateButtonVisibility uses style.visibility.
+      // Once the buttons are unhidden (via display property) this function will work as before.
       prevButton.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
       nextButton.style.visibility = currentIndex === slides.length - 1 ? 'hidden' : 'visible';
     }
@@ -393,28 +398,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Remove Slider Placeholder Once Images Load ---
-  // This section removes the fake placeholder that reserves slider height.
-  const sliderPlaceholder = document.getElementById('slider-placeholder');
-  if (slider && sliderPlaceholder) {
+  // CHANGE: Wait for all slider images to load, then reveal the navigation buttons.
+  if (slider) {
     const sliderImages = slider.querySelectorAll('img');
     let loadedImages = 0;
-    sliderImages.forEach((img) => {
+    sliderImages.forEach(function(img) {
       if (img.complete) {
         loadedImages++;
       } else {
-        img.addEventListener('load', () => {
+        img.addEventListener('load', function() {
           loadedImages++;
           if (loadedImages === sliderImages.length) {
-            // All slider images have loaded; remove the placeholder.
-            sliderPlaceholder.style.display = 'none';
+            // All images are loaded: show the buttons.
+            if (prevButton && nextButton) {
+              prevButton.style.display = '';
+              nextButton.style.display = '';
+              updateButtonVisibility();
+            }
           }
         });
       }
     });
-    // In case all images were already loaded:
-    if (loadedImages === sliderImages.length) {
-      sliderPlaceholder.style.display = 'none';
+    // In case all images were already loaded at DOMContentLoaded:
+    if (loadedImages === sliderImages.length && prevButton && nextButton) {
+      prevButton.style.display = '';
+      nextButton.style.display = '';
+      updateButtonVisibility();
     }
   }
 
@@ -491,7 +500,5 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
-
-
 
 
