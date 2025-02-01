@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let slideWidth = getSlideWidth();
 
     function updateButtonVisibility() {
-      // Note: updateButtonVisibility uses style.visibility.
+      // updateButtonVisibility uses style.visibility.
       // Once the buttons are unhidden (via display property) this function will work as before.
       prevButton.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
       nextButton.style.visibility = currentIndex === slides.length - 1 ? 'hidden' : 'visible';
@@ -419,6 +419,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
+    // Fallback in case not all images trigger a load event:
+    setTimeout(function() {
+      if (prevButton && nextButton && (prevButton.style.display === 'none' || nextButton.style.display === 'none')) {
+        prevButton.style.display = '';
+        nextButton.style.display = '';
+        updateButtonVisibility();
+      }
+    }, 1000);
     // In case all images were already loaded at DOMContentLoaded:
     if (loadedImages === sliderImages.length && prevButton && nextButton) {
       prevButton.style.display = '';
@@ -500,5 +508,3 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
-
-
