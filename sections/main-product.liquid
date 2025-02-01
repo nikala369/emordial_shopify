@@ -123,7 +123,7 @@
 
 
   .product-detailed-title {
-  font-size: 1.5rem; /* Base font size for mobile */
+  font-size: 1.4rem;
   letter-spacing: 0.2px;
   font-family: 'mont-bold';
   color: #000; 
@@ -132,7 +132,7 @@
   margin-top: 5px !important;
 
   @media (min-width: 768px) {
-    font-size: 2rem; /* Larger font for desktop */
+    font-size: 1.8rem; /* Larger font for desktop */
     margin-bottom: 15px;
     margin-top: 10px;
   }
@@ -158,6 +158,177 @@
     border-left: 1.1px solid #000;
   }
 }
+
+
+/* //custom accordion etc */
+.product-accordion-wrapper {
+  /* background-color: #000; */
+  background-color: #cc0000;
+  
+  /* padding: 3rem 1rem;  */
+  width: 100%;
+
+  .product-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff; 
+    border: 1px solid #000; 
+    border-radius: 15px; 
+    overflow: hidden; 
+
+    .accordion-item {
+      border-bottom: 1px solid #000; 
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .accordion-header {
+        width: 100%;
+        background: #fff;
+        padding: 2.5rem 2rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        font-family: 'mont-bold';
+        color: #000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none; 
+        outline: none;
+        transition: background-color 0.3s ease; 
+        letter-spacing: 0.2px;
+        text-transform: uppercase;
+        cursor: pointer;
+
+          &:hover {
+          @media screen and (min-width: 768px) {
+            background: #f7f7f7;
+          }
+        }
+
+        .accordion-icon {
+          font-size: 1.2rem;
+          font-family: 'mont-medium';
+          transition: transform 0.3s ease; 
+        @media screen and (min-width: 768px) {
+          font-size: 1.8rem;
+        }
+        }
+
+        &[aria-expanded='true'] .accordion-icon {
+          transform: rotate(45deg);
+        }
+
+        @media screen and (max-width: 768px) {
+          font-size: 0.90rem;
+        }
+      }
+
+      .accordion-content {
+        display: none; 
+        padding: 1.5rem 2rem;
+        font-size: 1.15rem;
+        font-family: 'mont-medium';
+        line-height: 1.6;
+        color: #000;
+        border-top: 1px solid #eee;
+
+        &[aria-hidden='false'] {
+          display: block;
+          animation: slideDown 0.3s ease forwards;
+        }
+
+        .content-header {
+          font-size: 1.175rem;
+          font-family: 'mont-semibold';
+          color: #000;
+
+          @media screen and (max-width: 768px) {
+            font-size: 1.05rem;
+          }
+        }
+
+        .content-ul {
+          list-style-type: none;
+          padding-left: 0;
+        }
+
+        @media screen and (max-width: 768px) {
+          font-size: 1rem;
+        }
+      }
+
+      .shipping-returns-header {
+        font-size: 1.175rem;
+          font-family: 'mont-semibold';
+          color: #000;
+
+          @media screen and (max-width: 768px) {
+            font-size: 1.05rem;
+          }
+      }
+
+      .shipping-returns-text {
+        font-family: 'mont-medium';
+        font-size: 1.15rem;
+        line-height: 1.6;
+        color: #000;
+      }
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-accordion-wrapper {
+    padding: 0rem 0rem; 
+
+    .product-accordion {
+      max-width: 100%; 
+
+      .accordion-header {
+        font-size: 1rem; 
+        padding: 0rem 1.5rem;
+      }
+
+      .accordion-content {
+        font-size: 0.9rem; 
+        padding: 1rem 1.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-accordion-wrapper {
+      padding: 0rem 0rem; 
+
+      .product-accordion {
+        .accordion-header {
+          font-size: 0.9rem; 
+          padding: 0.8rem 1rem;
+        }
+
+        .accordion-content {
+          font-size: 0.85rem;
+          padding: 0.8rem 1rem;
+        }
+      }
+    }
+  }
+}
+
+
+
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -257,6 +428,8 @@
                   {{ form | payment_terms }}
                 {%- endform -%}
               </div>
+
+
             {%- when 'inventory' -%}
               <p
                 class="product__inventory no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -304,12 +477,124 @@
                   {%- endif -%}
                 {%- endif -%}
               </p>
+
+              {% comment %} //custom changes add box for description and other content (accordion) {% endcomment %}
+
+              {% comment %} {%- when 'description' -%}
+                {%- if product.description != blank -%}
+                  <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+                    {{ product.description }}
+                  </div>
+                {%- endif -%} {% endcomment %}
+  
             {%- when 'description' -%}
-              {%- if product.description != blank -%}
-                <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-                  {{ product.description }}
+              <div class="product-accordion-wrapper">
+                <div class="product-accordion">
+                  <!-- Description Section -->
+                  <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                      Description
+                      <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                      <div class="content-header">Product description</div>
+                      {{ product.description }}
+                    </div>
+                  </div>
+              
+                  
+                   <!-- Materials Section -->
+                  <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                      Materials
+                      <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                      <div class="content-header">Materials & details</div>
+                      {% assign mat = product.metafields.custom.jewelry_material %}
+                      {% if mat and mat.value and mat.value.children %}
+                        {%- assign listBlock = mat.value.children[0] -%}
+                        {% if listBlock and listBlock.children %}
+                          <ul class="content-ul">
+                            {% for listItem in listBlock.children %}
+                              {% if listItem.children and listItem.children.size > 0 %}
+                                <li>{{ listItem.children[0].value }}</li>
+                              {% endif %}
+                            {% endfor %}
+                          </ul>
+                        {% else %}
+                          <p>No materials information available.</p>
+                        {% endif %}
+                      {% else %}
+                        <p>No materials information available.</p>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                
+              
+                  <!-- Care Instructions Section -->
+                    <div class="accordion-item">
+                      <button class="accordion-header" aria-expanded="false">
+                        Care Instructions
+                        <span class="accordion-icon">+</span>
+                      </button>
+                      <div class="accordion-content">
+                        {% assign care = product.metafields.custom.care_instructions %}
+                        {% if care and care.value and care.value.children %}
+                          {% for block in care.value.children %}
+                            {% if block.type == "paragraph" and block.children %}
+                              <p>
+                                {% for piece in block.children %}
+                                  {{ piece.value }}
+                                {% endfor %}
+                              </p>
+                            {% endif %}
+                          {% endfor %}
+                        {% else %}
+                          <p>No care instructions available.</p>
+                        {% endif %}
+                      </div>
+                    </div>
+              
+                  <!-- Shipping & Returns Section -->
+<div class="accordion-item">
+  <button class="accordion-header" aria-expanded="false">
+    Shipping & Returns
+    <span class="accordion-icon">+</span>
+  </button>
+  <div class="accordion-content">
+    <div class="shipping-returns-wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem;">
+      <!-- Delivery Block -->
+      <div class="shipping-block" style="flex: 1; min-width: 280px;">
+        <div class="icon-header-wrapper" style="display: flex; align-items: center;">
+          <img src="{{ 'delivery-icon.svg' | asset_url }}" width="24" height="24" alt="Delivery Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
+          <h4 class="shipping-returns-header">Delivery</h4>
+        </div>
+        <p class="shipping-returns-text">Enjoy free shipping on all orders!</p>
+      </div>
+      <!-- Returns Block -->
+      <div class="returns-block" style="flex: 1; min-width: 280px;">
+        <div class="icon-header-wrapper" style="display: flex; align-items: center;">
+          <img src="{{ 'return-icon.svg' | asset_url }}" width="24" height="24" alt="Returns Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
+          <h4 class="shipping-returns-header">Returns</h4>
+        </div>
+        <p class="shipping-returns-text">
+          We offer a 15-day return policy. If the product is returned without any quality issues, the return fee will be the buyer’s responsibility.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
                 </div>
-              {%- endif -%}
+              </div>
+              
+              
+
+     
+
             {%- when 'sku' -%}
               <p
                 class="product__sku no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
@@ -319,6 +604,7 @@
               >
                 <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span> {{- product.selected_or_first_available_variant.sku -}}
               </p>
+
             {%- when 'custom_liquid' -%}
               {{ block.settings.custom_liquid }}
             {%- when 'collapsible_tab' -%}
@@ -754,6 +1040,39 @@
         hiddenInput.value = event.currentTarget.value;
       });
     });
+
+
+    // Select all accordion headers custom
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+accordionHeaders.forEach((header) => {
+  header.addEventListener('click', () => {
+    // Get the content panel for the clicked header
+    const accordionContent = header.nextElementSibling;
+
+    // Check if the current accordion item is already expanded
+    const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+    // Close all other open accordion items
+    closeAllAccordions();
+
+    // If the current item was not expanded, expand it
+    if (!isExpanded) {
+      header.setAttribute('aria-expanded', 'true');
+      accordionContent.setAttribute('aria-hidden', 'false');
+      accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+    }
+  });
+});
+
+function closeAllAccordions() {
+  accordionHeaders.forEach((header) => {
+    const accordionContent = header.nextElementSibling;
+    header.setAttribute('aria-expanded', 'false');
+    accordionContent.setAttribute('aria-hidden', 'true');
+    accordionContent.style.maxHeight = null; // Collapse the content
+  });
+}
   </script>
 
   {%- liquid
@@ -776,6 +1095,8 @@
         ],
       {%- endif %}
       "description": {{ product.description | strip_html | json }},
+      "material": {{ product.metafields.custom.jewelry_material.value | strip_html | json }},
+      "care": {{ product.metafields.custom.care_instructions.value | strip_html | json }},
       {% if product.selected_or_first_available_variant.sku != blank -%}
         "sku": {{ product.selected_or_first_available_variant.sku | json }},
       {%- endif %}
@@ -1007,6 +1328,16 @@
       "name": "t:sections.main-product.blocks.description.name",
       "limit": 1
     },
+      {
+        "type": "material",
+        "name": "Materials",
+        "limit": 1
+      },
+      {
+        "type": "care",
+        "name": "Care Instructions",
+        "limit": 1
+      },
     {
       "type": "share",
       "name": "t:sections.main-product.blocks.share.name",
