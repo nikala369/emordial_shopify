@@ -202,12 +202,12 @@
 
 .modal-button--prev {
   left: 10px;
-  transform: rotate(90deg);
+  transform: rotate(90deg) !important;
 }
 
 .modal-button--next {
   right: 10px;
-  transform: rotate(270deg);
+  transform: rotate(270deg) !important;
 }
 
 /* Disable body scroll when modal is open */
@@ -283,7 +283,7 @@ body.modal-open {
   <div class="fullscreen-content">
     <span class="close-fullscreen">&times;</span>
     <img id="fullscreen-image" width="390" height="auto" src="" alt="Expanded View">
-    <div class="slider-button modal-button--prev">{% render 'icon-caret' %}</div>
+    <div class="slider-button modal-button--prev inside-modal-arrow-custom">{% render 'icon-caret' %}</div>
     <div class="slider-button modal-button--next">{% render 'icon-caret' %}</div>
   </div>
 </div>
@@ -481,12 +481,24 @@ if (slider) {
 
   // Update Modal Image and Navigation Buttons
   function updateModalImage() {
-    if (allImages.length > 0) {
-      fullscreenImage.src = allImages[currentImageIndex]; // Update modal image
-      modalPrev.style.visibility = currentImageIndex === 0 ? "hidden" : "visible";
-      modalNext.style.visibility = currentImageIndex === allImages.length - 1 ? "hidden" : "visible";
+  if (allImages.length > 0) {
+    fullscreenImage.src = allImages[currentImageIndex]; // Update modal image
+
+    // For the previous modal arrow:
+    if (currentImageIndex === 0) {
+      modalPrev.classList.remove('visible');
+    } else {
+      modalPrev.classList.add('visible');
+    }
+
+    // For the next modal arrow:
+    if (currentImageIndex === allImages.length - 1) {
+      modalNext.classList.remove('visible');
+    } else {
+      modalNext.classList.add('visible');
     }
   }
+}
 
   // Modal Navigation
   modalPrev.addEventListener("click", function () {
