@@ -188,7 +188,8 @@
         padding: 2.5rem 2rem;
         font-size: 1.1rem;
         font-weight: bold;
-        cursor: pointer;
+        font-family: 'mont-bold';
+        color: #000;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -197,10 +198,12 @@
         transition: background-color 0.3s ease; 
         letter-spacing: 0.2px;
         text-transform: uppercase;
-        font-family: 'mont-bold';
+        cursor: pointer;
 
-        &:hover {
-          background: #f7f7f7;
+          &:hover {
+          @media screen and (min-width: 768px) {
+            background: #f7f7f7;
+          }
         }
 
         .accordion-icon {
