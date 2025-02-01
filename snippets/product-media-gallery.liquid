@@ -398,42 +398,48 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // CHANGE: Wait for all slider images to load, then reveal the navigation buttons.
-  if (slider) {
-    const sliderImages = slider.querySelectorAll('img');
-    let loadedImages = 0;
-    sliderImages.forEach(function(img) {
-      if (img.complete) {
-        loadedImages++;
-      } else {
-        img.addEventListener('load', function() {
-          loadedImages++;
-          if (loadedImages === sliderImages.length) {
-            // All images are loaded: show the buttons.
-            if (prevButton && nextButton) {
-              prevButton.style.display = '';
-              nextButton.style.display = '';
-              updateButtonVisibility();
-            }
-          }
-        });
-      }
-    });
-    // Fallback in case not all images trigger a load event:
-    setTimeout(function() {
-      if (prevButton && nextButton && (prevButton.style.display === 'none' || nextButton.style.display === 'none')) {
-        prevButton.style.display = '';
-        nextButton.style.display = '';
-        updateButtonVisibility();
-      }
-    }, 1000);
-    // In case all images were already loaded at DOMContentLoaded:
-    if (loadedImages === sliderImages.length && prevButton && nextButton) {
-      prevButton.style.display = '';
-      nextButton.style.display = '';
-      updateButtonVisibility();
-    }
+ // Function to reveal the navigation buttons with a smooth transition.
+function showNavButtons() {
+  if (prevButton && nextButton) {
+    // Ensure the buttons are displayed (in case display was set to 'none')
+    prevButton.style.display = '';
+    nextButton.style.display = '';
+    // Add the 'visible' class so they fade in smoothly.
+    prevButton.classList.add('visible');
+    nextButton.classList.add('visible');
+    updateButtonVisibility();
   }
+}
+
+if (slider) {
+  const sliderImages = slider.querySelectorAll('img');
+  let loadedImages = 0;
+  
+  sliderImages.forEach(function(img) {
+    if (img.complete) {
+      loadedImages++;
+    } else {
+      img.addEventListener('load', function() {
+        loadedImages++;
+        if (loadedImages === sliderImages.length) {
+          showNavButtons();
+        }
+      });
+    }
+  });
+  
+  // If all images are already loaded (cached), show the buttons immediately.
+  if (loadedImages === sliderImages.length) {
+    showNavButtons();
+  }
+  
+  // Fallback: in case not all images trigger a load event, force-show the buttons after 1 second.
+  setTimeout(function() {
+    if (prevButton.style.display === 'none' || nextButton.style.display === 'none') {
+      showNavButtons();
+    }
+  }, 1000);
+}
 
   // **🖼️ Modal Functionality**
   const modal           = document.getElementById("fullscreen-modal");
