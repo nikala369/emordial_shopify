@@ -93,7 +93,16 @@
     padding: 8px;
     cursor: pointer;
     z-index: 2;
+
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   }
+
+  /* When the arrow is "visible", fade it in */
+.slider-button.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
   .slider-button--prev {
     left: -15px;
@@ -401,10 +410,9 @@ document.addEventListener('DOMContentLoaded', function () {
  // Function to reveal the navigation buttons with a smooth transition.
 function showNavButtons() {
   if (prevButton && nextButton) {
-    // Ensure the buttons are displayed (in case display was set to 'none')
     prevButton.style.display = '';
     nextButton.style.display = '';
-    // Add the 'visible' class so they fade in smoothly.
+    
     prevButton.classList.add('visible');
     nextButton.classList.add('visible');
     updateButtonVisibility();
@@ -414,31 +422,31 @@ function showNavButtons() {
 if (slider) {
   const sliderImages = slider.querySelectorAll('img');
   let loadedImages = 0;
-  
+
+  // Loop over each image and count those that are already loaded.
   sliderImages.forEach(function(img) {
     if (img.complete) {
       loadedImages++;
     } else {
       img.addEventListener('load', function() {
         loadedImages++;
+        // If this image is the last one to load, show the buttons immediately.
         if (loadedImages === sliderImages.length) {
           showNavButtons();
         }
       });
     }
   });
-  
+
   // If all images are already loaded (cached), show the buttons immediately.
   if (loadedImages === sliderImages.length) {
     showNavButtons();
-  }
-  
-  // Fallback: in case not all images trigger a load event, force-show the buttons after 1 second.
-  setTimeout(function() {
-    if (prevButton.style.display === 'none' || nextButton.style.display === 'none') {
+  } else {
+    // Fallback: if not all images trigger a load event, force-show the buttons after 1 second.
+    setTimeout(function() {
       showNavButtons();
-    }
-  }, 1000);
+    }, 1000);
+  }
 }
 
   // **🖼️ Modal Functionality**
