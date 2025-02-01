@@ -52,6 +52,7 @@
 @media screen and (max-width: 768px) {
   .media-gallery--mobile {
     position: relative;
+    min-height: 30vh;
   }
 
   .slider--mobile {
@@ -92,7 +93,16 @@
     padding: 8px;
     cursor: pointer;
     z-index: 2;
+
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   }
+
+  /* When the arrow is "visible", fade it in */
+.slider-button.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
   .slider-button--prev {
     left: -15px;
@@ -106,6 +116,7 @@
   .custom-ul {
     display: flex;
     padding-left: 15px;
+
   }
 }
 
@@ -125,7 +136,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+  background-color: white;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
@@ -277,16 +288,31 @@ body.modal-open {
   </div>
 </div>
 
+
 <!-- JavaScript for Switching & Modal Functionality -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  const mediaGallery = document.getElementById('MediaGallery-{{ section.id }}');
+  const mediaGallery   = document.getElementById('MediaGallery-{{ section.id }}');
   const desktopGallery = mediaGallery.querySelector('.media-gallery--desktop');
-  const mobileGallery = mediaGallery.querySelector('.media-gallery--mobile');
-  const prevButton = document.querySelector('.slider-button--prev');
-  const nextButton = document.querySelector('.slider-button--next');
-  const slider = document.querySelector('.slider--mobile');
-  const slides = slider.querySelectorAll('.slider__slide');
+  const mobileGallery  = mediaGallery.querySelector('.media-gallery--mobile');
+  const prevButton     = document.querySelector('.slider-button--prev');
+  const nextButton     = document.querySelector('.slider-button--next');
+  const slider         = document.querySelector('.slider--mobile');
+  const slides         = slider ? slider.querySelectorAll('.slider__slide') : [];
+
+   // CHANGE: Instead of hiding via display, we rely on CSS to keep them hidden
+  if (prevButton && nextButton) {
+    prevButton.classList.remove('visible');
+    nextButton.classList.remove('visible');
+  }
+
+  // Utility: Ensure that images that may have already loaded are shown
+  document.querySelectorAll('.fullscreen-trigger').forEach((img) => {
+    if (img.complete) {
+      img.style.opacity = 1;
+      img.classList.add("lazyloaded");
+    }
+  });
 
   function updateMediaGalleryClass() {
     const isMobile = window.innerWidth < 990;
@@ -303,10 +329,17 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', updateMediaGalleryClass);
 
   if (prevButton && nextButton && slider && slides.length > 0) {
+    // Recalculate slide width dynamically (in case images load later)
+    function getSlideWidth() {
+      // If images are not loaded, this may be 0 so you could force a default
+      return slides[0].offsetWidth + 10; // Including gap
+    }
     let currentIndex = 0;
-    const slideWidth = slides[0].offsetWidth + 10; // Including gap
+    let slideWidth = getSlideWidth();
 
     function updateButtonVisibility() {
+      // This function sets visibility via CSS classes.
+      // (The CSS for .slider-button.visible will show the arrow.)
       prevButton.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
       nextButton.style.visibility = currentIndex === slides.length - 1 ? 'hidden' : 'visible';
     }
@@ -327,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
       updateButtonVisibility();
     });
 
-    // **Fixing Vertical Scroll Issue Inside Slider**
+    // **Fixing Vertical Scroll Issue Inside Slider & Removing Excess Smooth Animation**
     let startX = 0;
     let startY = 0;
     let isScrollingHorizontally = false;
@@ -336,6 +369,8 @@ document.addEventListener('DOMContentLoaded', function () {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       isScrollingHorizontally = false;
+      // Update slideWidth in case images have loaded/resized:
+      slideWidth = getSlideWidth();
     });
 
     slider.addEventListener('touchmove', function (e) {
@@ -353,98 +388,134 @@ document.addEventListener('DOMContentLoaded', function () {
     slider.addEventListener('touchend', function (e) {
       if (!isScrollingHorizontally) return;
       const endX = e.changedTouches[0].clientX;
-
+      // Use a threshold to decide whether to move to next/prev slide
       if (startX - endX > 50 && currentIndex < slides.length - 1) {
-        // Swipe left
         currentIndex++;
       } else if (endX - startX > 50 && currentIndex > 0) {
-        // Swipe right
         currentIndex--;
       }
-
       slider.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
       updateButtonVisibility();
     });
 
     updateButtonVisibility();
+
+    // Also update slideWidth on window resize (optional)
+    window.addEventListener('resize', function(){
+      slideWidth = getSlideWidth();
+    });
+  }
+
+ // Function to reveal the navigation buttons with a smooth transition.
+function showNavButtons() {
+  if (prevButton && nextButton) {
+    prevButton.style.display = '';
+    nextButton.style.display = '';
+
+    prevButton.classList.add('visible');
+    nextButton.classList.add('visible');
+    updateButtonVisibility();
+  }
+}
+
+// CHANGE: Check if all images are loaded immediately.
+if (slider) {
+    const sliderImages = slider.querySelectorAll('img');
+    // Convert NodeList to an array and check if every image is complete.
+    if (Array.from(sliderImages).every(img => img.complete)) {
+      showNavButtons();
+    } else {
+      // If not all images are complete, add load listeners.
+      let loadedImages = 0;
+      sliderImages.forEach(function(img) {
+        if (!img.complete) {
+          img.addEventListener('load', function() {
+            loadedImages++;
+            if (loadedImages === sliderImages.length) {
+              showNavButtons();
+            }
+          });
+        } else {
+          loadedImages++;
+        }
+      });
+      // Fallback: if not all images trigger a load event, force-show the buttons after 1 second.
+      setTimeout(function() {
+        showNavButtons();
+      }, 1000);
+    }
   }
 
   // **🖼️ Modal Functionality**
-  const modal = document.getElementById("fullscreen-modal");
-const fullscreenImage = document.getElementById("fullscreen-image");
-const closeFullscreen = document.querySelector(".close-fullscreen");
-const modalPrev = document.querySelector(".modal-button--prev");
-const modalNext = document.querySelector(".modal-button--next");
+  const modal           = document.getElementById("fullscreen-modal");
+  const fullscreenImage = document.getElementById("fullscreen-image");
+  const closeFullscreen = document.querySelector(".close-fullscreen");
+  const modalPrev       = document.querySelector(".modal-button--prev");
+  const modalNext       = document.querySelector(".modal-button--next");
 
-let currentImageIndex = 0;
-let allImages = [];
+  let currentImageIndex = 0;
+  let allImages = [];
 
-// Initialize Modal Trigger
-document.querySelectorAll(".fullscreen-trigger").forEach((trigger, index) => {
-  trigger.addEventListener("click", function () {
+  // Initialize Modal Trigger
+  document.querySelectorAll(".fullscreen-trigger").forEach((trigger, index) => {
+    trigger.addEventListener("click", function () {
+      const isMobile = window.innerWidth < 768; // Only trigger modal on mobile
+      if (!isMobile) return;
 
-    const isMobile = window.innerWidth < 768; // Check if screen width is mobile
-    if (!isMobile) return; // Prevent modal from opening desk
+      const uniqueSources = new Set(
+        Array.from(document.querySelectorAll(".fullscreen-trigger")).map((el) =>
+          el.getAttribute("data-src")
+        )
+      );
 
-    const uniqueSources = new Set(
-      Array.from(document.querySelectorAll(".fullscreen-trigger")).map((el) =>
-        el.getAttribute("data-src")
-      )
-    );
+      allImages = Array.from(uniqueSources); // Ensure unique images
+      currentImageIndex = index;
 
-    allImages = Array.from(uniqueSources); // Ensure unique images
-    currentImageIndex = index;
+      updateModalImage();
+      // Show modal:
+      modal.classList.remove("hidden");
+      modal.classList.add("visible");
+      document.body.classList.add("modal-open");
+    });
+  });
 
-    updateModalImage();
-    // Ensure modal is visible
-    modal.classList.remove("hidden");
-    modal.classList.add("visible");
-    document.body.classList.add("modal-open");
+  // Update Modal Image and Navigation Buttons
+  function updateModalImage() {
+    if (allImages.length > 0) {
+      fullscreenImage.src = allImages[currentImageIndex]; // Update modal image
+      modalPrev.style.visibility = currentImageIndex === 0 ? "hidden" : "visible";
+      modalNext.style.visibility = currentImageIndex === allImages.length - 1 ? "hidden" : "visible";
+    }
+  }
+
+  // Modal Navigation
+  modalPrev.addEventListener("click", function () {
+    if (currentImageIndex > 0) {
+      currentImageIndex--;
+      updateModalImage();
+    }
+  });
+
+  modalNext.addEventListener("click", function () {
+    if (currentImageIndex < allImages.length - 1) {
+      currentImageIndex++;
+      updateModalImage();
+    }
+  });
+
+  // Close Modal
+  function closeModal() {
+    modal.classList.remove("visible");
+    modal.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  }
+
+  closeFullscreen.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      closeModal();
+    }
   });
 });
-
-// Update Modal Image and Navigation Buttons
-function updateModalImage() {
-  if (allImages.length > 0) {
-    fullscreenImage.src = allImages[currentImageIndex]; // Update modal image
-    modalPrev.style.visibility = currentImageIndex === 0 ? "hidden" : "visible"; // Hide "Prev" if at start
-    modalNext.style.visibility = currentImageIndex === allImages.length - 1 ? "hidden" : "visible"; // Hide "Next" if at end
-  }
-}
-
-// Modal Navigation
-modalPrev.addEventListener("click", function () {
-  if (currentImageIndex > 0) {
-    currentImageIndex--;
-    updateModalImage();
-  }
-});
-
-modalNext.addEventListener("click", function () {
-  if (currentImageIndex < allImages.length - 1) {
-    currentImageIndex++;
-    updateModalImage();
-  }
-});
-
-// Close Modal
-function closeModal() {
-  modal.classList.remove("visible");
-  modal.classList.add("hidden");
-
-  // Add to modal close logic
-  modal.classList.remove("visible");
-  document.body.classList.remove("modal-open");
-}
-
-closeFullscreen.addEventListener("click", closeModal);
-
-modal.addEventListener("click", function (e) {
-  if (e.target === modal) {
-    closeModal();
-  }
-});
-});
 </script>
-
-

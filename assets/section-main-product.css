@@ -296,6 +296,10 @@ a.product__text {
 
 .product .price__container {
   margin-bottom: 0.5rem;
+
+  @media screen and (min-width: 750px) {
+    min-width: 104px;
+  }
 }
 
 .product .price dl {
