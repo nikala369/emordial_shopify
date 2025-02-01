@@ -300,16 +300,15 @@ document.addEventListener('DOMContentLoaded', function () {
   const slider         = document.querySelector('.slider--mobile');
   const slides         = slider ? slider.querySelectorAll('.slider__slide') : [];
 
-  // CHANGE: Immediately hide the navigation buttons until images are loaded.
+   // CHANGE: Instead of hiding via display, we rely on CSS to keep them hidden
   if (prevButton && nextButton) {
-    prevButton.style.display = 'none';
-    nextButton.style.display = 'none';
+    prevButton.classList.remove('visible');
+    nextButton.classList.remove('visible');
   }
 
   // Utility: Ensure that images that may have already loaded are shown
   document.querySelectorAll('.fullscreen-trigger').forEach((img) => {
     if (img.complete) {
-      // Either add a lazyloaded class or force opacity:
       img.style.opacity = 1;
       img.classList.add("lazyloaded");
     }
@@ -339,8 +338,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let slideWidth = getSlideWidth();
 
     function updateButtonVisibility() {
-      // updateButtonVisibility uses style.visibility.
-      // Once the buttons are unhidden (via display property) this function will work as before.
+      // This function sets visibility via CSS classes.
+      // (The CSS for .slider-button.visible will show the arrow.)
       prevButton.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
       nextButton.style.visibility = currentIndex === slides.length - 1 ? 'hidden' : 'visible';
     }
@@ -412,42 +411,40 @@ function showNavButtons() {
   if (prevButton && nextButton) {
     prevButton.style.display = '';
     nextButton.style.display = '';
-    
+
     prevButton.classList.add('visible');
     nextButton.classList.add('visible');
     updateButtonVisibility();
   }
 }
 
+// CHANGE: Check if all images are loaded immediately.
 if (slider) {
-  const sliderImages = slider.querySelectorAll('img');
-  let loadedImages = 0;
-
-  // Loop over each image and count those that are already loaded.
-  sliderImages.forEach(function(img) {
-    if (img.complete) {
-      loadedImages++;
+    const sliderImages = slider.querySelectorAll('img');
+    // Convert NodeList to an array and check if every image is complete.
+    if (Array.from(sliderImages).every(img => img.complete)) {
+      showNavButtons();
     } else {
-      img.addEventListener('load', function() {
-        loadedImages++;
-        // If this image is the last one to load, show the buttons immediately.
-        if (loadedImages === sliderImages.length) {
-          showNavButtons();
+      // If not all images are complete, add load listeners.
+      let loadedImages = 0;
+      sliderImages.forEach(function(img) {
+        if (!img.complete) {
+          img.addEventListener('load', function() {
+            loadedImages++;
+            if (loadedImages === sliderImages.length) {
+              showNavButtons();
+            }
+          });
+        } else {
+          loadedImages++;
         }
       });
+      // Fallback: if not all images trigger a load event, force-show the buttons after 1 second.
+      setTimeout(function() {
+        showNavButtons();
+      }, 1000);
     }
-  });
-
-  // If all images are already loaded (cached), show the buttons immediately.
-  if (loadedImages === sliderImages.length) {
-    showNavButtons();
-  } else {
-    // Fallback: if not all images trigger a load event, force-show the buttons after 1 second.
-    setTimeout(function() {
-      showNavButtons();
-    }, 1000);
   }
-}
 
   // **🖼️ Modal Functionality**
   const modal           = document.getElementById("fullscreen-modal");
