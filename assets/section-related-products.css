@@ -6,7 +6,7 @@
   margin: 0 0 3rem;
 
   font-family: "mont-semibold";
-  font-size: 1.8;
+  font-size: 1.5;
   letter-spacing: 0.2px;
 
   padding-left: 33px;
@@ -15,6 +15,6 @@
   @media screen and (max-width: 768px) {
     padding-left: 13px;
     padding-right: 13px;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
 }

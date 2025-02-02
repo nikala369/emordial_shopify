@@ -187,8 +187,7 @@
         background: #fff;
         padding: 2.5rem 2rem;
         font-size: 1.1rem;
-        font-weight: bold;
-        font-family: 'mont-bold';
+        font-family: 'mont-semibold';
         color: #000;
         display: flex;
         justify-content: space-between;
@@ -236,6 +235,11 @@
         &[aria-hidden='false'] {
           display: block;
           animation: slideDown 0.3s ease forwards;
+        }
+
+        &.closing {
+          display: block; 
+          animation: slideUp 0.3s ease forwards;
         }
 
         .content-header {
@@ -286,6 +290,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
   }
 }
 
@@ -488,7 +503,7 @@
                 {%- endif -%} {% endcomment %}
   
             {%- when 'description' -%}
-              <div class="product-accordion-wrapper">
+              <div class="product-accordion-wrapper quick-add-hidden">
                 <div class="product-accordion">
                   <!-- Description Section -->
                   <div class="accordion-item">
@@ -558,34 +573,34 @@
                     </div>
               
                   <!-- Shipping & Returns Section -->
-<div class="accordion-item">
-  <button class="accordion-header" aria-expanded="false">
-    Shipping & Returns
-    <span class="accordion-icon">+</span>
-  </button>
-  <div class="accordion-content">
-    <div class="shipping-returns-wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem;">
-      <!-- Delivery Block -->
-      <div class="shipping-block" style="flex: 1; min-width: 280px;">
-        <div class="icon-header-wrapper" style="display: flex; align-items: center;">
-          <img src="{{ 'delivery-icon.svg' | asset_url }}" width="24" height="24" alt="Delivery Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
-          <h4 class="shipping-returns-header">Delivery</h4>
-        </div>
-        <p class="shipping-returns-text">Enjoy free shipping on all orders!</p>
-      </div>
-      <!-- Returns Block -->
-      <div class="returns-block" style="flex: 1; min-width: 280px;">
-        <div class="icon-header-wrapper" style="display: flex; align-items: center;">
-          <img src="{{ 'return-icon.svg' | asset_url }}" width="24" height="24" alt="Returns Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
-          <h4 class="shipping-returns-header">Returns</h4>
-        </div>
-        <p class="shipping-returns-text">
-          We offer a 15-day return policy. If the product is returned without any quality issues, the return fee will be the buyer’s responsibility.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+                    <div class="accordion-item">
+                      <button class="accordion-header" aria-expanded="false">
+                        Shipping & Returns
+                        <span class="accordion-icon">+</span>
+                      </button>
+                      <div class="accordion-content">
+                        <div class="shipping-returns-wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem;">
+                          <!-- Delivery Block -->
+                          <div class="shipping-block" style="flex: 1; min-width: 280px;">
+                            <div class="icon-header-wrapper" style="display: flex; align-items: center;">
+                              <img src="{{ 'delivery-icon.svg' | asset_url }}" width="24" height="24" alt="Delivery Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
+                              <h4 class="shipping-returns-header">Delivery</h4>
+                            </div>
+                            <p class="shipping-returns-text">Enjoy free shipping on all orders!</p>
+                          </div>
+                          <!-- Returns Block -->
+                          <div class="returns-block" style="flex: 1; min-width: 280px;">
+                            <div class="icon-header-wrapper" style="display: flex; align-items: center;">
+                              <img src="{{ 'return-icon.svg' | asset_url }}" width="24" height="24" alt="Returns Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
+                              <h4 class="shipping-returns-header">Returns</h4>
+                            </div>
+                            <p class="shipping-returns-text">
+                              We offer a 15-day return policy. If the product is returned without any quality issues, the return fee will be the buyer’s responsibility.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
 
                 </div>
@@ -1019,61 +1034,80 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      // --- IE Detection & Variant Picker Code ---
       function isIE() {
         const ua = window.navigator.userAgent;
         const msie = ua.indexOf('MSIE ');
         const trident = ua.indexOf('Trident/');
-
         return msie > 0 || trident > 0;
       }
+    
+      if (isIE()) {
+        const hiddenInput = document.querySelector('#{{ product_form_id }} input[name="id"]');
+        const noScriptInputWrapper = document.createElement('div');
+        const variantPicker = document.querySelector('variant-selects[data-section="{{ section.id }}"]');
+        noScriptInputWrapper.innerHTML = document.querySelector('.product-form__noscript-wrapper-{{ section.id }}').textContent;
+        variantPicker.outerHTML = noScriptInputWrapper.outerHTML;
+    
+        document.querySelector('#Variants-{{ section.id }}').addEventListener('change', function (event) {
+          hiddenInput.value = event.currentTarget.value;
+        });
+      }
+      
+      // --- Accordion Code with SlideUp/SlideDown Animation ---
+      const accordionHeaders = document.querySelectorAll('.accordion-header');
+    
+      // Helper function to close a single accordion item with a smooth slideUp animation.
+      function closeAccordion(header) {
+        header.setAttribute('aria-expanded', 'false');
+        const accordionContent = header.nextElementSibling;
+        accordionContent.setAttribute('aria-hidden', 'true');
+        // Add the "closing" class to trigger the slideUp animation.
+        accordionContent.classList.add('closing');
+        // Remove any max-height to allow the animation to run naturally.
+        accordionContent.style.maxHeight = null;
+        // After the animation duration (300ms), hide the element and remove the closing class.
+        setTimeout(() => {
+          accordionContent.style.display = 'none';
+          accordionContent.classList.remove('closing');
+        }, 200);
+      }
 
-      if (!isIE()) return;
-      const hiddenInput = document.querySelector('#{{ product_form_id }} input[name="id"]');
-      const noScriptInputWrapper = document.createElement('div');
-      const variantPicker = document.querySelector('variant-selects[data-section="{{ section.id }}"]');
-      noScriptInputWrapper.innerHTML = document.querySelector(
-        '.product-form__noscript-wrapper-{{ section.id }}'
-      ).textContent;
-      variantPicker.outerHTML = noScriptInputWrapper.outerHTML;
-
-      document.querySelector('#Variants-{{ section.id }}').addEventListener('change', function (event) {
-        hiddenInput.value = event.currentTarget.value;
+      function closeAllAccordions(exceptHeader) {
+    accordionHeaders.forEach(header => {
+      if (header !== exceptHeader && header.getAttribute('aria-expanded') === 'true') {
+        closeAccordion(header);
+      }
+    });
+  }
+    
+      // Attach click event listener to each accordion header.
+      accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+          const accordionContent = header.nextElementSibling;
+          const isExpanded = header.getAttribute('aria-expanded') === 'true';
+    
+          if (isExpanded) {
+            // If the clicked item is already open, close it with slideUp.
+            closeAccordion(header);
+          } else {
+            // Close all other open accordion items.
+            closeAllAccordions(header);
+            // Open the clicked accordion item.
+            header.setAttribute('aria-expanded', 'true');
+            accordionContent.setAttribute('aria-hidden', 'false');
+            // Ensure the element is visible.
+            accordionContent.style.display = 'block';
+            // Remove any closing class in case it's present.
+            accordionContent.classList.remove('closing');
+            // Set maxHeight to allow a smooth slideDown (using scrollHeight).
+            accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+          }
+        });
       });
     });
-
-
-    // Select all accordion headers custom
-  const accordionHeaders = document.querySelectorAll('.accordion-header');
-
-accordionHeaders.forEach((header) => {
-  header.addEventListener('click', () => {
-    // Get the content panel for the clicked header
-    const accordionContent = header.nextElementSibling;
-
-    // Check if the current accordion item is already expanded
-    const isExpanded = header.getAttribute('aria-expanded') === 'true';
-
-    // Close all other open accordion items
-    closeAllAccordions();
-
-    // If the current item was not expanded, expand it
-    if (!isExpanded) {
-      header.setAttribute('aria-expanded', 'true');
-      accordionContent.setAttribute('aria-hidden', 'false');
-      accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
-    }
-  });
-});
-
-function closeAllAccordions() {
-  accordionHeaders.forEach((header) => {
-    const accordionContent = header.nextElementSibling;
-    header.setAttribute('aria-expanded', 'false');
-    accordionContent.setAttribute('aria-hidden', 'true');
-    accordionContent.style.maxHeight = null; // Collapse the content
-  });
-}
-  </script>
+    </script>
+    
 
   {%- liquid
     if product.selected_or_first_available_variant.featured_media

@@ -8,16 +8,17 @@
     overflow: hidden;
     position: relative;
     z-index: 10;
-
     font-size: 14px;
     padding: 0;
-    line-height: 7.5px;
+    /* Adjust line-height to something that fits the content rather than a fixed 7.5px */
+    line-height: 1;
+    /* Disable pointer events if the bar is not meant to be clickable */
+    pointer-events: none;
   }
 
   .announcement-text {
     white-space: nowrap;
     overflow: hidden;
-    /* Ensures the sliding text is cut off at the container's edge */
     width: 100%;
     background: black;
     color: white;
@@ -29,7 +30,6 @@
     }
     to {
       transform: translateX(-100%);
-      /* Move it completely out of view to the left */
     }
   }
 
@@ -38,12 +38,10 @@
     padding-left: 100%;
     animation: slide-in 18s linear infinite;
     font-size: 12.5px;
-
     @media screen and (max-width: 750px) {
       font-size: 12px;
     }
   }
-
 {% endstyle %}
 
 
