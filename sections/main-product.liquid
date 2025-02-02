@@ -488,7 +488,7 @@
                 {%- endif -%} {% endcomment %}
   
             {%- when 'description' -%}
-              <div class="product-accordion-wrapper">
+              <div class="product-accordion-wrapper quick-add-hidden">
                 <div class="product-accordion">
                   <!-- Description Section -->
                   <div class="accordion-item">
@@ -558,34 +558,34 @@
                     </div>
               
                   <!-- Shipping & Returns Section -->
-<div class="accordion-item">
-  <button class="accordion-header" aria-expanded="false">
-    Shipping & Returns
-    <span class="accordion-icon">+</span>
-  </button>
-  <div class="accordion-content">
-    <div class="shipping-returns-wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem;">
-      <!-- Delivery Block -->
-      <div class="shipping-block" style="flex: 1; min-width: 280px;">
-        <div class="icon-header-wrapper" style="display: flex; align-items: center;">
-          <img src="{{ 'delivery-icon.svg' | asset_url }}" width="24" height="24" alt="Delivery Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
-          <h4 class="shipping-returns-header">Delivery</h4>
-        </div>
-        <p class="shipping-returns-text">Enjoy free shipping on all orders!</p>
-      </div>
-      <!-- Returns Block -->
-      <div class="returns-block" style="flex: 1; min-width: 280px;">
-        <div class="icon-header-wrapper" style="display: flex; align-items: center;">
-          <img src="{{ 'return-icon.svg' | asset_url }}" width="24" height="24" alt="Returns Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
-          <h4 class="shipping-returns-header">Returns</h4>
-        </div>
-        <p class="shipping-returns-text">
-          We offer a 15-day return policy. If the product is returned without any quality issues, the return fee will be the buyer’s responsibility.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+                    <div class="accordion-item">
+                      <button class="accordion-header" aria-expanded="false">
+                        Shipping & Returns
+                        <span class="accordion-icon">+</span>
+                      </button>
+                      <div class="accordion-content">
+                        <div class="shipping-returns-wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem;">
+                          <!-- Delivery Block -->
+                          <div class="shipping-block" style="flex: 1; min-width: 280px;">
+                            <div class="icon-header-wrapper" style="display: flex; align-items: center;">
+                              <img src="{{ 'delivery-icon.svg' | asset_url }}" width="24" height="24" alt="Delivery Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
+                              <h4 class="shipping-returns-header">Delivery</h4>
+                            </div>
+                            <p class="shipping-returns-text">Enjoy free shipping on all orders!</p>
+                          </div>
+                          <!-- Returns Block -->
+                          <div class="returns-block" style="flex: 1; min-width: 280px;">
+                            <div class="icon-header-wrapper" style="display: flex; align-items: center;">
+                              <img src="{{ 'return-icon.svg' | asset_url }}" width="24" height="24" alt="Returns Icon" class="shipping-returns-icon" style="margin-right: 0.75rem; width: 24px; height: 24px;">
+                              <h4 class="shipping-returns-header">Returns</h4>
+                            </div>
+                            <p class="shipping-returns-text">
+                              We offer a 15-day return policy. If the product is returned without any quality issues, the return fee will be the buyer’s responsibility.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
 
                 </div>
