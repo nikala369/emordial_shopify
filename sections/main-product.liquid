@@ -101,186 +101,245 @@
     }
 
     /* =================================================== */
-    /* === Restored accordion design with enhancements ==== */
+    /* === Accordion Design with Animated Red Corners ==== */
     /* =================================================== */
+
     .product-accordion-wrapper {
-      background-color: #cc0000;
+      background-color: #cc0000; /* Solid red background */
       width: 100%;
+      /* NO PADDING HERE - as per your image and request */
+      position: relative; /* For stacking context if needed */
+      /* overflow: hidden; /* Be careful with this if pseudo elements need to peek */
     }
 
-.product-accordion {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #fff;
-  border: 1px solid #000; /* Old design border */
-  border-radius: 15px;    /* Old design radius */
-  overflow: hidden;       /* Crucial for border-radius and animations */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
-}
+    .product-accordion {
+      max-width: 800px;
+      /* The margin makes the wrapper's red background visible as a "border".
+         This margin value dictates the thickness of that visible red. */
+      margin: 3px auto; /* Example: creates a 3px static red space around the accordion */
+      background-color: #fff; /* White content area of the accordion */
+      border: 1px solid #000; /* The accordion's own black border */
+      border-radius: 15px;    /* Rounded corners for the white accordion part */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      position: relative; /* Crucial for the ::before pseudo-element */
+      z-index: 1; /* To be on top of the wrapper's direct background */
+      overflow: hidden; /* Keep this for the accordion items themselves */
+    }
 
-.accordion-item {
-  border-bottom: 1px solid #000; /* Old design border */
-}
-.accordion-item:last-child {
-  border-bottom: none;
-}
+    /* Animated "Lightning" Outline for the Accordion's "Red Corners" */
+    .product-accordion::before {
+      content: "";
+      position: absolute;
+      /* These negative values make the pseudo-element larger than the accordion,
+         extending into the margin area. The values should match the accordion's margin. */
+      top: -3px;    /* Must match negative of the accordion's top margin */
+      left: -3px;   /* Must match negative of the accordion's side margin */
+      right: -3px;  /* Must match negative of the accordion's side margin */
+      bottom: -3px; /* Must match negative of the accordion's bottom margin */
+      
+      z-index: -1; /* Sits BEHIND the .product-accordion's content and its black border,
+                      but will be visible in the margin area on top of the red wrapper bg. */
+      
+      /* The border-radius needs to make the pseudo-element appear rounded just like the
+         outer edge of the visible red "border".
+         Accordion's border-radius (15px) + margin (3px) = ~18px might look good,
+         or simply inherit if the parent had the right radius, but here it's simpler
+         to set it explicitly to match the visual extent.
+         Actually, the mask will define the shape, so this radius should be large enough
+         to encompass the shape created by the mask. 15px (accordion) + 3px (margin) = 18px.
+      */
+      border-radius: 18px; /* Should be accordion_radius + margin_value */
 
-.accordion-header {
-  width: 100%;
-  background: #fff;
-  /* Start with base padding, hover will extend it */
-  padding: 2rem 1.5rem;
-  font-size: 1.1rem; /* Slightly reduced from 1.2 for better balance */
-  font-family: 'mont-semibold', sans-serif; /* Added fallback */
-  color: #000;
-  text-align: left; /* Ensure text aligns left */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: none;
-  outline: none; /* Rely on :focus-visible for outline */
-  cursor: pointer;
-  letter-spacing: 0.2px; /* Adjusted from 0.3 for subtlety */
-  text-transform: uppercase;
-  /* Transition background and transform (for icon), not padding here for smoothness */
-  transition: background-color 0.25s ease-out;
-}
+      /* The 'padding' on the pseudo-element is used by the mask to define the thickness
+         of the visible animated line. This should match the accordion's margin value
+         if you want the *entire* red border to be animated. */
+      padding: 3px; /* Thickness of the animated line */
 
-.accordion-header .accordion-title-text { /* Optional: if you wrap title text in a span */
-  margin-right: 1rem; /* Space for icon */
-}
+      background: linear-gradient(
+        75deg, /* Adjusted angle for a slightly different sweep */
+        hsl(0, 100%, 60%), /* Brighter Red */
+        hsl(0, 100%, 50%), /* Vibrant Mid Red */
+        hsl(0, 100%, 55%), /* Slightly Lighter Red */
+        hsl(0, 100%, 45%), /* Main Red (like #cc0000) */
+        hsl(0, 100%, 60%)  /* Loop back to Brighter Red */
+      );
+      background-size: 250% 250%; /* Adjusted size for speed/look of shimmer */
+      animation: sleekShimmer 3.5s ease-in-out infinite alternate;
+      
+      /* Mask to create the outline effect. The gradient shows through the "padding" area of this pseudo. */
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box, /* Transparent inner part (respects pseudo's padding) */
+        linear-gradient(#fff 0 0);             /* Opaque outer part (border-box) */
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+    }
 
-.accordion-header .accordion-icon {
-  font-size: 1.5rem; /* Adjusted from 1.6 */
-  font-family: 'mont-medium', sans-serif; /* For the icon if it's text-based */
-  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.3); /* Playful bounce */
-  flex-shrink: 0; /* Prevent icon shrinking */
-}
+    @keyframes sleekShimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
 
-/* Enhanced Hover & Focus */
-.accordion-header:hover,
-.accordion-header.focus-visible { /* Using .focus-visible for accessible focus */
-  background-color: #f7f7f7;
-  /* Consider removing padding animation if it feels jerky with JS animations.
-     If keeping, ensure it doesn't fight the open/close.
-     A subtle background change is often enough. */
-  /* padding-left: 2.2rem; */ /* User's old hover padding change */
-}
-.accordion-header:active { /* Subtle press effect */
-  background-color: #f0f0f0;
-}
+    .accordion-item {
+      border-bottom: 1px solid #000; /* Old design border */
+    }
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
 
-.accordion-header[aria-expanded='true'] {
-  background-color: #f0f0f0; /* Keep active state visually distinct */
-}
-.accordion-header[aria-expanded='true'] .accordion-icon {
-  transform: rotate(45deg); /* Rotates '+' to 'x' */
-}
+    .accordion-header {
+      width: 100%;
+      background: #fff;
+      padding: 2rem 1.5rem;
+      font-size: 1.1rem;
+      font-family: 'mont-semibold', sans-serif;
+      color: #000;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      transition: background-color 0.25s ease-out;
+    }
 
-/* Accordion Content Shell - for max-height and main opacity transition */
-.accordion-content {
-  max-height: 0;
-  overflow: hidden; /* CRITICAL */
-  opacity: 0;
-  background-color: #fff; /* Or a very light #fdfdfd */
-  /* NO PADDING HERE - padding is on accordion-content-inner */
-  padding-left: 0;
-  padding-right: 0;
-  border-top: 1px solid #e0e0e0; /* Softer separator line */
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.3s ease-out 0.05s; /* Fade in slightly after height starts */
-  will-change: max-height, opacity; /* Hint for browser */
-}
+    .accordion-header .accordion-title-text {
+      margin-right: 1rem;
+    }
 
-/* This class is added by your JS */
-.accordion-content.open {
-  opacity: 1;
-  /* max-height is set by JS to scrollHeight */
-}
+    .accordion-header .accordion-icon {
+      font-size: 1.5rem;
+      font-family: 'mont-medium', sans-serif;
+      transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.3);
+      flex-shrink: 0;
+    }
 
-/* Inner Content Wrapper - for padding and secondary slide/fade animation */
-.accordion-content-inner {
-  padding: 1.5rem 2rem; /* THIS IS WHERE PADDING GOES - from old design content */
-  font-size: 1.15rem;   /* From old design content */
-  font-family: 'mont-medium', sans-serif;
-  line-height: 1.7;    /* Improved readability */
-  color: #333;         /* Softer black */
-  
-  transform: translateY(-12px); /* Initial subtle slide-up effect */
-  opacity: 0; /* Content starts slightly offset and transparent */
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, /* Staggered animation */
-              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
-  will-change: transform, opacity;
-}
+    .accordion-header:hover,
+    .accordion-header.focus-visible {
+      background-color: #f7f7f7;
+    }
+    .accordion-header:active {
+      background-color: #f0f0f0;
+    }
 
-/* When accordion-content is open, animate its inner content */
-.accordion-content.open .accordion-content-inner {
-  transform: translateY(0);
-  opacity: 1;
-}
+    .accordion-header[aria-expanded='true'] {
+      background-color: #f0f0f0;
+    }
+    .accordion-header[aria-expanded='true'] .accordion-icon {
+      transform: rotate(45deg);
+    }
 
-/* Content specific typography (inherited from old) */
-.accordion-content-inner .content-header,
-.accordion-content-inner .shipping-returns-header {
-  font-size: 1.175rem; /* As per your old .accordion-content .content-header */
-  font-family: 'mont-semibold', sans-serif;
-  color: #111;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-.accordion-content-inner .content-ul {
-  list-style-type: none;
-  padding-left: 0;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-.accordion-content-inner .content-ul li {
-  position: relative;
-  padding-left: 1.3em; /* Space for custom bullet */
-  margin-bottom: 0.5rem;
-}
-.accordion-content-inner .content-ul li::before {
-  content: "–"; /* Or "•", "›" etc. */
-  position: absolute;
-  left: 0;
-  color: #555; /* Accent color for bullets */
-  font-weight: bold;
-}
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      background-color: #fff;
+      padding-left: 0;
+      padding-right: 0;
+      border-top: 1px solid #e0e0e0;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.3s ease-out 0.05s;
+      will-change: max-height, opacity;
+    }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .accordion-header {
-    font-size: 1rem;
-    padding: 1.5rem 1.2rem; /* Adjusted for mobile */
-  }
-  .accordion-header:hover {
-    /* padding-left: 1.5rem; */ /* Avoid layout shift on hover for mobile if padding was animated */
-  }
-  .accordion-content-inner {
-    padding: 1.25rem 1.5rem; /* Adjusted for mobile */
-    font-size: 1rem;       /* Adjusted for mobile */
-  }
-  .accordion-content-inner .content-header,
-  .accordion-content-inner .shipping-returns-header {
-    font-size: 1.05rem;
-  }
-}
+    .accordion-content.open {
+      opacity: 1;
+    }
 
-@media (max-width: 480px) {
-  .accordion-header {
-    font-size: 0.9rem;
-    padding: 1.25rem 1rem;
-    letter-spacing: 0.1px;
-  }
-  .accordion-header .accordion-icon {
-    font-size: 1.3rem;
-  }
-  .accordion-content-inner {
-    padding: 1rem 1rem;
-    font-size: 0.9rem;
-  }
-}
-  {%- endstyle -%}
+    .accordion-content-inner {
+      padding: 1.5rem 2rem;
+      font-size: 1.15rem;
+      font-family: 'mont-medium', sans-serif;
+      line-height: 1.7;
+      color: #333;
+      transform: translateY(-12px);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                  opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+      will-change: transform, opacity;
+    }
+
+    .accordion-content.open .accordion-content-inner {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .accordion-content-inner .content-header,
+    .accordion-content-inner .shipping-returns-header {
+      font-size: 1.175rem;
+      font-family: 'mont-semibold', sans-serif;
+      color: #111;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+    .accordion-content-inner .content-ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .accordion-content-inner .content-ul li {
+      position: relative;
+      padding-left: 1.3em;
+      margin-bottom: 0.5rem;
+    }
+    .accordion-content-inner .content-ul li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: #555;
+      font-weight: bold;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .product-accordion {
+        margin: 2px auto; /* Adjust margin for mobile if needed */
+      }
+      .product-accordion::before {
+        top: -2px; left: -2px; right: -2px; bottom: -2px; /* Match mobile margin */
+        padding: 2px; /* Match mobile margin for animated line thickness */
+        border-radius: 17px; /* 15px + 2px */
+      }
+      .accordion-header {
+        font-size: 1rem;
+        padding: 1.5rem 1.2rem;
+      }
+      .accordion-content-inner {
+        padding: 1.25rem 1.5rem;
+        font-size: 1rem;
+      }
+      .accordion-content-inner .content-header,
+      .accordion-content-inner .shipping-returns-header {
+        font-size: 1.05rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product-accordion {
+        margin: 2px auto; /* Adjust margin for smaller mobile if needed */
+      }
+      .product-accordion::before {
+        top: -2px; left: -2px; right: -2px; bottom: -2px; /* Match mobile margin */
+        padding: 2px; /* Match mobile margin for animated line thickness */
+        border-radius: 17px; /* 15px + 2px */
+      }
+      .accordion-header {
+        font-size: 0.9rem;
+        padding: 1.25rem 1rem;
+        letter-spacing: 0.1px;
+      }
+      .accordion-header .accordion-icon {
+        font-size: 1.3rem;
+      }
+      .accordion-content-inner {
+        padding: 1rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+{%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
