@@ -36,7 +36,7 @@
       padding-left: 0;
       padding-right: 0;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 768px) { /* Applies to tablets and phones */
       .custom-spacing-product {
         padding: 0 1.5rem;
       }
@@ -51,7 +51,7 @@
       padding: 0;
       list-style: none;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 768px) { /* Applies to tablets and phones */
       .grid-custom {
         column-gap: var(--grid-mobile-horizontal-spacing);
       }
@@ -105,82 +105,55 @@
     /* =================================================== */
 
     .product-accordion-wrapper {
-      background-color: #cc0000; /* Solid red background */
+      background-color: #cc0000;
       width: 100%;
-      /* NO PADDING HERE - as per your image and request */
-      position: relative; /* For stacking context if needed */
-      /* overflow: hidden; /* Be careful with this if pseudo elements need to peek */
+      position: relative;
     }
 
     .product-accordion {
       max-width: 800px;
-      /* The margin makes the wrapper's red background visible as a "border".
-         This margin value dictates the thickness of that visible red. */
-      margin: 3px auto; /* Example: creates a 3px static red space around the accordion */
-      background-color: #fff; /* White content area of the accordion */
-      border: 1px solid #000; /* The accordion's own black border */
-      border-radius: 15px;    /* Rounded corners for the white accordion part */
+      margin: 3px auto;
+      background-color: #fff;
+      border: 1px solid #000;
+      border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      position: relative; /* Crucial for the ::before pseudo-element */
-      z-index: 1; /* To be on top of the wrapper's direct background */
-      overflow: hidden; /* Keep this for the accordion items themselves */
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
     }
 
-    /* Animated "Lightning" Outline for the Accordion's "Red Corners" */
-    .product-accordion::before {
-      content: "";
-      position: absolute;
-      /* These negative values make the pseudo-element larger than the accordion,
-         extending into the margin area. The values should match the accordion's margin. */
-      top: -3px;    /* Must match negative of the accordion's top margin */
-      left: -3px;   /* Must match negative of the accordion's side margin */
-      right: -3px;  /* Must match negative of the accordion's side margin */
-      bottom: -3px; /* Must match negative of the accordion's bottom margin */
-      
-      z-index: -1; /* Sits BEHIND the .product-accordion's content and its black border,
-                      but will be visible in the margin area on top of the red wrapper bg. */
-      
-      /* The border-radius needs to make the pseudo-element appear rounded just like the
-         outer edge of the visible red "border".
-         Accordion's border-radius (15px) + margin (3px) = ~18px might look good,
-         or simply inherit if the parent had the right radius, but here it's simpler
-         to set it explicitly to match the visual extent.
-         Actually, the mask will define the shape, so this radius should be large enough
-         to encompass the shape created by the mask. 15px (accordion) + 3px (margin) = 18px.
-      */
-      border-radius: 18px; /* Should be accordion_radius + margin_value */
+    /* SleekShimmer Animation for Desktop ONLY */
+    @media (min-width: 769px) {
+      .product-accordion::before {
+        content: "";
+        position: absolute;
+        top: -3px; left: -3px; right: -3px; bottom: -3px;
+        z-index: -1;
+        border-radius: 18px; /* 15px + 3px */
+        padding: 3px; /* Thickness of animated line via mask */
+        background: linear-gradient(
+          75deg,
+          hsl(0, 100%, 60%), hsl(0, 100%, 50%), hsl(0, 100%, 55%),
+          hsl(0, 100%, 45%), hsl(0, 100%, 60%)
+        );
+        background-size: 250% 250%;
+        animation: sleekShimmer 3.5s ease-in-out infinite alternate;
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+      }
 
-      /* The 'padding' on the pseudo-element is used by the mask to define the thickness
-         of the visible animated line. This should match the accordion's margin value
-         if you want the *entire* red border to be animated. */
-      padding: 3px; /* Thickness of the animated line */
-
-      background: linear-gradient(
-        75deg, /* Adjusted angle for a slightly different sweep */
-        hsl(0, 100%, 60%), /* Brighter Red */
-        hsl(0, 100%, 50%), /* Vibrant Mid Red */
-        hsl(0, 100%, 55%), /* Slightly Lighter Red */
-        hsl(0, 100%, 45%), /* Main Red (like #cc0000) */
-        hsl(0, 100%, 60%)  /* Loop back to Brighter Red */
-      );
-      background-size: 250% 250%; /* Adjusted size for speed/look of shimmer */
-      animation: sleekShimmer 3.5s ease-in-out infinite alternate;
-      
-      /* Mask to create the outline effect. The gradient shows through the "padding" area of this pseudo. */
-      -webkit-mask:
-        linear-gradient(#fff 0 0) content-box, /* Transparent inner part (respects pseudo's padding) */
-        linear-gradient(#fff 0 0);             /* Opaque outer part (border-box) */
-      -webkit-mask-composite: xor;
-              mask-composite: exclude;
+      @keyframes sleekShimmer {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
     }
 
-    @keyframes sleekShimmer {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
 
     .accordion-item {
-      border-bottom: 1px solid #000; /* Old design border */
+      border-bottom: 1px solid #000;
     }
     .accordion-item:last-child {
       border-bottom: none;
@@ -189,8 +162,8 @@
     .accordion-header {
       width: 100%;
       background: #fff;
-      padding: 2rem 1.5rem;
-      font-size: 1.1rem;
+      padding: 2rem 1.5rem; /* Desktop base padding */
+      font-size: 1.1rem;   /* Desktop font size */
       font-family: 'mont-semibold', sans-serif;
       color: #000;
       text-align: left;
@@ -203,17 +176,20 @@
       letter-spacing: 0.2px;
       text-transform: uppercase;
       transition: background-color 0.25s ease-out;
+      -webkit-transform: translateZ(0); transform: translateZ(0);
     }
 
     .accordion-header .accordion-title-text {
-      margin-right: 1rem;
+      flex-grow: 1;
     }
 
+
     .accordion-header .accordion-icon {
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       font-family: 'mont-medium', sans-serif;
       transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.3);
       flex-shrink: 0;
+      -webkit-transform: translateZ(0); transform: translateZ(0);
     }
 
     .accordion-header:hover,
@@ -231,44 +207,68 @@
       transform: rotate(45deg);
     }
 
+    /* Accordion Content - Base (applies to both, overridden by media queries) */
     .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      background-color: #fff;
-      padding-left: 0;
-      padding-right: 0;
-      border-top: 1px solid #e0e0e0;
-      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                  opacity 0.3s ease-out 0.05s;
-      will-change: max-height, opacity;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0; /* STARTING POINT FOR BOTH - CSS will handle desktop, JS for mobile */
+        background-color: #fff;
+        padding-left: 0;
+        padding-right: 0;
+        border-top: 1px solid #e0e0e0;
     }
 
-    .accordion-content.open {
-      opacity: 1;
+    /* Accordion Content - DESKTOP Styling (with opacity transition) */
+    @media (min-width: 769px) {
+      .accordion-content {
+        /* opacity: 0; is already set in base */
+        transition-property: max-height, opacity;
+        transition-duration: 0.4s, 0.3s;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1), ease-out;
+        transition-delay: 0s, 0.05s; /* opacity transition slightly delayed */
+        will-change: max-height, opacity;
+      }
+      .accordion-content.open {
+        opacity: 1; /* This makes content visible on desktop */
+      }
+      .accordion-content-inner {
+        padding: 1.5rem 2rem;
+        font-size: 1.15rem;
+        font-family: 'mont-medium', sans-serif;
+        line-height: 1.7;
+        color: #333;
+        transform: translateY(-12px);
+        opacity: 0; /* Initial state */
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+        will-change: transform, opacity;
+      }
+      .accordion-content.open .accordion-content-inner {
+        transform: translateY(0);
+        opacity: 1; /* This makes inner content visible on desktop */
+      }
     }
 
-    .accordion-content-inner {
-      padding: 1.5rem 2rem;
-      font-size: 1.15rem;
-      font-family: 'mont-medium', sans-serif;
-      line-height: 1.7;
-      color: #333;
-      transform: translateY(-12px);
-      opacity: 0;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
-                  opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
-      will-change: transform, opacity;
+    /* Accordion Content - MOBILE Styling (SIMPLIFIED - only max-height transition) */
+    @media (max-width: 768px) {
+      .accordion-content {
+        /* opacity: 0; is already set in base, JS will manage it for mobile */
+        transition: max-height 0.35s ease-out; /* ONLY max-height transition for mobile */
+      }
+      .accordion-content-inner {
+        padding: 1.25rem 1.5rem; /* Mobile padding */
+        font-size: 1rem;       /* Mobile font size */
+        font-family: 'mont-medium', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        opacity: 1; /* Inner content always opaque, parent's opacity (JS controlled) handles visibility */
+      }
     }
 
-    .accordion-content.open .accordion-content-inner {
-      transform: translateY(0);
-      opacity: 1;
-    }
 
     .accordion-content-inner .content-header,
     .accordion-content-inner .shipping-returns-header {
-      font-size: 1.175rem;
+      font-size: 1.175rem; /* Base size */
       font-family: 'mont-semibold', sans-serif;
       color: #111;
       margin-top: 0;
@@ -293,23 +293,16 @@
       font-weight: bold;
     }
 
-    /* Responsive Adjustments */
+    /* Responsive Adjustments (General & Typography for Mobile Accordion Header) */
     @media (max-width: 768px) {
       .product-accordion {
-        margin: 2px auto; /* Adjust margin for mobile if needed */
+        margin: 2px auto;
       }
-      .product-accordion::before {
-        top: -2px; left: -2px; right: -2px; bottom: -2px; /* Match mobile margin */
-        padding: 2px; /* Match mobile margin for animated line thickness */
-        border-radius: 17px; /* 15px + 2px */
-      }
+
       .accordion-header {
-        font-size: 1rem;
+        font-size: 1.05rem;
+        font-family: 'mont-bold', sans-serif;
         padding: 1.5rem 1.2rem;
-      }
-      .accordion-content-inner {
-        padding: 1.25rem 1.5rem;
-        font-size: 1rem;
       }
       .accordion-content-inner .content-header,
       .accordion-content-inner .shipping-returns-header {
@@ -318,28 +311,20 @@
     }
 
     @media (max-width: 480px) {
-      .product-accordion {
-        margin: 2px auto; /* Adjust margin for smaller mobile if needed */
-      }
-      .product-accordion::before {
-        top: -2px; left: -2px; right: -2px; bottom: -2px; /* Match mobile margin */
-        padding: 2px; /* Match mobile margin for animated line thickness */
-        border-radius: 17px; /* 15px + 2px */
-      }
       .accordion-header {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         padding: 1.25rem 1rem;
         letter-spacing: 0.1px;
       }
       .accordion-header .accordion-icon {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
       }
       .accordion-content-inner {
         padding: 1rem 1rem;
         font-size: 0.9rem;
       }
     }
-{%- endstyle -%}
+  {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
@@ -1031,64 +1016,95 @@
   {%- endif -%}
 
  <!-- ----------------------- MODERN ACCORDION JS ----------------------- -->
-<script>
+ <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const headers = document.querySelectorAll('.accordion-header');
+    const accordionHeaders = document.querySelectorAll('.product-accordion .accordion-header');
+    let isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-    // Close all except the clicked one
-    function closeAll(except) {
-      headers.forEach(h => {
-        if (h !== except && h.getAttribute('aria-expanded') === 'true') {
-          toggle(h, false);
+    function closeAllOtherAccordions(currentHeader) {
+      accordionHeaders.forEach(header => {
+        if (header !== currentHeader && header.getAttribute('aria-expanded') === 'true') {
+          toggleAccordion(header, false);
         }
       });
     }
 
-    // Core open/close toggler
-    function toggle(header, open) {
+    function toggleAccordion(header, forceOpen) {
       const content = header.nextElementSibling;
-      if (open) {
-        content.style.display = 'block';
-        requestAnimationFrame(() => {
-          content.classList.add('open');
-          content.style.maxHeight = content.scrollHeight + 'px';
-        });
+      const isOpen = header.getAttribute('aria-expanded') === 'true';
+      const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !isOpen;
+
+      if (shouldOpen) {
         header.setAttribute('aria-expanded', 'true');
         content.setAttribute('aria-hidden', 'false');
-      } else {
-        content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.display = 'block'; // Make it part of layout before measuring scrollHeight
+
+        if (isMobile) {
+          // Mobile: JS sets opacity directly to 1 when opening.
+          // Relies on CSS for max-height transition only.
+          content.style.opacity = '1';
+        }
+        // For Desktop: CSS handles opacity transition via .open class.
+        // The base .accordion-content style already has opacity: 0.
+        
         requestAnimationFrame(() => {
-          content.style.maxHeight = '0';
-          content.classList.remove('open');
+          const targetHeight = content.scrollHeight;
+          content.style.maxHeight = (targetHeight > 0 ? targetHeight : 'auto') + 'px'; // 'auto' as a fallback
+          
+          if (!isMobile) {
+            content.classList.add('open'); // Desktop: Add .open to trigger CSS transitions
+          }
         });
+
+      } else { // Closing
         header.setAttribute('aria-expanded', 'false');
         content.setAttribute('aria-hidden', 'true');
+        // Set maxHeight to current scrollHeight to animate *from* that height
+        content.style.maxHeight = content.scrollHeight + 'px';
+        
+        if (isMobile) {
+           content.style.opacity = '0'; // Mobile: JS sets opacity directly to 0 when closing.
+        }
+        // For Desktop: Removing .open class will trigger CSS transition to opacity:0.
+        
+        // Use a nested rAF for smoother closing, allowing browser to paint current height
+        requestAnimationFrame(() => { 
+          requestAnimationFrame(() => { 
+              if (!isMobile) {
+                  content.classList.remove('open'); // Desktop: Remove .open
+              }
+              content.style.maxHeight = '0px';
+          });
+        });
       }
     }
 
-    headers.forEach(h => {
-      const c = h.nextElementSibling;
-      // start collapsed
-      c.style.display = 'none';
-      h.setAttribute('aria-expanded', 'false');
-      c.setAttribute('aria-hidden', 'true');
+    accordionHeaders.forEach(header => {
+      const content = header.nextElementSibling;
+      // Initial state: CSS handles initial opacity (0). JS ensures these.
+      content.style.maxHeight = '0px';
+      content.style.overflow = 'hidden';
+      content.classList.remove('open');
+      header.setAttribute('aria-expanded', 'false');
+      content.setAttribute('aria-hidden', 'true');
+      content.style.display = 'none';
 
-      h.addEventListener('click', () => {
-        const isOpen = h.getAttribute('aria-expanded') === 'true';
-        if (isOpen) {
-          toggle(h, false);
-        } else {
-          closeAll(h);
-          toggle(h, true);
+      header.addEventListener('click', () => {
+        const isCurrentlyOpen = header.getAttribute('aria-expanded') === 'true';
+        if (!isCurrentlyOpen) {
+          closeAllOtherAccordions(header);
         }
+        toggleAccordion(header);
       });
 
-      // After transition ends, clean up display or remove max-height
-      c.addEventListener('transitionend', () => {
-        if (!c.classList.contains('open')) {
-          c.style.display = 'none';
-        } else {
-          c.style.maxHeight = 'none';
+      content.addEventListener('transitionend', (event) => {
+        if (event.propertyName === 'max-height') {
+          const isExpanded = header.getAttribute('aria-expanded') === 'true';
+          if (isExpanded) {
+            content.style.maxHeight = 'none';
+          } else {
+            content.style.display = 'none';
+          }
         }
       });
     });
