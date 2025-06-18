@@ -19,332 +19,327 @@
   {%- endif -%}
 
   {%- style -%}
+    /* ---------------- Section spacing ---------------- */
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     }
-
-    @media screen and (min-width: 750px) {
+    @media (min-width: 750px) {
       .section-{{ section.id }}-padding {
         padding-top: {{ section.settings.padding_top }}px;
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
 
+    /* ---------------- Container tweaks ---------------- */
     .custom-spacing-product {
-      padding-left: 0px;
-      padding-right: 0px;
-
-    @media screen and (max-width: 768px) {
-      padding: 0 1.5rem;
+      padding-left: 0;
+      padding-right: 0;
     }
+    @media (max-width: 768px) {
+      .custom-spacing-product {
+        padding: 0 1.5rem;
+      }
     }
 
+    /* ---------------- 2‑col grid shell ---------------- */
     .grid-custom {
       display: flex;
       flex-wrap: wrap;
+      row-gap: var(--grid-mobile-vertical-spacing);
       margin-bottom: 1rem;
       padding: 0;
       list-style: none;
-      row-gap: var(--grid-mobile-vertical-spacing);
-      @media screen and (max-width: 768px) {
+    }
+    @media (max-width: 768px) {
+      .grid-custom {
         column-gap: var(--grid-mobile-horizontal-spacing);
       }
     }
-
-@media screen and (min-width: 750px) {
-  .grid-custom {
-    /* column-gap: var(--grid-desktop-horizontal-spacing); */
-    /* row-gap: var(--grid-desktop-vertical-spacing);*/
-
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 50-50 split */
-    border-bottom: 1.4px solid #000;
-  } 
-}
-
-.grid-custom__item-custom {
-  width: calc(25% - var(--grid-mobile-horizontal-spacing) * 3 / 4);
-  max-width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
-  flex-grow: 1;
-  flex-shrink: 0;
-}
-
-@media screen and (min-width: 750px) {
-  .grid-custom__item-custom {
-    width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
-    max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
-  }
-
-  .custom-grid-setup {
-    /* width: 100% !important; */
-  }
-}
-
-.grid-custom--1-col .grid-custom__item-custom {
-    max-width: 100%;
-    width: 100%;
-
-    @media screen and (max-width: 750px) {
-      min-height: 55vh;
-
-    }
-}
-
-.grid-custom--4-col-desktop .grid-custom__item-custom {
-    width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
-    max-width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
-  }
-
-  .grid-custom--3-col-desktop .grid-custom__item-custom {
-    width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
-    max-width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
-  }
-
-  .grid-custom--2-col-desktop .grid-custom__item-custom {
-    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
-    max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
-  }
-
-  .slider--tablet.grid-custom--peek.grid-custom--2-col-tablet .grid-custom__item-custom,
-  .slider--tablet.grid-custom--peek.grid-custom--2-col-tablet-down .grid-custom__item-custom {
-    width: calc(50% - var(--grid-desktop-horizontal-spacing) - 3rem);
-  }
-
-  .grid-custom--2-col-tablet-down .grid-custom__item-custom {
-    width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
-  }
-
-  .slider--tablet.grid-custom--peek.grid--1-col-tablet-down .grid-custom__item-custom,
-  .slider--mobile.grid-custom-peek.grid--1-col-tablet-down .grid-custom__item-custom {
-    width: calc(100% - var(--grid-mobile-horizontal-spacing) - 3rem);
-  }
-
-
-
-  .product-detailed-title {
-  font-size: 1.4rem;
-  letter-spacing: 0.2px;
-  font-family: 'mont-bold';
-  color: #000; 
-  text-transform: uppercase;
-  margin-bottom: 0px !important;
-  margin-top: 5px !important;
-
-  @media (min-width: 768px) {
-    font-size: 1.8rem; /* Larger font for desktop */
-    margin-bottom: 15px;
-    margin-top: 10px;
-  }
-}
-
-.custom-less-top-padding {
-  margin-top: 5px;
-}
-
-.custom-add-logo-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 47.5px;
-  margin-top: 50px;
-  margin-bottom: 0px !important;
-  /* // its only on desktop design */
-}
-
-.border-left-grid {
-  @media (min-width: 768px) {
-    border-left: 1.1px solid #000;
-  }
-}
-
-
-/* //custom accordion etc */
-.product-accordion-wrapper {
-  /* background-color: #000; */
-  background-color: #cc0000;
-  
-  /* padding: 3rem 1rem;  */
-  width: 100%;
-
-  .product-accordion {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff; 
-    border: 1px solid #000; 
-    border-radius: 15px; 
-    overflow: hidden; 
-
-    .accordion-item {
-      border-bottom: 1px solid #000; 
-      &:last-child {
-        border-bottom: none;
-      }
-
-      .accordion-header {
-        width: 100%;
-        background: #fff;
-        padding: 2.5rem 2rem;
-        font-size: 1.1rem;
-        font-family: 'mont-semibold';
-        color: #000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: none; 
-        outline: none;
-        transition: background-color 0.3s ease; 
-        letter-spacing: 0.2px;
-        text-transform: uppercase;
-        cursor: pointer;
-
-          &:hover {
-          @media screen and (min-width: 768px) {
-            background: #f7f7f7;
-          }
-        }
-
-        .accordion-icon {
-          font-size: 1.45rem;
-          font-family: 'mont-medium';
-          transition: transform 0.3s ease; 
-        @media screen and (min-width: 768px) {
-          font-size: 1.8rem;
-        }
-        }
-
-        &[aria-expanded='true'] .accordion-icon {
-          transform: rotate(45deg);
-        }
-
-        @media screen and (max-width: 768px) {
-          font-size: 0.975rem;
-        }
-      }
-
-      .accordion-content {
-        display: none; 
-        padding: 1.5rem 2rem;
-        font-size: 1.15rem;
-        font-family: 'mont-medium';
-        line-height: 1.6;
-        color: #000;
-        border-top: 1px solid #eee;
-
-        &[aria-hidden='false'] {
-          display: block;
-          animation: slideDown 0.3s ease forwards;
-        }
-
-        &.closing {
-          display: block; 
-          animation: slideUp 0.3s ease forwards;
-        }
-
-        .content-header {
-          font-size: 1.175rem;
-          font-family: 'mont-semibold';
-          color: #000;
-
-          @media screen and (max-width: 768px) {
-            font-size: 1.05rem;
-          }
-        }
-
-        .content-ul {
-          list-style-type: none;
-          padding-left: 0;
-        }
-
-        @media screen and (max-width: 768px) {
-          font-size: 1rem;
-        }
-      }
-
-      .shipping-returns-header {
-        font-size: 1.175rem;
-          font-family: 'mont-semibold';
-          color: #000;
-
-          @media screen and (max-width: 768px) {
-            font-size: 1.05rem;
-          }
-      }
-
-      .shipping-returns-text {
-        font-family: 'mont-medium';
-        font-size: 1.15rem;
-        line-height: 1.6;
-        color: #000;
+    @media (min-width: 750px) {
+      .grid-custom {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: 1.4px solid #000;
       }
     }
-  }
-}
+    .grid-custom__item-custom {
+      width: calc(25% - var(--grid-mobile-horizontal-spacing) * 3 / 4);
+      max-width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
+      flex: 1 0 auto;
+    }
+    @media (min-width: 750px) {
+      .grid-custom__item-custom {
+        width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+        max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+      }
+    }
+    .grid-custom--1-col .grid-custom__item-custom {
+      width: 100%;
+      max-width: 100%;
+    }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    /* ---------------- Typography ---------------- */
+    .product-detailed-title {
+      font-size: 1.4rem;
+      letter-spacing: 0.2px;
+      font-family: 'mont-bold';
+      text-transform: uppercase;
+      margin: 5px 0 0;
+    }
+    @media (min-width: 768px) {
+      .product-detailed-title {
+        font-size: 1.8rem;
+        margin: 10px 0 15px;
+      }
+    }
+    .custom-less-top-padding { margin-top: 5px; }
 
-@keyframes slideUp {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
+    /* ---------------- Border helper ---------------- */
+    @media (min-width: 768px) {
+      .border-left-grid { border-left: 1.1px solid #000; }
+    }
 
-@media (max-width: 768px) {
-  .product-accordion-wrapper {
-    padding: 0rem 0rem; 
+    /* =================================================== */
+    /* === Accordion Design with Animated Red Corners ==== */
+    /* =================================================== */
+
+    .product-accordion-wrapper {
+      background-color: #cc0000; /* Solid red background */
+      width: 100%;
+      /* NO PADDING HERE - as per your image and request */
+      position: relative; /* For stacking context if needed */
+      /* overflow: hidden; /* Be careful with this if pseudo elements need to peek */
+    }
 
     .product-accordion {
-      max-width: 100%; 
-
-      .accordion-header {
-        font-size: 1rem; 
-        padding: 0rem 1.5rem;
-      }
-
-      .accordion-content {
-        font-size: 0.9rem; 
-        padding: 1rem 1.5rem;
-      }
+      max-width: 800px;
+      /* The margin makes the wrapper's red background visible as a "border".
+         This margin value dictates the thickness of that visible red. */
+      margin: 3px auto; /* Example: creates a 3px static red space around the accordion */
+      background-color: #fff; /* White content area of the accordion */
+      border: 1px solid #000; /* The accordion's own black border */
+      border-radius: 15px;    /* Rounded corners for the white accordion part */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      position: relative; /* Crucial for the ::before pseudo-element */
+      z-index: 1; /* To be on top of the wrapper's direct background */
+      overflow: hidden; /* Keep this for the accordion items themselves */
     }
-  }
 
-  @media (max-width: 480px) {
-    .product-accordion-wrapper {
-      padding: 0rem 0rem; 
+    /* Animated "Lightning" Outline for the Accordion's "Red Corners" */
+    .product-accordion::before {
+      content: "";
+      position: absolute;
+      /* These negative values make the pseudo-element larger than the accordion,
+         extending into the margin area. The values should match the accordion's margin. */
+      top: -3px;    /* Must match negative of the accordion's top margin */
+      left: -3px;   /* Must match negative of the accordion's side margin */
+      right: -3px;  /* Must match negative of the accordion's side margin */
+      bottom: -3px; /* Must match negative of the accordion's bottom margin */
+      
+      z-index: -1; /* Sits BEHIND the .product-accordion's content and its black border,
+                      but will be visible in the margin area on top of the red wrapper bg. */
+      
+      /* The border-radius needs to make the pseudo-element appear rounded just like the
+         outer edge of the visible red "border".
+         Accordion's border-radius (15px) + margin (3px) = ~18px might look good,
+         or simply inherit if the parent had the right radius, but here it's simpler
+         to set it explicitly to match the visual extent.
+         Actually, the mask will define the shape, so this radius should be large enough
+         to encompass the shape created by the mask. 15px (accordion) + 3px (margin) = 18px.
+      */
+      border-radius: 18px; /* Should be accordion_radius + margin_value */
 
+      /* The 'padding' on the pseudo-element is used by the mask to define the thickness
+         of the visible animated line. This should match the accordion's margin value
+         if you want the *entire* red border to be animated. */
+      padding: 3px; /* Thickness of the animated line */
+
+      background: linear-gradient(
+        75deg, /* Adjusted angle for a slightly different sweep */
+        hsl(0, 100%, 60%), /* Brighter Red */
+        hsl(0, 100%, 50%), /* Vibrant Mid Red */
+        hsl(0, 100%, 55%), /* Slightly Lighter Red */
+        hsl(0, 100%, 45%), /* Main Red (like #cc0000) */
+        hsl(0, 100%, 60%)  /* Loop back to Brighter Red */
+      );
+      background-size: 250% 250%; /* Adjusted size for speed/look of shimmer */
+      animation: sleekShimmer 3.5s ease-in-out infinite alternate;
+      
+      /* Mask to create the outline effect. The gradient shows through the "padding" area of this pseudo. */
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box, /* Transparent inner part (respects pseudo's padding) */
+        linear-gradient(#fff 0 0);             /* Opaque outer part (border-box) */
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+    }
+
+    @keyframes sleekShimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #000; /* Old design border */
+    }
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .accordion-header {
+      width: 100%;
+      background: #fff;
+      padding: 2rem 1.5rem;
+      font-size: 1.1rem;
+      font-family: 'mont-semibold', sans-serif;
+      color: #000;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      transition: background-color 0.25s ease-out;
+    }
+
+    .accordion-header .accordion-title-text {
+      margin-right: 1rem;
+    }
+
+    .accordion-header .accordion-icon {
+      font-size: 1.5rem;
+      font-family: 'mont-medium', sans-serif;
+      transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.3);
+      flex-shrink: 0;
+    }
+
+    .accordion-header:hover,
+    .accordion-header.focus-visible {
+      background-color: #f7f7f7;
+    }
+    .accordion-header:active {
+      background-color: #f0f0f0;
+    }
+
+    .accordion-header[aria-expanded='true'] {
+      background-color: #f0f0f0;
+    }
+    .accordion-header[aria-expanded='true'] .accordion-icon {
+      transform: rotate(45deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      background-color: #fff;
+      padding-left: 0;
+      padding-right: 0;
+      border-top: 1px solid #e0e0e0;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.3s ease-out 0.05s;
+      will-change: max-height, opacity;
+    }
+
+    .accordion-content.open {
+      opacity: 1;
+    }
+
+    .accordion-content-inner {
+      padding: 1.5rem 2rem;
+      font-size: 1.15rem;
+      font-family: 'mont-medium', sans-serif;
+      line-height: 1.7;
+      color: #333;
+      transform: translateY(-12px);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                  opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+      will-change: transform, opacity;
+    }
+
+    .accordion-content.open .accordion-content-inner {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .accordion-content-inner .content-header,
+    .accordion-content-inner .shipping-returns-header {
+      font-size: 1.175rem;
+      font-family: 'mont-semibold', sans-serif;
+      color: #111;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+    .accordion-content-inner .content-ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .accordion-content-inner .content-ul li {
+      position: relative;
+      padding-left: 1.3em;
+      margin-bottom: 0.5rem;
+    }
+    .accordion-content-inner .content-ul li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: #555;
+      font-weight: bold;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
       .product-accordion {
-        .accordion-header {
-          font-size: 0.9rem; 
-          padding: 0.8rem 1rem;
-        }
-
-        .accordion-content {
-          font-size: 0.85rem;
-          padding: 0.8rem 1rem;
-        }
+        margin: 2px auto; /* Adjust margin for mobile if needed */
+      }
+      .product-accordion::before {
+        top: -2px; left: -2px; right: -2px; bottom: -2px; /* Match mobile margin */
+        padding: 2px; /* Match mobile margin for animated line thickness */
+        border-radius: 17px; /* 15px + 2px */
+      }
+      .accordion-header {
+        font-size: 1rem;
+        padding: 1.5rem 1.2rem;
+      }
+      .accordion-content-inner {
+        padding: 1.25rem 1.5rem;
+        font-size: 1rem;
+      }
+      .accordion-content-inner .content-header,
+      .accordion-content-inner .shipping-returns-header {
+        font-size: 1.05rem;
       }
     }
-  }
-}
 
-
-
-  {%- endstyle -%}
+    @media (max-width: 480px) {
+      .product-accordion {
+        margin: 2px auto; /* Adjust margin for smaller mobile if needed */
+      }
+      .product-accordion::before {
+        top: -2px; left: -2px; right: -2px; bottom: -2px; /* Match mobile margin */
+        padding: 2px; /* Match mobile margin for animated line thickness */
+        border-radius: 17px; /* 15px + 2px */
+      }
+      .accordion-header {
+        font-size: 0.9rem;
+        padding: 1.25rem 1rem;
+        letter-spacing: 0.1px;
+      }
+      .accordion-header .accordion-icon {
+        font-size: 1.3rem;
+      }
+      .accordion-content-inner {
+        padding: 1rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+{%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
@@ -507,60 +502,62 @@
                 <div class="product-accordion">
                   <!-- Description Section -->
                   <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="accordion-content-desc-{{ section.id }}">
                       Description
                       <span class="accordion-icon">+</span>
                     </button>
-                    <div class="accordion-content">
-                      <div class="content-header">Product description</div>
-                      {{ product.description }}
+                    <div class="accordion-content" id="accordion-content-desc-{{ section.id }}" aria-hidden="true">
+                      <div class="accordion-content-inner">
+                        <div class="content-header">Product description</div>
+                        {{ product.description }}
+                      </div> 
                     </div>
                   </div>
               
-                  
-                   <!-- Materials Section -->
+                  <!-- Materials Section -->
                   <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="accordion-content-mat-{{ section.id }}">
                       Materials
                       <span class="accordion-icon">+</span>
                     </button>
-                    <div class="accordion-content">
-                      <div class="content-header">Materials & details</div>
-                      {% assign mat = product.metafields.custom.jewelry_material %}
-                      {% if mat and mat.value and mat.value.children %}
-                        {%- assign listBlock = mat.value.children[0] -%}
-                        {% if listBlock and listBlock.children %}
-                          <ul class="content-ul">
-                            {% for listItem in listBlock.children %}
-                              {% if listItem.children and listItem.children.size > 0 %}
-                                <li>{{ listItem.children[0].value }}</li>
-                              {% endif %}
-                            {% endfor %}
-                          </ul>
+                    <div class="accordion-content" id="accordion-content-mat-{{ section.id }}" aria-hidden="true">
+                      <div class="accordion-content-inner"> 
+                        <div class="content-header">Materials & details</div>
+                        {% assign mat = product.metafields.custom.jewelry_material %}
+                        {% if mat and mat.value and mat.value.children %}
+                          {%- assign listBlock = mat.value.children[0] -%}
+                          {% if listBlock and listBlock.children %}
+                            <ul class="content-ul">
+                              {% for listItem in listBlock.children %}
+                                {% if listItem.children and listItem.children.size > 0 %}
+                                  <li>{{ listItem.children[0].value }}</li>
+                                {% endif %}
+                              {% endfor %}
+                            </ul>
+                          {% else %}
+                            <p>No materials information available.</p>
+                          {% endif %}
                         {% else %}
                           <p>No materials information available.</p>
                         {% endif %}
-                      {% else %}
-                        <p>No materials information available.</p>
-                      {% endif %}
+                      </div> 
                     </div>
                   </div>
-
-                
-              
+            
                   <!-- Care Instructions Section -->
-                    <div class="accordion-item">
-                      <button class="accordion-header" aria-expanded="false">
-                        Care Instructions
-                        <span class="accordion-icon">+</span>
-                      </button>
-                      <div class="accordion-content">
+                  <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="accordion-content-care-{{ section.id }}">
+                      Care Instructions
+                      <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content" id="accordion-content-care-{{ section.id }}" aria-hidden="true">
+                      <div class="accordion-content-inner"> 
                         {% assign care = product.metafields.custom.care_instructions %}
                         {% if care and care.value and care.value.children %}
-                          {% for block in care.value.children %}
-                            {% if block.type == "paragraph" and block.children %}
+                          {% for block_item in care.value.children %} {# Renamed 'block' to 'block_item' to avoid conflict #}
+                            {% if block_item.type == "paragraph" and block_item.children %}
                               <p>
-                                {% for piece in block.children %}
+                                {% for piece in block_item.children %}
                                   {{ piece.value }}
                                 {% endfor %}
                               </p>
@@ -571,14 +568,16 @@
                         {% endif %}
                       </div>
                     </div>
+                  </div>
               
                   <!-- Shipping & Returns Section -->
-                    <div class="accordion-item">
-                      <button class="accordion-header" aria-expanded="false">
-                        Shipping & Returns
-                        <span class="accordion-icon">+</span>
-                      </button>
-                      <div class="accordion-content">
+                  <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="accordion-content-ship-{{ section.id }}">
+                      Shipping & Returns
+                      <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content" id="accordion-content-ship-{{ section.id }}" aria-hidden="true">
+                      <div class="accordion-content-inner">
                         <div class="shipping-returns-wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem;">
                           <!-- Delivery Block -->
                           <div class="shipping-block" style="flex: 1; min-width: 280px;">
@@ -601,8 +600,7 @@
                         </div>
                       </div>
                     </div>
-
-
+                  </div>
                 </div>
               </div>
               
@@ -1032,81 +1030,70 @@
     <script src="{{ 'product-model.js' | asset_url }}" defer></script>
   {%- endif -%}
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // --- IE Detection & Variant Picker Code ---
-      function isIE() {
-        const ua = window.navigator.userAgent;
-        const msie = ua.indexOf('MSIE ');
-        const trident = ua.indexOf('Trident/');
-        return msie > 0 || trident > 0;
-      }
-    
-      if (isIE()) {
-        const hiddenInput = document.querySelector('#{{ product_form_id }} input[name="id"]');
-        const noScriptInputWrapper = document.createElement('div');
-        const variantPicker = document.querySelector('variant-selects[data-section="{{ section.id }}"]');
-        noScriptInputWrapper.innerHTML = document.querySelector('.product-form__noscript-wrapper-{{ section.id }}').textContent;
-        variantPicker.outerHTML = noScriptInputWrapper.outerHTML;
-    
-        document.querySelector('#Variants-{{ section.id }}').addEventListener('change', function (event) {
-          hiddenInput.value = event.currentTarget.value;
-        });
-      }
-      
-      // --- Accordion Code with SlideUp/SlideDown Animation ---
-      const accordionHeaders = document.querySelectorAll('.accordion-header');
-    
-      // Helper function to close a single accordion item with a smooth slideUp animation.
-      function closeAccordion(header) {
-        header.setAttribute('aria-expanded', 'false');
-        const accordionContent = header.nextElementSibling;
-        accordionContent.setAttribute('aria-hidden', 'true');
-        // Add the "closing" class to trigger the slideUp animation.
-        accordionContent.classList.add('closing');
-        // Remove any max-height to allow the animation to run naturally.
-        accordionContent.style.maxHeight = null;
-        // After the animation duration (300ms), hide the element and remove the closing class.
-        setTimeout(() => {
-          accordionContent.style.display = 'none';
-          accordionContent.classList.remove('closing');
-        }, 200);
-      }
+ <!-- ----------------------- MODERN ACCORDION JS ----------------------- -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const headers = document.querySelectorAll('.accordion-header');
 
-      function closeAllAccordions(exceptHeader) {
-    accordionHeaders.forEach(header => {
-      if (header !== exceptHeader && header.getAttribute('aria-expanded') === 'true') {
-        closeAccordion(header);
-      }
-    });
-  }
-    
-      // Attach click event listener to each accordion header.
-      accordionHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-          const accordionContent = header.nextElementSibling;
-          const isExpanded = header.getAttribute('aria-expanded') === 'true';
-    
-          if (isExpanded) {
-            // If the clicked item is already open, close it with slideUp.
-            closeAccordion(header);
-          } else {
-            // Close all other open accordion items.
-            closeAllAccordions(header);
-            // Open the clicked accordion item.
-            header.setAttribute('aria-expanded', 'true');
-            accordionContent.setAttribute('aria-hidden', 'false');
-            // Ensure the element is visible.
-            accordionContent.style.display = 'block';
-            // Remove any closing class in case it's present.
-            accordionContent.classList.remove('closing');
-            // Set maxHeight to allow a smooth slideDown (using scrollHeight).
-            accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
-          }
+    // Close all except the clicked one
+    function closeAll(except) {
+      headers.forEach(h => {
+        if (h !== except && h.getAttribute('aria-expanded') === 'true') {
+          toggle(h, false);
+        }
+      });
+    }
+
+    // Core open/close toggler
+    function toggle(header, open) {
+      const content = header.nextElementSibling;
+      if (open) {
+        content.style.display = 'block';
+        requestAnimationFrame(() => {
+          content.classList.add('open');
+          content.style.maxHeight = content.scrollHeight + 'px';
         });
+        header.setAttribute('aria-expanded', 'true');
+        content.setAttribute('aria-hidden', 'false');
+      } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          content.style.maxHeight = '0';
+          content.classList.remove('open');
+        });
+        header.setAttribute('aria-expanded', 'false');
+        content.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    headers.forEach(h => {
+      const c = h.nextElementSibling;
+      // start collapsed
+      c.style.display = 'none';
+      h.setAttribute('aria-expanded', 'false');
+      c.setAttribute('aria-hidden', 'true');
+
+      h.addEventListener('click', () => {
+        const isOpen = h.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          toggle(h, false);
+        } else {
+          closeAll(h);
+          toggle(h, true);
+        }
+      });
+
+      // After transition ends, clean up display or remove max-height
+      c.addEventListener('transitionend', () => {
+        if (!c.classList.contains('open')) {
+          c.style.display = 'none';
+        } else {
+          c.style.maxHeight = 'none';
+        }
       });
     });
-    </script>
+  });
+</script>
     
 
   {%- liquid
